@@ -559,7 +559,7 @@ function safeFileName(value){return String(value||'viaggio').normalize('NFD').re
 function exp(){downloadJson(S,'viaggio-'+safeFileName(dName())+'.json')}
 function expBackup(){downloadJson({format:'trip-planner-backup',version:1,exportedAt:new Date().toISOString(),activeTrip:S,savedTrips:trips()},'trip-planner-backup-'+new Date().toISOString().slice(0,10)+'.json')}
 function record(x){return x!==null&&typeof x==='object'&&!Array.isArray(x)}
-function validImportDate(x){if(x==null||x==='')return true;if(typeof x!=='string'||!/^20\d{2}-\d{2}-\d{2}$/.test(x))return false;const d=new Date(x+'T00:00:00');return Number.isFinite(+d)&&d.toISOString().slice(0,10)===x}
+function validImportDate(x){if(x==null||x==='')return true;if(typeof x!=='string'||!/^20\d{2}-\d{2}-\d{2}$/.test(x))return false;return dateOrdinal(x)!==null}
 function normalizeImportTrip(o){
  if(!record(o))throw Error('Il contenuto del viaggio deve essere un oggetto JSON.');if(o.days!=null&&!Array.isArray(o.days))throw Error('Il campo giornate non è valido.');if(!validImportDate(o.start)||!validImportDate(o.end))throw Error('Una data non è valida.');
  const validCoord=(v,coord)=>v==null||(Number.isFinite(+v)&&+v>=(coord==='lat'?-90:-180)&&+v<=(coord==='lat'?90:180));
