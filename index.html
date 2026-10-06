@@ -214,6 +214,9 @@ nav button:hover{background:var(--soft);color:var(--tx)}
 nav button.on{background:#e5f4f3;color:#075963;border-color:#086b75;font-weight:600}
 @media(max-width:760px){nav{position:fixed;z-index:30;left:0;right:0;top:auto;bottom:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;padding:5px 6px calc(5px + env(safe-area-inset-bottom));overflow:hidden;border:0;border-top:1px solid var(--bd);background:var(--bg);box-shadow:0 -4px 16px #24372a18}nav button{min-width:0;min-height:54px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:0;padding:3px 2px;border:0;border-radius:10px;white-space:nowrap;font-size:11px;line-height:1.15}nav button.on{background:#e0f3ec}nav button:disabled{opacity:.42}}
 .offline-status{max-width:1180px;margin:0 auto 8px;padding:10px 16px;border:1px solid #e8d49a;border-radius:12px;background:#fff4d7;color:#59471b;font-size:14px}
+.destination-search{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:10px}
+.destination-search button{min-width:88px;flex:none;white-space:nowrap}
+.install-home{margin-top:8px}
 </style></head><body>
  <header><span>🧭 I miei viaggi<small id="sub">Scegli una destinazione qualsiasi e pianifica</small></span><div class="header-actions"><button type="button" aria-label="Viaggi salvati" title="Viaggi salvati" onclick="navigateTab('salvati')">💾</button><button type="button" aria-label="Dati e impostazioni" title="Dati e impostazioni" onclick="navigateTab('dati')">⚙️</button></div></header>
 <div id="offlineStatus" class="offline-status" role="status" aria-live="polite" hidden>Sei offline: puoi consultare e modificare i dati già salvati. Ricerca, Gemini, meteo e servizi cartografici richiedono una connessione.</div>
@@ -255,7 +258,7 @@ function render(){
 }
 function vViaggio(){
   if(nDays())syncDays();
-  return `<div class="c"><h3>Gestione viaggio</h3><div class="r"><button class="g" type="button" onclick="newTrip()">➕ Nuovo viaggio</button><div><label>Nome del viaggio da salvare</label><input id="tn" placeholder="Es. Napoli ottobre 2026" value="${E(S.dest?dName()+' '+(S.start||'').slice(0,4):'')}"></div><button class="b" type="button" onclick="saveTrip()">💾 Salva viaggio</button></div><p class="mu">Un nuovo viaggio parte con tutte le schede vuote. I viaggi già salvati restano nella scheda Salvati.</p></div>
+  return `<div class="c"><h3>Gestione viaggio</h3><div class="r"><button class="g" type="button" onclick="newTrip()">➕ Nuovo viaggio</button><div><label>Nome del viaggio da salvare</label><input id="tn" placeholder="Es. Napoli ottobre 2026" value="${E(S.dest?dName()+' '+(S.start||'').slice(0,4):'')}"></div><button class="b" type="button" onclick="saveTrip()">💾 Salva viaggio</button></div><p class="mu">Un nuovo viaggio parte con tutte le schede vuote. I viaggi già salvati restano nella scheda Salvati.</p><button id="installApp" class="g install-home" type="button" hidden onclick="installPwa()">📲 Installa I miei viaggi</button></div>
   <div class="c"><h3>Destinazione</h3>
   <div class="r destination-search"><input id="q" value="${E(S.destQuery||'')}" placeholder="Città, regione o Paese (es. Lisbona, Giappone…)" oninput="S.destQuery=this.value;save()" onkeydown="if(event.key=='Enter')cerca()"><button class="b" style="flex:0" onclick="cerca()">Cerca</button></div><p class="mu">Se la ricerca trova una sola località viene selezionata automaticamente. Se ne trova più di una, scegli quella corretta.</p>
   <div id="rs">${res.map((r,i)=>`<div class="s"><span>${E(r.display_name)}</span><button class="g" onclick="scegli(${i})">Scegli</button></div>`).join('')}</div>
@@ -548,7 +551,6 @@ function vDati(){
   <button class="b" onclick="localStorage.setItem(ORK,$('orsk').value.trim());alert('Chiave OpenRouteService salvata su questo dispositivo')">Salva</button>
   <p class="mu">Serve per calcolare distanze e tempi pedonali e cercare tappe che OpenStreetMap non trova su rete OpenStreetMap e migliorare l’ordine suggerito da Gemini. La chiave resta solo nel browser. Percorsi forniti da OpenRouteService · dati OpenStreetMap.</p>
   <p class="mu"><a href="https://openrouteservice.org/dev/#/signup" target="_blank" rel="noopener">Ottieni una chiave gratuita</a></p></div>
-  <div class="c"><h3>App e backup</h3><button id="installApp" class="b" type="button" hidden onclick="installPwa()">📲 Installa I miei viaggi</button><p class="mu">Installala sulla schermata Home per aprirla come app. L’installazione è disponibile quando il browser la supporta.</p></div>
   <div class="c"><h3>Dati e backup</h3><button class="g" onclick="exp()">⬇️ Esporta viaggio corrente</button> <button class="g" onclick="expBackup()">🛟 Esporta backup completo</button> <button class="g" onclick="$('f').click()">⬆️ Importa viaggio o backup</button> <button class="g" onclick="stampa()">🖨️ Stampa</button>
   <input id="f" type="file" accept=".json" style="display:none" onchange="imp(this.files[0]);this.value=''">
   <p class="mu">Il backup completo comprende il viaggio corrente e quelli salvati. Le chiavi API non vengono esportate.</p>
