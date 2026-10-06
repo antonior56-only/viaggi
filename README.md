@@ -28,3 +28,5 @@ I percorsi sono relativi, quindi il pacchetto funziona anche in una sottocartell
 
 Il nome della cache del service worker include una versione. Quando si modifica il pacchetto, incrementa `CACHE_NAME` in `service-worker.js` se vuoi forzare il rinnovo della cache shell.
 
+
+Il manuale utente in PDF è incluso nel pacchetto e disponibile nella scheda **Dati → Manuale utente**.

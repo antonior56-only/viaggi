@@ -544,7 +544,8 @@ function vBudget(){
 }
 function addB(){const l=$('bl').value.trim(),v=parseFloat($('bv').value);if(!l||isNaN(v))return;S.budget.push({l,v});save();render()}
 function vDati(){
-  return `<div class="c"><h3>Chiave Gemini (facoltativa)</h3><input id="ak" type="password" placeholder="La tua API key" value="${E(localStorage.getItem(AK)||'')}">
+  return `<div class="c"><h3>Manuale utente</h3><p class="mu">Guida alle funzioni dell’app, ai backup e alle chiavi API.</p><a class="b" style="display:inline-block;text-decoration:none" href="./Manuale_utente_Trip_Planner.pdf" target="_blank" rel="noopener">📘 Apri il manuale (PDF)</a></div>
+  <div class="c"><h3>Chiave Gemini (facoltativa)</h3><input id="ak" type="password" placeholder="La tua API key" value="${E(localStorage.getItem(AK)||'')}">
   <button class="b" onclick="localStorage.setItem(AK,$('ak').value.trim());alert('Chiave salvata su questo dispositivo')">Salva</button>
   <p class="mu">La chiave resta solo nel tuo browser. Serve per generare e ottimizzare l’itinerario con Gemini.</p><p><a class="b" style="display:inline-block;text-decoration:none" href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">🔑 Ottieni una chiave API Gemini</a></p></div>
   <div class="c"><h3>Chiave OpenRouteService (facoltativa)</h3><input id="orsk" type="password" placeholder="La tua API key OpenRouteService" value="${E(localStorage.getItem(ORK)||'')}">
