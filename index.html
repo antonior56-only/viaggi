@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>I miei viaggi</title>
+<meta name="theme-color" content="#f2f8ff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<style>
+:root{color-scheme:light;--bg:#f3f9ff;--card:#fff;--tx:#203247;--mu:#526779;--ac:#086b75;--bd:#d5e3ef;--wr:#963f22;--soft:#e6f4f4;--shadow:0 5px 18px rgba(32,66,91,.07)}
+@media(prefers-color-scheme:dark){:root{--bg:#14171c;--card:#1d2128;--tx:#e8e6e1;--mu:#9aa1ad;--bd:#2c323c;--ac:#3cc2cc;--wr:#f59e0b}}
+*{box-sizing:border-box}body{margin:0;font:15px/1.45 system-ui,sans-serif;background:var(--bg);color:var(--tx)}
+header{padding:14px 16px;font-weight:700;font-size:18px}header small{display:block;font-weight:400;color:var(--mu);font-size:13px}
+main{padding:14px;max-width:760px;margin:auto}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:12px}
+input,select,textarea{width:100%;padding:9px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font:inherit;margin:3px 0 8px}
+.r{display:flex;gap:8px}.r>*{flex:1}
+button.b{background:var(--ac);color:#fff;border:0;border-radius:8px;padding:9px 13px;font:inherit;cursor:pointer}
+button.g{background:none;border:1px solid var(--bd);color:var(--tx);border-radius:8px;padding:6px 10px;cursor:pointer;font:inherit}
+.mu{color:var(--mu);font-size:13px}.wr{color:var(--wr)}a{color:var(--ac)}
+.s{display:flex;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--bd)}.s b{min-width:46px}.s span{flex:1}
+.stop-main{min-width:0;flex:1}
+.stop-detail-toggle{font-size:.85em;padding:5px 8px;margin:3px 0}
+.stop-details[hidden]{display:none}
+.stop-details{padding:5px 0;line-height:1.45}
+.stop-edit-details{margin:-2px 0 8px 54px;border:1px solid var(--bd);border-radius:10px;padding:0 10px}
+.stop-edit-details summary{min-height:44px;display:flex;align-items:center;cursor:pointer;color:var(--ac);font-weight:600;list-style:none}
+.stop-edit-details summary::-webkit-details-marker{display:none}
+.stop-edit-details[open] summary{border-bottom:1px solid var(--bd)}
+.stop-edit{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px;padding:0 0 6px}.stop-edit label{flex:1 1 130px}.stop-edit input{margin:3px 0 0;padding:6px}.stop-edit .wide{flex-basis:220px}.stop-edit select{margin:3px 0 0;padding:6px}
+h3{margin:4px 0 8px}label{font-size:13px;color:var(--mu)}
+/* Soft, responsive interface */
+:root{--bg:#f3f6f3;--card:#fffefa;--tx:#29363a;--mu:#718087;--ac:#658f87;--bd:#dce5df;--wr:#ae7445;--soft:#eaf1ec;--shadow:0 5px 18px rgba(43,69,59,.06)}
+@media(prefers-color-scheme:dark){:root{--bg:#202927;--card:#29332f;--tx:#e7eee8;--mu:#aab9b0;--ac:#9bc4b2;--bd:#3b4942;--wr:#e3b27e;--soft:#313d37;--shadow:0 5px 18px rgba(0,0,0,.12)}}
+*{box-sizing:border-box}
+body{min-height:100vh;background:var(--bg);color:var(--tx);font:15px/1.55 system-ui,-apple-system,'Segoe UI',sans-serif;letter-spacing:.005em}
+header{max-width:1180px;margin:0 auto;padding:22px 20px 16px;font-size:21px;letter-spacing:-.02em}
+header small{margin-top:3px;font-size:13px}
+main{max-width:1180px;padding:22px 20px 40px;margin:auto}
+main:not(.itin-grid){max-width:780px}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow)}
+.c h3{margin:0 0 12px;font-size:17px;letter-spacing:-.015em}
+.r{display:flex;gap:10px;align-items:stretch}
+.r>*{min-width:0}
+label{display:block;font-weight:550;font-size:13px;color:var(--mu)}
+input,select,textarea{min-height:42px;margin:5px 0 10px;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--card);color:var(--tx);font:inherit;transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 18%,transparent)}
+input[type=checkbox]{min-height:initial;accent-color:var(--ac)}
+button{min-height:40px;transition:background .15s,border-color .15s,transform .15s}
+button.b{background:var(--ac);border:1px solid var(--ac);border-radius:10px;padding:9px 16px;font-weight:650;box-shadow:0 2px 5px rgba(53,91,80,.12)}
+button.b:hover{filter:brightness(.96)}
+button.g{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:8px 12px}
+button.g:hover{background:var(--soft);border-color:var(--ac)}
+a{color:var(--ac);text-underline-offset:2px}
+.mu{color:var(--mu);font-size:13px}
+.s{gap:10px;padding:10px 0;border-color:var(--bd)}
+.s span{min-width:0;overflow-wrap:anywhere}
+.s button{flex:0 0 40px;padding:5px}
+.stop-edit{gap:10px;margin:0 0 12px;padding:10px 12px 12px 54px;background:var(--soft);border-radius:0 0 12px 12px}
+.stop-edit label{flex:1 1 160px}
+.stop-edit input,.stop-edit select{margin-bottom:0}
+.day-load{font-size:12px;color:var(--mu);font-weight:500}
+.itin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px;align-items:start}
+.itin-grid>.c:first-child{grid-column:1/-1}
+.itin-grid>.c.day-card{min-width:0}
+.itin-grid .c{box-shadow:var(--shadow)}
+.itin-grid .r[style*="margin-top:8px"]{flex-wrap:wrap}
+#m>.c{min-width:0}
+@media(max-width:760px){
+  header{padding:17px 14px 12px;font-size:19px}
+
+
+  main,main:not(.itin-grid){padding:12px 10px 28px}
+  .c{padding:14px;border-radius:14px;margin-bottom:10px}
+  .r{flex-wrap:wrap;gap:8px}
+  .r>div{flex:1 1 135px;min-width:0}
+  .r>input{flex:1 1 180px}
+  .r>button{flex:1 1 auto!important}
+  .itin-grid{display:block}
+  .s{flex-wrap:wrap;align-items:flex-start}
+  .s>input[type=time]{flex:0 0 100px!important}
+  .s>span{flex:1 1 calc(100% - 110px)}
+  .stop-edit{padding:10px;margin-top:-5px}
+  .stop-edit label{flex:1 1 100%}
+  .stop-edit .wide{flex-basis:100%}
+  .stop-edit input,.stop-edit select{min-height:42px}
+  .itin-grid .c:first-child .r{align-items:stretch!important}
+  .itin-grid .c:first-child .r>div{flex:1 1 140px}
+  .itin-grid .c:first-child .r>input{flex:1 1 150px}
+  .itin-grid .c:first-child .r>button{flex:0 0 auto!important}
+  .itin-grid .c:first-child .r[style*="margin-top:8px"]>button{flex:1 1 100%!important}
+  input,select,textarea{font-size:16px}
+}
+@media(max-width:420px){
+  header{font-size:18px}
+
+  .c{padding:12px}
+  .s button{flex-basis:38px}
+  .s>span{flex-basis:calc(100% - 104px)}
+}
+/* Mobile layout: readable fields, wrapped navigation and touch targets */
+@media(max-width:760px){
+  body{font-size:16px}
+  header{padding:15px 14px 11px}
+  main{padding:12px 10px calc(30px + env(safe-area-inset-bottom))}
+  .c{padding:14px;margin-bottom:10px}
+  input,select,textarea{min-height:46px;font-size:16px}
+  button{min-height:44px}
+
+
+  .destination-search{display:grid;grid-template-columns:minmax(0,1fr);gap:6px}
+  .destination-search>*{width:100%;min-width:0}
+  .destination-search button{flex:1 1 100%!important}
+  .trip-dates>div{min-width:0;flex:1 1 145px}
+  .s{gap:6px;padding:9px 0}
+  .s>input[type=time]{flex:0 0 105px!important;min-height:44px}
+  .stop-main{flex:1 1 180px;min-width:0;overflow-wrap:anywhere}
+  .s>button{flex:0 0 44px;min-height:44px;padding:6px}
+  .stop-detail-toggle{min-height:40px}
+  .stop-edit-details{margin:0 0 8px 0}
+  .stop-edit{padding:8px 2px 12px;margin:0}
+  .stop-edit label{flex:1 1 100%;min-width:0}
+  .stop-edit input,.stop-edit select{min-height:46px}
+  .c.np>button{margin:0 4px 6px 0}
+}
+@media(max-width:420px){
+  header{font-size:18px}
+
+  .trip-dates{display:grid;grid-template-columns:minmax(0,1fr)}
+  .trip-dates>div{min-width:0}
+  .r{gap:6px}
+}
+@media print{nav,header small,button,.np{display:none!important}}
+#pr{display:none}
+@media print{
+  @page{margin:15mm 14mm;}
+  header,nav,main{display:none!important}
+  body{background:#fff}
+  #pr{display:block;color:#000;background:#fff;font:10.5pt/1.4 Arial,sans-serif}
+  #pr h1{font-size:22pt;margin:0 0 4pt}
+  #pr h2{font-size:15pt;border-bottom:1.5px solid #555;margin:18pt 0 5pt;padding-bottom:3pt;page-break-after:avoid;break-after:avoid-page}
+  #pr .day-meta{margin:0 0 7pt;color:#333}
+  #pr .day-route{margin:0 0 9pt;font-size:9.5pt}
+  #pr .st{margin:0 0 9pt;padding:0 0 7pt 9pt;border-left:2px solid #0a7b83;border-bottom:1px solid #ddd;page-break-inside:avoid;break-inside:avoid}
+  #pr .st b{font-size:11pt}
+  #pr .detail{margin-top:2pt}
+  #pr a{color:#000;text-decoration:underline;overflow-wrap:anywhere}
+  #pr .url{font-size:9pt}
+  #pr .check-item{margin:2pt 0}
+  #pr.compact{font-size:9pt;line-height:1.25}
+  #pr.compact h2{margin:10pt 0 4pt}
+  #pr.compact .st{margin-bottom:5pt;padding-bottom:4pt}
+  #pr.compact .url{overflow-wrap:anywhere}
+  #pr .day-note{margin:4pt 0 8pt;padding:3pt 0;border-bottom:1px solid #bbb}
+  #pr .day-load{font-size:9.5pt;color:#444;font-weight:400}
+  #pr .travel-leg{margin:2pt 0 5pt 12pt;padding-left:8pt;border-left:1px solid #999;color:#333;font-size:9.5pt}
+  #pr .travel-leg-segment{margin:1pt 0 2pt 8pt}
+  #pr .summary-day{page-break-inside:avoid;break-inside:avoid;margin:0 0 10pt;padding:0 0 7pt;border-bottom:1px solid #bbb}
+  #pr .summary-day h3{margin:5pt 0;font-size:12pt}
+  #pr .legend{font-size:9.5pt}
+  #pr .schedule{width:100%;border-collapse:collapse;margin:5pt 0 12pt;font-size:9pt}
+  #pr .schedule th,#pr .schedule td{padding:4pt 5pt;border-bottom:1px solid #ccc;text-align:left;vertical-align:top}
+  #pr .schedule th{background:#eee}
+  #pr .schedule tr{page-break-inside:avoid;break-inside:avoid}
+  #pr .schedule-title{font-size:12pt;margin:8pt 0 3pt}
+}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+header>span{display:block}
+.header-actions{display:flex;gap:6px;flex:0 0 auto}
+.header-actions button{min-width:42px;min-height:42px;padding:6px;border:1px solid #d5e3dc;border-radius:12px;background:#fff;color:#31584d;font-size:19px}
+.nav-icon{font-size:18px}
+.nav-status{font-size:11px;color:#64796f;font-weight:500}
+.next-row{display:flex;justify-content:flex-end;margin:14px 0 20px}
+.next-row button{min-height:46px;padding:10px 20px}
+.day-picker{display:flex;gap:7px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:thin}
+.day-picker button{flex:0 0 auto;min-width:84px;border:1px solid #d5e3dc;border-radius:12px;background:#fff;color:#31584d;padding:9px 12px}
+.day-picker button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.tools-menu{display:inline-block;vertical-align:middle}
+.tools-menu>summary{display:inline-flex;align-items:center;min-height:44px;padding:8px 12px;border:1px solid #d5e3dc;border-radius:12px;background:#fff;color:#31584d;cursor:pointer;list-style:none}
+.tools-menu>summary::-webkit-details-marker,.stop-menu>summary::-webkit-details-marker{display:none}
+.tools-content{margin-top:8px;padding:10px;border:1px solid #d5e3dc;border-radius:12px;background:#f8fbf9}
+.stop-menu{position:relative;flex:0 0 auto}
+.stop-menu>summary{display:grid;place-items:center;width:42px;height:42px;border:1px solid #d5e3dc;border-radius:10px;background:#fff;font-size:22px;cursor:pointer;list-style:none}
+.stop-actions{position:absolute;z-index:5;right:0;top:44px;display:flex;gap:4px;padding:6px;background:#fff;border:1px solid #d5e3dc;border-radius:12px;box-shadow:0 5px 16px #21392b24}
+.stop-actions button{min-width:40px;padding:5px}
+@media(max-width:760px){
+  body{padding-bottom:calc(74px + env(safe-area-inset-bottom))}
+  main{padding-bottom:20px}
+  header{padding-right:12px;padding-left:12px}
+  header>span{font-size:20px}
+  header small{font-size:13px}
+  .nav-icon{font-size:19px}
+  .nav-status{max-width:100%;overflow:hidden;text-overflow:ellipsis;font-size:9px;line-height:1.1}
+  .header-actions button{min-width:40px;min-height:40px}
+  .next-row button{width:100%}
+  .day-picker{position:sticky;top:0;z-index:4;background:var(--bg);padding:7px 0}
+  .stop-menu>summary{width:40px;height:42px}
+}
+@media print{.header-actions,.day-picker,.next-row,.tools-menu,.stop-menu{display:none!important}}
+:root{color-scheme:light;--bg:#f2f8ff;--card:#fff;--tx:#203247;--mu:#526779;--ac:#086b75;--bd:#d5e3ef;--wr:#963f22;--soft:#e5f4f3;--shadow:0 5px 18px rgba(32,66,91,.07)}
+body{background:linear-gradient(180deg,#fff9ed 0,#f2f8ff 280px,var(--bg) 100%);color:var(--tx)}
+header{border-bottom:3px solid #ffd477}
+.header-actions button{background:#fff4d7;border-color:#efd58d;color:#284154}
+button.b{background:#086b75;border-color:#086b75;color:#fff}
+button.b:hover{background:#075963;border-color:#075963;filter:none}
+input,select,textarea{background:#fff;color:var(--tx)}
+input::placeholder,textarea::placeholder{color:#6a7e90;opacity:1}
+button.g:hover{background:#e5f4f3}
+@media(max-width:760px){.header-actions button{background:#fff4d7}}
+nav{display:flex;position:sticky;top:0;z-index:5;gap:6px;padding:4px max(12px,calc((100vw - 1180px)/2));overflow-x:auto;border-bottom:1px solid var(--bd);background:color-mix(in srgb,var(--bg) 91%,transparent);backdrop-filter:blur(12px);scrollbar-width:thin}
+nav button{display:flex;align-items:center;gap:6px;min-height:44px;padding:9px 15px;border:0;border-bottom:3px solid transparent;border-radius:10px 10px 0 0;background:none;color:var(--mu);font:inherit;white-space:nowrap;cursor:pointer;transition:background .18s,color .18s}
+nav button:hover{background:var(--soft);color:var(--tx)}
+nav button.on{background:#e5f4f3;color:#075963;border-color:#086b75;font-weight:600}
+@media(max-width:760px){nav{position:fixed;z-index:30;left:0;right:0;top:auto;bottom:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;padding:5px 6px calc(5px + env(safe-area-inset-bottom));overflow:hidden;border:0;border-top:1px solid var(--bd);background:var(--bg);box-shadow:0 -4px 16px #24372a18}nav button{min-width:0;min-height:54px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:0;padding:3px 2px;border:0;border-radius:10px;white-space:nowrap;font-size:11px;line-height:1.15}nav button.on{background:#e0f3ec}nav button:disabled{opacity:.42}}
+.offline-status{max-width:1180px;margin:0 auto 8px;padding:10px 16px;border:1px solid #e8d49a;border-radius:12px;background:#fff4d7;color:#59471b;font-size:14px}
+</style></head><body>
+ <header><span>🧭 I miei viaggi<small id="sub">Scegli una destinazione qualsiasi e pianifica</small></span><div class="header-actions"><button type="button" aria-label="Viaggi salvati" title="Viaggi salvati" onclick="navigateTab('salvati')">💾</button><button type="button" aria-label="Dati e impostazioni" title="Dati e impostazioni" onclick="navigateTab('dati')">⚙️</button></div></header>
+<div id="offlineStatus" class="offline-status" role="status" aria-live="polite" hidden>Sei offline: puoi consultare e modificare i dati già salvati. Ricerca, Gemini, meteo e servizi cartografici richiedono una connessione.</div>
+<nav id="nav"></nav><main id="m"></main><div id="pr"></div>
+<script>
+const KEY='tp_v1',AK='tp_gemini_key',ORK='tp_ors_key';
+let S=JSON.parse(localStorage.getItem(KEY)||'null')||{dest:null,origin:'',start:'',end:'',pax:2,pref:'',pace:'medio',days:[],check:[],budget:[],wx:null};
+const VALID_TABS=['viaggio','itin','prenota','budget','salvati','dati'];
+const requestedTab=new URLSearchParams(location.search).get('tab'),rememberedTab=localStorage.getItem('tp_last_tab');
+let tab=VALID_TABS.includes(requestedTab)?requestedTab:VALID_TABS.includes(rememberedTab)?rememberedTab:'viaggio',res=[],busy='',itineraryDay=0;
+const save=()=>localStorage.setItem(KEY,JSON.stringify(S));
+const E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=id=>document.getElementById(id);
+const TABS={viaggio:['🧭','Viaggio'],itin:['🗓️','Itinerario'],prenota:['🎫','Prenota'],budget:['💶','Budget']};
+let pendingInstallPrompt=null;
+function standaloneMode(){return !!(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true}
+function syncInstallButton(){const button=$('installApp');if(button)button.hidden=!pendingInstallPrompt||standaloneMode()}
+async function installPwa(){if(!pendingInstallPrompt)return;pendingInstallPrompt.prompt();try{await pendingInstallPrompt.userChoice}catch(e){}pendingInstallPrompt=null;syncInstallButton()}
+function updateOfflineStatus(){const notice=$('offlineStatus');if(notice)notice.hidden=navigator.onLine}
+function initPwa(){initializeTabHistory();updateOfflineStatus();if('serviceWorker'in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('./service-worker.js',{scope:'./'}).catch(error=>console.warn('Service worker non disponibile:',error));syncInstallButton()}
+window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();pendingInstallPrompt=event;syncInstallButton()});
+window.addEventListener('appinstalled',()=>{pendingInstallPrompt=null;syncInstallButton()});
+window.addEventListener('online',updateOfflineStatus);window.addEventListener('offline',updateOfflineStatus);
+function navigateTab(next,{replace=false,scroll=false}={}){if(!VALID_TABS.includes(next))return;tab=next;try{localStorage.setItem('tp_last_tab',next)}catch(e){}try{const url=new URL(location.href);url.searchParams.set('tab',next);history[replace?'replaceState':'pushState']({tripPlannerTab:next},'',url)}catch(e){}render();if(scroll)window.scrollTo({top:0,behavior:'smooth'})}
+function initializeTabHistory(){try{const url=new URL(location.href);url.searchParams.set('tab',tab);history.replaceState({tripPlannerTab:tab},'',url)}catch(e){}}
+window.addEventListener('popstate',event=>{const fromState=event.state?.tripPlannerTab,fromUrl=new URLSearchParams(location.search).get('tab'),next=VALID_TABS.includes(fromState)?fromState:VALID_TABS.includes(fromUrl)?fromUrl:'viaggio';tab=next;try{localStorage.setItem('tp_last_tab',next)}catch(e){}render()});
+const dateOrdinal=value=>{const m=/^(20\d{2})-(\d{2})-(\d{2})$/.exec(String(value||''));if(!m)return null;const y=+m[1],mo=+m[2],d=+m[3],stamp=Date.UTC(y,mo-1,d),check=new Date(stamp);return check.getUTCFullYear()===y&&check.getUTCMonth()===mo-1&&check.getUTCDate()===d?Math.floor(stamp/864e5):null};
+const dateSpanDays=(start,end)=>{const a=dateOrdinal(start),b=dateOrdinal(end);if(a==null||b==null)return 0;const n=b-a+1;return n>=1&&n<=90?n:0};
+const nDays=()=>dateSpanDays(S.start,S.end);
+const dName=()=>S.dest?S.dest.name.split(',')[0]:'';
+const dateOf=i=>{if(!S.start)return 'data non impostata';const d=new Date(S.start+'T12:00:00');if(!Number.isFinite(+d))return 'data non impostata';d.setDate(d.getDate()+i);return d.toLocaleDateString('it-IT',{weekday:'short',day:'numeric',month:'short'})};
+const gm=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q+' '+dName());
+
+function render(){
+  const stopCount=S.days.reduce((n,d)=>n+(d.stops||[]).length,0),checks=S.check.length?S.check:BASE.map(t=>({t,d:false})),done=checks.filter(c=>c.d).length,total=S.budget.reduce((n,b)=>n+(+b.v||0),0),ready=!!(S.dest&&nDays());
+  $('nav').innerHTML=Object.entries(TABS).map(([k,[icon,label]])=>{const status=k==='itin'?`${stopCount} tappe`:k==='prenota'?`${done}/${checks.length}`:k==='budget'?(S.budget.length?`${total.toFixed(0)} €`:''):'';const disabled=!ready&&(k==='itin'||k==='prenota');return `<button type="button" class="${k==tab?'on':''}" ${disabled?'disabled title="Scegli prima destinazione e date" aria-label="'+label+': scegli prima destinazione e date"':'onclick="navigateTab(\''+k+'\')"'}><span class="nav-icon">${icon}</span><span class="nav-label">${label}</span>${status?`<span class="nav-status">${status}</span>`:''}</button>`}).join('');
+  sub();
+  $('m').innerHTML=({viaggio:vViaggio,itin:vItin,prenota:vPrenota,budget:vBudget,salvati:vSalvati,dati:vDati})[tab]();$('m').classList.toggle('itin-grid',tab==='itin');syncInstallButton();
+}
+function vViaggio(){
+  if(nDays())syncDays();
+  return `<div class="c"><h3>Gestione viaggio</h3><div class="r"><button class="g" type="button" onclick="newTrip()">➕ Nuovo viaggio</button><div><label>Nome del viaggio da salvare</label><input id="tn" placeholder="Es. Napoli ottobre 2026" value="${E(S.dest?dName()+' '+(S.start||'').slice(0,4):'')}"></div><button class="b" type="button" onclick="saveTrip()">💾 Salva viaggio</button></div><p class="mu">Un nuovo viaggio parte con tutte le schede vuote. I viaggi già salvati restano nella scheda Salvati.</p></div>
+  <div class="c"><h3>Destinazione</h3>
+  <div class="r destination-search"><input id="q" value="${E(S.destQuery||'')}" placeholder="Città, regione o Paese (es. Lisbona, Giappone…)" oninput="S.destQuery=this.value;save()" onkeydown="if(event.key=='Enter')cerca()"><button class="b" style="flex:0" onclick="cerca()">Cerca</button></div><p class="mu">Se la ricerca trova una sola località viene selezionata automaticamente. Se ne trova più di una, scegli quella corretta.</p>
+  <div id="rs">${res.map((r,i)=>`<div class="s"><span>${E(r.display_name)}</span><button class="g" onclick="scegli(${i})">Scegli</button></div>`).join('')}</div>
+  ${S.dest?`<p>📍 <b>${E(S.dest.name)}</b></p>`:''}</div>
+  <div class="c"><h3>Date e viaggiatori</h3>
+  <div class="r trip-dates"><div><label>Partenza</label><input id="d1" type="date" min="2000-01-01" max="2099-12-31" value="${S.start}" onchange="setD('start',this.value)"></div><div><label>Ritorno</label><input id="d2" type="date" min="2000-01-01" max="2099-12-31" value="${S.end}" onchange="setD('end',this.value)"></div></div>
+  ${!nDays()&&S.days.some(d=>d.stops?.length)?'<p class="wr">Le date non sono complete o non definiscono un intervallo valido. Le tappe salvate sono conservate; completa le date per rivederle.</p>':''}
+  <label>Città di partenza (per voli e treni)</label><input value="${E(S.origin||'')}" placeholder="Es. Milano" onchange="S.origin=this.value.trim();save()">
+  ${nDays()?`<div class="c" style="margin:12px 0 0;padding:10px"><h3>Partenza di ogni giornata</h3><p class="mu">Inserisci l’hotel o il punto da cui vuoi iniziare ciascun giorno prima di generare l’itinerario AI. Puoi anche usare la posizione attuale.</p>${S.days.slice(0,nDays()).map((d,i)=>`<div class="r" style="align-items:end"><div><label>Giorno ${i+1} · ${dateOf(i)}</label><input placeholder="Hotel o indirizzo" value="${E(d.startPlace||d.startPoint?.n||'')}" onchange="setDayStart(${i},this.value)"></div><button class="g" type="button" onclick="useCurrentLocation(${i})">📍 Posizione attuale</button></div>`).join('')}</div>`:''}
+  <div class="r"><div><label>Persone</label><input type="number" min="1" value="${S.pax}" onchange="S.pax=+this.value||1;save()"></div>
+  <div><label>Ritmo</label><select onchange="S.pace=this.value;save()">${['rilassato','medio','intenso'].map(p=>`<option ${S.pace==p?'selected':''}>${p}</option>`).join('')}</select></div></div>
+  <label>Interessi</label><input value="${E(S.pref)}" placeholder="arte, cibo, natura, mercati…" onchange="S.pref=this.value;save()"></div>
+  <div class="c"><h3>Meteo</h3><button class="g" onclick="meteo()">Previsioni per le date</button>
+  <div id="wx" class="mu">${S.wx?S.wx:''}</div></div>`+nextButton('itin','Avanti: Itinerario');
+}
+function sub(){$('sub').textContent=S.dest?S.dest.name+(nDays()?' · '+nDays()+' giorni':''):'Scegli una destinazione qualsiasi e pianifica'}
+function syncDays(){const n=nDays();if(!n)return;while(S.days.length<n)S.days.push({stops:[]});while(S.days.length>n&&!S.days[S.days.length-1].stops.length)S.days.pop()}
+function setD(k,v){const value=String(v||'');if(value&&!/^20\d{2}-\d{2}-\d{2}$/.test(value))return;if(value&&dateOrdinal(value)==null)return;const next={start:k==='start'?value:S.start,end:k==='end'?value:S.end};const nextCount=dateSpanDays(next.start,next.end);const oldCount=nDays();if(nextCount>0&&nextCount<oldCount&&S.days.slice(nextCount).some(d=>d.stops?.length)){const remove=confirm('Il nuovo periodo è più breve e alcune tappe sono fuori dalle date selezionate. OK: elimina le giornate e le tappe fuori periodo. Annulla: conserva le giornate extra.');if(remove)S.days.length=nextCount}S[k]=value;S.wx=null;if($('wx'))$('wx').innerHTML='';syncDays();save();render()}
+async function cerca(queryValue){
+  const q=String(queryValue??$('q')?.value??S.destQuery??'').trim();if(!q)return false;S.destQuery=q;save();if($('rs'))$('rs').innerHTML='<p class="mu">Cerco…</p>';
+  try{const r=await fetch('https://nominatim.openstreetmap.org/search?format=json&limit=5&accept-language=it&q='+encodeURIComponent(q));res=await r.json();
+  if(!res.length){if($('rs'))$('rs').innerHTML='<p class="wr">Nessun risultato.</p>';return false}if(res.length===1){scegli(0);return !!S.dest}render();return false}
+  catch(e){if($('rs'))$('rs').innerHTML='<p class="wr">Ricerca non riuscita (serve connessione).</p>';return false}
+}
+function nextButton(next,label){return `<div class="next-row"><button type="button" class="b" onclick="navigateTab('${next}',{scroll:true})">${label} →</button></div>`}
+async function ensureDestination(){const q=String(S.destQuery||$('q')?.value||'').trim();if(S.dest&&(!q||q===S.destQueryFor))return true;if(!q){alert('Inserisci una città e premi Cerca.');return false}await cerca(q);if(S.dest&&S.destQuery===S.destQueryFor)return true;if(res.length>1)alert('Ho trovato più località: scegli quella corretta prima di salvare o chiedere il meteo.');else if(!S.dest||S.destQuery!==S.destQueryFor)alert('Non ho trovato una località univoca. Controlla il nome e la connessione, poi riprova.');return false}
+function scegli(i){const r=res[i];if(!r)return;const dest={name:r.display_name,lat:+r.lat,lon:+r.lon},changed=!!S.dest&&S.dest.name!==dest.name,hasData=S.days.some(d=>d.stops?.length)||S.check.length||S.budget.length;if(changed&&hasData){if(!confirm('Stai cambiando destinazione. Vuoi rimuovere dal viaggio attivo le tappe, la checklist e il budget della destinazione precedente? Le copie salvate nella scheda Salvati non verranno toccate.')){res=[];render();return}S.days=[];S.check=[];S.budget=[]}S.dest=dest;S.destQueryFor=S.destQuery||'';res=[];S.wx=null;save();render()}
+async function meteo(){
+  if(!(await ensureDestination()))return;if(!S.start||!S.end||!nDays()){if($('wx'))$('wx').textContent='Inserisci date di partenza e ritorno valide.';return}
+  $('wx').textContent='Carico…';
+  try{const u=`https://api.open-meteo.com/v1/forecast?latitude=${S.dest.lat}&longitude=${S.dest.lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&start_date=${S.start}&end_date=${S.end}`;
+  const j=await(await fetch(u)).json();if(!j.daily){S.wx='Previsioni disponibili solo entro ~16 giorni dalla data. Per date lontane controlla il clima storico del luogo.';save();render();return}
+  S.wx=j.daily.time.map((t,i)=>`${E(t)}: ${Math.round(j.daily.temperature_2m_min[i])}–${Math.round(j.daily.temperature_2m_max[i])}°C, pioggia ${j.daily.precipitation_probability_max[i]??'—'}%`).join('<br>');save();render()}
+  catch(e){$('wx').textContent='Meteo non disponibile.'}
+}
+let cand={d:-1,l:[],msg:'',q:'',t:''};
+const okUrl=u=>{try{u=String(u||'').trim();if(u&&!/^https?:\/\//i.test(u))u='https://'+u;const p=new URL(u);return /^https?:$/.test(p.protocol)?p.href:''}catch(e){return ''}};
+function hasCoords(s){return !!s&&s.lat!==null&&s.lat!==undefined&&s.lat!==''&&s.lon!==null&&s.lon!==undefined&&s.lon!==''&&Number.isFinite(+s.lat)&&Number.isFinite(+s.lon)&&Math.abs(+s.lat)<=90&&Math.abs(+s.lon)<=180}
+const stopMapQuery=s=>hasCoords(s)?`${+s.lat},${+s.lon}`:s.n+(s.addr?', '+s.addr:' '+dName());
+const mapsUrl=s=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(stopMapQuery(s));
+async function orsSearch(query){const key=localStorage.getItem(ORK);if(!key||!query)return[];const params=new URLSearchParams({text:query,size:'6'});if(hasCoords(S.dest)){params.set('focus.point.lat',S.dest.lat);params.set('focus.point.lon',S.dest.lon)}const response=await fetch('https://api.heigit.org/pelias/v1/search?'+params.toString(),{headers:{Accept:'application/json',Authorization:key}});if(!response.ok)throw Error('OpenRouteService geocoder (HTTP '+response.status+')');const data=await response.json();return(data.features||[]).map(f=>{const p=f.properties||{},coords=f.geometry?.coordinates||[],name=p.name||p.label||query,address=p.label||[p.housenumber,p.street,p.locality||p.localadmin||p.county,p.postalcode,p.country].filter(Boolean).join(', ')||name;return{n:name,municipality:p.locality||p.localadmin||p.county||'',addr:address,web:'',tel:'',h:'',lat:+coords[1],lon:+coords[0],source:'OpenRouteService'}}).filter(x=>Number.isFinite(x.lat)&&Number.isFinite(x.lon))}
+ const GEO_CACHE='tp_geocode_cache_v1';let nominatimQueue=Promise.resolve(),nominatimLastAt=0;
+function nominatimFetch(url){const task=nominatimQueue.then(async()=>{let response;for(let attempt=0;attempt<3;attempt++){const wait=Math.max(0,1100-(Date.now()-nominatimLastAt));if(wait)await new Promise(resolve=>setTimeout(resolve,wait));try{response=await fetch(url)}catch(e){throw Error('Connessione a OpenStreetMap non riuscita')}nominatimLastAt=Date.now();if(response.status!==429)return response;if(attempt<2)await new Promise(resolve=>setTimeout(resolve,attempt===0?3000:6000))}return response});nominatimQueue=task.catch(()=>{});return task}
+const webLink=s=>okUrl(s.web)?`<a href="${E(okUrl(s.web))}" target="_blank" rel="noopener">🌐 Sito</a>`:`<a class="mu" href="https://www.google.com/search?q=${encodeURIComponent(s.n+' '+dName()+' sito ufficiale')}" target="_blank" rel="noopener">🔎 cerca sito</a>`;
+ function geoCacheKey(query){const center=hasCoords(S.dest)?`${(+S.dest.lat).toFixed(2)},${(+S.dest.lon).toFixed(2)}`:dName().toLocaleLowerCase('it');return center+'|'+String(query||'').trim().toLocaleLowerCase('it').replace(/\s+/g,' ')}
+ function readGeoCache(query){try{const cache=JSON.parse(localStorage.getItem(GEO_CACHE)||'{}'),entry=cache[geoCacheKey(query)];if(!entry||Date.now()-entry.at>=45*86400000||!Array.isArray(entry.results))return null;return entry.results.map(x=>({...x,...(hasCoords(S.dest)&&hasCoords(x)?{distanceKm:distanceKm(S.dest,x)}:{})}))}catch(e){return null}}
+ function writeGeoCache(query,results){try{const cache=JSON.parse(localStorage.getItem(GEO_CACHE)||'{}');cache[geoCacheKey(query)]={at:Date.now(),results};const entries=Object.entries(cache).sort((a,b)=>(b[1]?.at||0)-(a[1]?.at||0)).slice(0,300);localStorage.setItem(GEO_CACHE,JSON.stringify(Object.fromEntries(entries)))}catch(e){}}
+  function normalizePlace(x,q){const a=x.address||{},t=x.extratags||{},road=a.road?a.road+(a.house_number?' '+a.house_number:''):'',municipality=a.city||a.town||a.village||a.municipality||a.county;const place={n:(x.namedetails&&x.namedetails.name)||x.name||x.n||q,municipality:municipality||'',addr:[road,municipality,a.postcode].filter(Boolean).join(', ')||x.display_name||x.addr||'',web:okUrl(t.website||t['contact:website']||t.url)||x.web||'',tel:t.phone||t['contact:phone']||x.tel||'',h:t.opening_hours||x.h||'',lat:+x.lat,lon:+x.lon,source:x.source||'OpenStreetMap'};if(hasCoords(place)&&hasCoords(S.dest))place.distanceKm=distanceKm(S.dest,place);return place}
+  async function localizeCandidates(queries,{allQueries=false,allowOrs=true,maxDistanceKm=null}={}){
+   const uniqueQueries=[...new Set((queries||[]).map(q=>String(q||'').trim()).filter(Boolean))],all=[];let lastError=null;
+   for(const query of uniqueQueries){let results=readGeoCache(query);
+     if(!results){try{const box=hasCoords(S.dest)?'&viewbox='+[S.dest.lon-.5,S.dest.lat+.5,S.dest.lon+.5,S.dest.lat-.5].join(',')+'&bounded=1':'';const url='https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6&accept-language=it&addressdetails=1&extratags=1&namedetails=1'+box+'&q='+encodeURIComponent(query);const response=await nominatimFetch(url);if(!response.ok)throw Error(response.status===429?'OpenStreetMap ha raggiunto il limite di richieste. Riprova tra poco.':'Ricerca cartografica non riuscita (HTTP '+response.status+').');const data=await response.json();results=(data||[]).map(x=>normalizePlace(x,query)).filter(hasCoords);writeGeoCache(query,results)}catch(e){lastError=e;results=[]}}
+      all.push(...results);if(results.length&&!allQueries&&(!Number.isFinite(maxDistanceKm)||results.some(x=>Number.isFinite(x.distanceKm)&&x.distanceKm<=maxDistanceKm)))break;
+   }
+    if((!all.length||Number.isFinite(maxDistanceKm)&&!all.some(x=>Number.isFinite(x.distanceKm)&&x.distanceKm<=maxDistanceKm))&&allowOrs&&uniqueQueries.length){try{const result=await orsSearch(uniqueQueries[0]+' '+dName()),places=result.map(x=>({...x,...(hasCoords(S.dest)?{distanceKm:distanceKm(S.dest,x)}:{})}));all.push(...places);if(places.length)writeGeoCache(uniqueQueries[0],places)}catch(e){lastError=lastError||e}}
+   const merged=[...new Map(all.filter(hasCoords).map(x=>[`${(+x.lat).toFixed(5)},${(+x.lon).toFixed(5)}`,x])).values()].sort((a,b)=>(a.distanceKm??Infinity)-(b.distanceKm??Infinity));if(!merged.length&&lastError)throw lastError;return merged;
+ }
+ async function osm(q){return localizeCandidates([q,q+' '+dName()])}
+function toggleStopDetails(i,j){const stop=S.days[i]?.stops?.[j];if(!stop)return;stop.detailsOpen=!stop.detailsOpen;render()}
+function stopDetailsHtml(s,i,j){const open=!!s.detailsOpen,sourceUrl=okUrl(s.infoSource);return '<button class="g np stop-detail-toggle" type="button" aria-expanded="'+open+'" onclick="toggleStopDetails('+i+','+j+')">'+(open?'Nascondi dettagli':'Mostra dettagli')+'</button><div class="stop-details"'+(open?'':' hidden')+'>'+(s.addr?'<div class="mu">📍 '+E(s.addr)+'</div>':'')+(s.tel?'<div class="mu">☎ '+E(s.tel)+'</div>':'')+(s.h?'<div class="mu">🕒 '+E(s.h)+' (da OSM, verifica)</div>':'')+(s.hoursInfo?'<div class="mu">🕒 Orari: '+E(s.hoursInfo)+'</div>':'')+(s.reservationInfo?'<div class="mu">🎟️ Prenotazione: '+E(s.reservationInfo)+'</div>':'')+(s.costInfo?'<div class="mu">💶 Costi: '+E(s.costInfo)+'</div>':'')+(sourceUrl?'<div class="mu">Fonte: <a href="'+E(sourceUrl)+'" target="_blank" rel="noopener">sito ufficiale</a></div>':(s.infoSource?'<div class="mu">Fonte: '+E(s.infoSource)+'</div>':''))+(s.note?'<div class="mu">'+E(s.note)+'</div>':'')+(s.personalNote?'<div class="mu"><b>Nota personale:</b> '+E(s.personalNote)+'</div>':'')+'<div>'+webLink(s)+'</div></div>'}
+function vItin(){
+  if(!S.dest||!S.start||!S.end)return '<div class="c">Prima scegli destinazione e date nella scheda Viaggio.</div>';
+  if(!nDays())return '<div class="c wr">Controlla le date: il ritorno deve essere dopo la partenza (massimo 90 giorni).</div>';
+  syncDays();
+  itineraryDay=Math.min(itineraryDay,Math.max(0,nDays()-1));
+  const hasKey=!!localStorage.getItem(AK),locationIssues=S.days.flatMap(d=>d.stops||[]).filter(s=>!hasCoords(s)||s.locationIssue).length;
+  let h=(S.days.length>nDays()?'<div class="c wr">Attenzione: ci sono '+(S.days.length-nDays())+' giornate con tappe oltre le date selezionate. Rivedi le date oppure elimina le tappe extra dalla giornata corrispondente.</div>':'')+`<div class="c np"><button class="b" onclick="genAI()" ${busy?'disabled':''}>${busy||'✨ Genera bozza con AI'}</button> <details class="tools-menu"><summary>🛠️ Strumenti</summary><div class="tools-content"><button class="g" onclick="stampa()">🖨️ Stampa itinerario</button> <button class="g" onclick="arricchisciAI()" ${busy?'disabled':''}>📚 Approfondisci descrizioni</button>
+  <div class="r np" style="margin-top:8px;align-items:end"><div><label>Formato</label><select id="printMode"><option value="dettagliato">Dettagliato</option><option value="compatto">Compatto</option></select></div><div><label><input id="pWeather" type="checkbox" checked style="width:auto"> Meteo</label><br><label><input id="pChecklist" type="checkbox" checked style="width:auto"> Checklist</label><br><label><input id="pBudget" type="checkbox" checked style="width:auto"> Budget</label><br><label><input id="pNotes" type="checkbox" checked style="width:auto"> Note e spazio appunti</label></div></div></div></details>
+   <p class="mu">${hasKey?'Gemini sceglie; con una chiave OpenRouteService usa anche distanze e tempi pedonali su rete stradale. Le durate con ~ sono stime, non orari o coincidenze confermati; controlla sempre i servizi aggiornati. Orari, prezzi e punti dubbi sono segnati ⚠️.':'Per la bozza AI inserisci la chiave Gemini nella scheda Dati, oppure aggiungi le tappe cercandole per nome.'}</p></div>`;
+   if(locationIssues)h+=`<div class="c np"><b>📍 ${locationIssues} ${locationIssues===1?'tappa da verificare':'tappe da verificare'}</b><p class="mu">Puoi ripetere la ricerca cartografica solo per le posizioni non confermate.</p><button class="g" type="button" onclick="rilocalizzaTappeNonConfermate()" ${busy?'disabled':''}>🔄 Rilocalizza tappe da verificare</button></div>`;
+  h+='<div class="day-picker" role="tablist" aria-label="Scegli giornata">'+S.days.slice(0,nDays()).map((d,i)=>`<button type="button" role="tab" aria-selected="${i===itineraryDay}" class="${i===itineraryDay?'on':''}" onclick="itineraryDay=${i};render()">Giorno ${i+1}</button>`).join('')+'</div>';
+  S.days.forEach((d,i)=>{if(i!==itineraryDay)return;
+    const routeStops=d.startPoint?[d.startPoint,...d.stops]:d.stops;const route=routeStops.length?'https://www.google.com/maps/dir/'+routeStops.map(s=>encodeURIComponent(stopMapQuery(s))).join('/'):'';
+    h+=`<div class="c day-card"><h3>Giorno ${i+1} · ${dateOf(i)}${d.theme?' — '+E(d.theme):''} <span class="day-load">· ${d.stops.length} tappe · carico ${d.stops.length<=3?'leggero':d.stops.length<=5?'medio':'intenso'}</span></h3><button class="g np" type="button" onclick="ottimizzaGiornata(${i})">📏 Ordina per distanza</button> <button class="b np" type="button" onclick="ottimizzaConGemini(${i})" ${busy?'disabled':''}>${busy?'⏳ '+E(busy):'✨ Ottimizza con Gemini'}</button><div class="np"><label>Partenza della giornata · hotel o altro luogo<input placeholder="Es. Hotel ABC, Napoli" value="${E(d.startPlace||d.startPoint?.n||'')}" onchange="setDayStart(${i},this.value)"></label><button class="g" type="button" onclick="useCurrentLocation(${i})">📍 Usa posizione attuale</button></div><div class="np"><label>Tema della giornata<input placeholder="Es. centro storico e musei" value="${E(d.theme||'')}" onchange="S.days[${i}].theme=this.value;save()"></label><label>Pasti, pause e programma del giorno<input placeholder="Es. pranzo 13:00, pausa in hotel" value="${E(d.plan||'')}" onchange="S.days[${i}].plan=this.value;save()"></label></div>`+
+    d.stops.map((s,j)=>`<div class="s"><input class="np" type="time" aria-label="Orario per ${E(s.n)}" title="Modifica orario" value="${E(s.t||'09:00')}" style="width:105px;flex:0 0 105px;margin:0;padding:5px" onchange="S.days[${i}].stops[${j}].t=this.value;S.days[${i}].stops[${j}].tAuto=false;S.days[${i}].stops[${j}].scheduleConflict=false;save()"><div class="stop-main">${s.v?'<span class="wr">⚠️</span> ':''}<a href="${mapsUrl(s)}" target="_blank" rel="noopener">📍 ${E(s.n)}</a>${s.locationIssue?' <span class="wr">⚠️ '+E(s.locationIssue)+'</span>':''}${s.scheduleConflict?' <span class="wr">⚠️ Orario incompatibile con la tratta</span>':s.scheduleEstimated?' <span class="wr">⚠️ Orario stimato: tratta da verificare</span>':''}${stopDetailsHtml(s,i,j)}${j||S.days[i].startPoint?'<br><span class="mu">'+travelSegmentsText(S.days[i].stops[j-1]||S.days[i].startPoint,s)+'</span>':''}</div><details class="np stop-menu"><summary aria-label="Altre azioni" title="Altre azioni">⋯</summary><div class="stop-actions"><button class="g" title="Sposta su" onclick="moveStop(${i},${j},-1)">↑</button><button class="g" title="Sposta giù" onclick="moveStop(${i},${j},1)">↓</button><button class="g" title="Correggi indirizzo e posizione" onclick="fill(${i},${j})">🔄</button><button class="g" title="Rimuovi tappa" onclick="S.days[${i}].stops.splice(${j},1);save();render()">✕</button></div></details></div><details class="np stop-edit-details" ${s.editOpen?'open':''} ontoggle="S.days[${i}].stops[${j}].editOpen=this.open"><summary>⚙️ Opzioni della tappa</summary><div class="stop-edit"><label>Mezzo dalla tappa precedente<select aria-label="Mezzo consigliato fino a ${E(s.n)}" onchange="S.days[${i}].stops[${j}].transport=this.value;save();render()">${transportOptions(s.transport||recommendLeg(S.days[i].stops[j-1]||S.days[i].startPoint,s))}</select></label><label>Tempo di percorrenza (minuti)<input type="number" min="0" step="1" placeholder="es. 15" value="${E(s.move||'')}" onchange="S.days[${i}].stops[${j}].move=this.value;save();render()"></label><label>Pausa / visita (minuti)<input type="number" min="0" step="5" placeholder="es. 60" value="${E(s.pause||'')}" onchange="S.days[${i}].stops[${j}].pause=this.value;save();render()"></label><label class="wide">Riferimento prenotazione<input placeholder="Codice o nota prenotazione" value="${E(s.booking||'')}" onchange="S.days[${i}].stops[${j}].booking=this.value;save()"></label><label class="wide">Nota personale (facoltativa)<textarea rows="2" maxlength="280" placeholder="Es. biglietti nel telefono, preferenza personale..." oninput="S.days[${i}].stops[${j}].personalNote=this.value;save()">${E(s.personalNote||'')}</textarea></label></div></details>`).join('')+
+    `<div class="r np" style="margin-top:8px"><input id="t${i}" type="time" style="flex:0 0 110px" value="${cand.d==i?E(cand.t):''}"><input id="n${i}" placeholder="Nome o indirizzo da cercare sul web" value="${cand.d==i?E(cand.q):''}" onkeydown="if(event.key=='Enter')cercaStop(${i})"><button class="b" style="flex:0" onclick="cercaStop(${i})">Cerca</button></div>`+
+    (cand.d==i?`<div class="np">${cand.msg?`<p class="mu">${E(cand.msg)}</p>`:''}${cand.l.map((c,k)=>`<div class="s"><span><b>${E(c.n)}</b><br><span class="mu">${E(c.addr)}</span><br>${c.web?'🌐 '+E(new URL(c.web).hostname):'<span class="mu">sito non indicato su OSM</span>'}</span><button class="g" onclick="pick(${i},${k})">Aggiungi</button></div>`).join('')}${cand.q&&cand.msg!='Cerco…'?`<button class="g" onclick="pick(${i},-1)">Aggiungi solo il nome</button>`:''}</div>`:'')+
+    (route?`<p><a href="${route}" target="_blank" rel="noopener">🗺️ Percorso del giorno</a></p>`:'')+`</div>`});
+  return h+nextButton('prenota','Avanti: Prenota');
+}
+async function setDayStart(i,value){
+  const d=S.days[i],name=String(value||'').trim();d.startPlace=name;d.startPoint=name?{n:name}:null;save();
+  if(!name){render();return}
+  try{const found=await osm(name);if(found.length){d.startPoint={n:name,addr:found[0].addr,lat:found[0].lat,lon:found[0].lon}}}catch(e){}
+  save();
+}
+function useCurrentLocation(i){
+  if(!navigator.geolocation){alert('La posizione non è disponibile in questo browser. Inserisci l’indirizzo dell’hotel o del punto di partenza.');return}
+  navigator.geolocation.getCurrentPosition(pos=>{const d=S.days[i];d.startPlace='Posizione attuale';d.startPoint={n:'Posizione attuale',lat:pos.coords.latitude,lon:pos.coords.longitude};save();render()},()=>alert('Posizione non disponibile o permesso negato. Puoi inserire manualmente l’hotel o un indirizzo.'),{enableHighAccuracy:true,timeout:12000,maximumAge:60000});
+}
+async function cercaStop(i){
+  const q=$('n'+i).value.trim();if(!q)return;
+  cand={d:i,l:[],msg:'Cerco…',q,t:$('t'+i).value};render();
+  try{const l=await osm(q);cand.l=l;cand.msg=l.length?'':'Nessun risultato sul web: puoi aggiungere solo il nome.'}
+  catch(e){cand.msg='Ricerca non riuscita (serve connessione).'}
+  render();
+}
+async function pick(i,k){
+  const c=k<0?{n:cand.q}:cand.l[k];if(!c?.n)return;
+  const stop={t:cand.t||'09:00',tAuto:!cand.t,n:c.n,municipality:c.municipality||'',addr:c.addr||'',web:c.web||'',tel:c.tel||'',h:c.h||'',note:'',hoursInfo:'',reservationInfo:'',costInfo:'',infoSource:'',move:'',transport:'',pause:'',booking:'',lat:c.lat,lon:c.lon};
+  S.days[i].stops.push(stop);S.days[i].stops.sort((x,y)=>(x.t||'').localeCompare(y.t||''));cand={d:-1,l:[],msg:'',q:'',t:''};save();render();
+  if(localStorage.getItem(AK))await arricchisciNuovaTappa(stop);else alert('Tappa aggiunta. Per completare descrizione, orari, prenotazioni e costi, configura la chiave Gemini e usa “Approfondisci descrizioni”.');
+}
+function geminiText(j){const reason=j?.promptFeedback?.blockReason;if(reason)throw Error('Gemini ha bloccato la richiesta per il filtro '+reason+'. Riformula la richiesta o riduci i contenuti.');const candidate=j?.candidates?.[0];if(!candidate)throw Error('Gemini non ha restituito una risposta. La richiesta potrebbe essere stata bloccata dai filtri di sicurezza o non avere contenuto utilizzabile.');const text=(candidate.content?.parts||[]).map(x=>x?.text||'').join('').trim();if(!text)throw Error('Gemini ha restituito una risposta vuota. Riprova o riformula la richiesta.');return text}
+async function arricchisciNuovaTappa(stop){const key=localStorage.getItem(AK);if(!key)return;busy='Completo i dettagli della tappa…';render();try{const prompt='Prepara una scheda turistica in italiano per questa tappa: '+JSON.stringify({name:stop.n,address:stop.addr,destination:dName()})+'. Usa la ricerca web e fonti ufficiali del luogo. Fornisci note di 50-80 parole con cosa vedere e indicazioni pratiche; hoursInfo con orari di apertura e ultimo ingresso; reservationInfo specificando obbligatoria, consigliata o non necessaria e come prenotare; costInfo con costi d’ingresso o gratuità. Includi infoSource come URL della fonte ufficiale. Se un dato non è verificabile scrivi “da verificare”; non inventare informazioni. Rispondi solo JSON: {\"note\":\"...\",\"hoursInfo\":\"...\",\"reservationInfo\":\"...\",\"costInfo\":\"...\",\"infoSource\":\"https://...\"}';const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent' ,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body:JSON.stringify({contents:[{parts:[{text:prompt}]}],tools:[{google_search:{}}]})});const j=await r.json();if(!r.ok)throw Error(j.error?.message||r.status);const txt=geminiText(j);const data=JSON.parse(txt.slice(txt.indexOf('{'),txt.lastIndexOf('}')+1));for(const field of ['note','hoursInfo','reservationInfo','costInfo','infoSource'])if(data[field]!=null)stop[field]=String(data[field]);save()}catch(e){alert('La tappa è stata aggiunta, ma non ho completato i dettagli AI: '+e.message)}finally{busy='';render()}}
+async function manualStopLocation(s){
+  const raw=prompt('Inserisci uno di questi dati:\n• indirizzo completo (es. Via Toledo 123, Napoli)\n• link al punto in Google Maps\n• coordinate nel formato latitudine, longitudine (es. 40.8359, 14.2488)');
+  if(raw===null)return false;const value=raw.trim();if(!value)return false;
+  let c,coords=parseMapCoordinates(value);
+  if(coords){let addr='Coordinate inserite: '+coords.lat+', '+coords.lon;try{const url='https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&zoom=18&accept-language=it&lat='+coords.lat+'&lon='+coords.lon,response=await nominatimFetch(url);if(response.ok){const result=await response.json();if(result.display_name)addr=result.display_name}}catch(e){}c={n:s.n,addr,lat:coords.lat,lon:coords.lon,source:'Coordinate inserite manualmente'}}
+  else{let choices=await osm(value);if(!choices.length){alert('Non ho trovato questo indirizzo. Prova con via e numero civico, oppure inserisci coordinate o un link Google Maps.');return false}c=choices[0];if(choices.length>1){const list=choices.slice(0,6).map((x,k)=>(k+1)+'. '+x.n+' — '+(x.addr||'Indirizzo non disponibile')).join('\n'),answer=prompt('L’indirizzo ha più risultati. Scegli quello corretto:\n\n'+list+'\n\nDigita il numero.','1');if(answer===null)return false;const index=Number(answer)-1;if(!Number.isInteger(index)||index<0||index>=Math.min(choices.length,6)){alert('Numero non valido. La tappa non è stata modificata.');return false}c=choices[index]}}
+  if(!hasCoords(c)){alert('Non sono riuscito a ricavare le coordinate. La tappa non è stata modificata.');return false}
+  if(!confirm('Usare questa posizione per “'+s.n+'”?\n\n'+(c.addr||'Indirizzo non disponibile')+'\nCoordinate: '+c.lat+', '+c.lon))return false;
+  applyStopLocation(s,c);save();render();return true;
+}
+async function fill(i,j){
+  const s=S.days[i].stops[j];
+  try{
+    let choices=await osm(s.n+' '+dName());if(!choices.length)choices=await osm(s.n);
+    if(!choices.length){await manualStopLocation(s);return}
+    let c=choices[0];if(choices.length>1){const list=choices.slice(0,6).map((x,k)=>(k+1)+'. '+x.n+' — '+(x.addr||'Indirizzo non disponibile')+(x.source?' · '+x.source:'')).join('\n'),answer=prompt('Scegli il luogo corretto. Per ogni risultato trovi nome e indirizzo:\n\n'+list+'\n\nDigita un numero oppure 0 per inserire un indirizzo, un link Google Maps o coordinate. Annulla per non modificare.','1');if(answer===null)return;if(String(answer).trim()==='0'){await manualStopLocation(s);return}const index=Number(answer)-1;if(!Number.isInteger(index)||index<0||index>=Math.min(choices.length,6)){alert('Numero non valido. La tappa non è stata modificata.');return}c=choices[index]}
+    if(!hasCoords(c)){alert('Il risultato non contiene coordinate utilizzabili. La tappa non è stata modificata.');return}
+    if(!confirm('Posizione trovata:\n'+c.n+'\n'+(c.addr||'Indirizzo non disponibile')+'\nCoordinate: '+c.lat+', '+c.lon+'\n\nUsare questa posizione per “'+s.n+'”?\n\nPremi Annulla per inserire un indirizzo, un link Maps o coordinate diverse.')){await manualStopLocation(s);return}
+    applyStopLocation(s,c);
+  }catch(e){alert('Ricerca cartografica non riuscita. Controlla la connessione e, se usi OpenRouteService, la chiave nella scheda Dati.');return}
+  save();render();
+}
+function parseMapCoordinates(value){const text=String(value||'').replace(/%2c/ig,','),match=text.match(/@\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)/)||text.match(/!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/)||text.match(/[?&]query=(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)(?:&|$)/i)||text.match(/^\s*(-?\d+(?:\.\d+)?)\s*[,;]\s*(-?\d+(?:\.\d+)?)\s*$/);if(!match)return null;const lat=Number(match[1]),lon=Number(match[2]);return Number.isFinite(lat)&&Number.isFinite(lon)&&Math.abs(lat)<=90&&Math.abs(lon)<=180?{lat,lon}:null}
+function applyStopLocation(stop,location){stop.lat=+location.lat;stop.lon=+location.lon;stop.addr=location.addr||stop.addr||'';stop.web=location.web||stop.web||'';stop.tel=location.tel||stop.tel||'';stop.h=location.h||stop.h||'';stop.locationSource=location.source||'OpenStreetMap';stop.v=false;delete stop.locationIssue}
+function moveStop(i,j,delta){const a=S.days[i].stops,k=j+delta;if(k<0||k>=a.length)return;[a[j],a[k]]=[a[k],a[j]];save();render()}
+function ricalcolaOrariAutomatici(day,original){
+  if(!original.length||!original.every(s=>s.tAuto))return;
+  const mins=original.map(s=>{const p=String(s.t||'09:00').split(':');return(+p[0])*60+(+p[1]||0)});let cursor=Math.min(...mins);
+  for(let i=0;i<day.stops.length;i++){const s=day.stops[i];s.t=String(Math.floor(cursor/60)%24).padStart(2,'0')+':'+String(cursor%60).padStart(2,'0');if(i<day.stops.length-1){const pause=s.pause===''||s.pause==null?45:Math.max(0,+s.pause||0);cursor+=pause+(+legInfo(s,day.stops[i+1]).minutes||0)}}
+}
+function formatMinute(m){m=((m%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')}
+function ricalcolaOrariDopoRiordino(day,original){if(!day.stops?.length)return;const mins=original.map(x=>{const p=String(x.t||'09:00').split(':');return(+p[0])*60+(+p[1]||0)});let cursor=Math.min(...mins);for(let i=0;i<day.stops.length;i++){const stop=day.stops[i];stop.scheduleEstimated=false;stop.scheduleConflict=false;if(stop.tAuto===false){const p=String(stop.t||'09:00').split(':');const fixed=(+p[0])*60+(+p[1]||0);stop.scheduleConflict=fixed<cursor;cursor=Math.max(cursor,fixed)}else stop.t=formatMinute(cursor);if(i<day.stops.length-1){const pause=stop.pause===''||stop.pause==null?45:Math.max(0,+stop.pause||0),segments=travelSegmentsFor(stop,day.stops[i+1]),complete=segments.length&&segments.every(x=>x.minutes!=null&&Number.isFinite(+x.minutes)),info=legInfo(stop,day.stops[i+1]);let move=complete?travelTotalMinutes(segments):+info.minutes;if(!Number.isFinite(move)){move=30;day.stops[i+1].scheduleEstimated=true}cursor+=pause+move}}}
+async function ottimizzaConGemini(i){
+  const key=localStorage.getItem(AK);if(!key){alert('Per ottimizzare con Gemini configura prima la chiave nella scheda Dati.');navigateTab('dati');return}
+  if(busy)return;busy='Avvio ottimizzazione…';render();
+  try{await ottimizzaConGeminiInterno(i)}catch(e){alert('Errore nell’ottimizzazione Gemini: '+(e?.message||e))}finally{busy='';render()}
+}
+async function ottimizzaConGeminiInterno(i){
+  const key=localStorage.getItem(AK);if(!key){navigateTab('dati');return}
+  let day=S.days[i],stops=day?.stops||[];if(stops.length<2){alert('Aggiungi almeno due tappe alla giornata.');return}
+  const orsKey=localStorage.getItem(ORK);busy=`Preparo il percorso del giorno ${i+1}…`;render();
+   if(orsKey){const geo=await geocodeAiStops([day]);day=S.days[i];stops=day.stops;
+     if(geo.failures.length){const summary=geo.failures.slice(0,5).map(x=>'• '+x.name+': '+x.reason).join('\n');throw Error('Non ho localizzato con sicurezza tutte le tappe. Nessun risultato lontano è stato assegnato.\n'+summary+(geo.failures.length>5?'\n… e altre '+(geo.failures.length-5)+' tappe.':'')+'\nCorreggi le tappe indicate con 🔄 e riprova.')}
+     if(day.startPlace&&!hasCoords(day.startPoint)){const found=await osm(day.startPlace),near=found.filter(x=>hasCoords(x)&&distanceKm(S.dest,x)<=25).sort((a,b)=>distanceKm(S.dest,a)-distanceKm(S.dest,b));if(near.length){day.startPoint={n:day.startPlace,addr:near[0].addr,lat:near[0].lat,lon:near[0].lon};save()}else throw Error('Non riesco a verificare il punto di partenza entro 25 km dalla destinazione. Correggi l’indirizzo o seleziona un luogo corretto.')}
+  }
+  const original=[...stops],start=day.startPoint?{name:day.startPoint.n,address:day.startPoint.addr||'',lat:day.startPoint.lat,lon:day.startPoint.lon}: {name:day.startPlace||'non indicata'};
+  let routeMatrix=null,routeNodes=[];
+  if(orsKey){
+    const missing=stops.filter(s=>!Number.isFinite(+s.lat)||!Number.isFinite(+s.lon));
+    if(missing.length)throw new Error('Non riesco a localizzare tutte le tappe. Completa le coordinate con 🔄 prima di ottimizzare.');
+    if(day.startPlace&&(!Number.isFinite(+day.startPoint?.lat)||!Number.isFinite(+day.startPoint?.lon)))throw new Error('Il punto di partenza non ha coordinate valide. Scegli un risultato riconosciuto oppure rimuovi il testo di partenza.');
+    routeNodes=day.startPoint?[day.startPoint,...stops]:[...stops];
+    routeMatrix=await matriceOrsPiedi(routeNodes,orsKey);
+  }
+  const places=stops.map((s,index)=>({index,name:s.n,address:s.addr||'',coordinates:Number.isFinite(+s.lat)?[+s.lat,+s.lon]:null,visitMinutes:s.pause||null,time:s.t||'',reservation:s.booking||'',...(routeMatrix?{routeFromStart:!!day.startPoint,distanceMetersFromEachNode:routeNodes.map((_,nodeIndex)=>({node:nodeIndex===0&&day.startPoint?'partenza':`tappa ${nodeIndex-(day.startPoint?1:0)}`,distanceMeters:routeMatrix.distances[day.startPoint?nodeIndex:nodeIndex]?.[day.startPoint?index+1:index],durationSeconds:routeMatrix.durations[day.startPoint?nodeIndex:nodeIndex]?.[day.startPoint?index+1:index]}))}:{})}));
+  busy=`Gemini ottimizza giorno ${i+1}…`;render();
+  const prompt=`Ottimizza l'ordine delle tappe di una sola giornata di viaggio a ${dName()}. Punto di partenza: ${JSON.stringify(start)}. Tappe numerate (indici da restituire invariati): ${JSON.stringify(places)}.
+Usa coordinate e indirizzi per riconoscere i luoghi. ${routeMatrix?'Le distanze e durate fornite per ogni coppia sono misurate su rete pedonale reale da OpenRouteService/OpenStreetMap: minimizza la somma delle distanze effettive, evita ritorni e parti dall’origine quando indicata.':'Non è disponibile una matrice di distanze su strada: fai una stima prudente con le coordinate, senza presentarla come distanza reale.'} Mantieni tutte le tappe una sola volta e resta nella stessa giornata. Non cambiare gli orari di appuntamenti o prenotazioni. Dopo aver scelto l'ordine, usa la ricerca web per proporre per ogni tratta (partenza giornaliera → prima tappa e poi tappa precedente → successiva) i segmenti di viaggio realmente plausibili: cammino, metro, bus, treno, traghetto o funicolare. Restituisci ogni segmento con from, to, mode (simbolo), minutes, line, distanceMeters se noto ed estimated. Non inventare linee o orari; marca estimated:true se durata o percorso non sono verificati. Collega ogni piano alla tappa di destinazione indicandone l'indice originale stopIndex.
+Rispondi SOLO con JSON valido: {"order":[0,1,2],"reason":"spiegazione sintetica","legs":[{"stopIndex":0,"segments":[{"from":"Hotel","to":"Stazione","mode":"🚶","minutes":8,"line":"","estimated":true}]}]}. L'array order deve contenere ogni indice esattamente una volta.`;
+  try{
+    const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body:JSON.stringify({contents:[{parts:[{text:prompt}]}],tools:[{google_search:{}}]})});
+    const j=await r.json();if(!r.ok)throw new Error(j.error?.message||r.status);
+    const txt=geminiText(j);const result=JSON.parse(txt.slice(txt.indexOf('{'),txt.lastIndexOf('}')+1));const order=result.order;const segmentPlans=new Map((result.legs||[]).map(x=>[+x.stopIndex,normalizedTravelSegments(x.segments)]));
+    if(!Array.isArray(order)||order.length!==stops.length||new Set(order).size!==stops.length||order.some(n=>!Number.isInteger(n)||n<0||n>=stops.length))throw new Error('Gemini non ha restituito una sequenza completa e valida. Riprova.');
+    const ordered=order.map(n=>original[n]),oldPrevious=new Map(original.map((s,j)=>[s,j?original[j-1]:(day.startPoint||null)])),changed=ordered.some((s,j)=>s!==original[j]);
+    if(!changed&&!routeMatrix&&!segmentPlans.size){alert('Gemini conferma l’ordine attuale e non ha proposto nuove tratte. '+(result.reason||''));return}
+    const changedLegs=ordered.filter((s,j)=>oldPrevious.get(s)!==(j?ordered[j-1]:(day.startPoint||null)));
+    if(changedLegs.some(s=>s.move||s.transport)&&!confirm('L’ordine cambia alcune tratte per cui avevi inserito mezzo o durata. Vuoi riordinarle e ricalcolare quei dati?'))return;
+    day.stops=ordered;
+    for(const s of changedLegs){s.move='';s.transport='';delete s.travelSegments}for(let j=0;j<ordered.length;j++){const segments=segmentPlans.get(order[j]);if(segments?.length)ordered[j].travelSegments=segments}
+    if(routeMatrix){for(let j=0;j<ordered.length;j++){const to=day.startPoint?j+1:j,from=j?to-1:(day.startPoint?0:null),s=ordered[j];if(from==null){delete s.routeProvider;delete s.routeFrom;delete s.routeDistanceMeters;delete s.routeDurationSeconds;continue}s.routeProvider='openrouteservice';s.routeFrom=placeKey(j?ordered[j-1]:day.startPoint);s.routeDistanceMeters=routeMatrix.distances[from][to];s.routeDurationSeconds=routeMatrix.durations[from][to]}}
+    ricalcolaOrariDopoRiordino(day,original);
+    save();alert('Percorso riordinato con Gemini. '+(result.reason||'Verifica comunque il percorso su Google Maps.')); 
+  }catch(e){alert('Errore nell’ottimizzazione Gemini: '+e.message)}
+  finally{busy='';render()}
+}
+function placeKey(p){return Number.isFinite(+p?.lat)&&Number.isFinite(+p?.lon)?`${+p.lat},${+p.lon}`:String(p?.n||'')}
+async function matriceOrsPiedi(nodes,key){
+  if(nodes.length>25)throw new Error('OpenRouteService consente al massimo 25 località per questa matrice. Riduci le tappe o ottimizza in più giornate.');
+  const coords=nodes.map(p=>[+p.lon,+p.lat]),n=nodes.length,distances=Array.from({length:n},()=>Array(n).fill(null)),durations=Array.from({length:n},()=>Array(n).fill(null)),chunk=Math.max(1,Math.floor(25/n));
+  for(let start=0;start<n;start+=chunk){const sources=Array.from({length:Math.min(chunk,n-start)},(_,k)=>start+k),r=await fetch('https://api.heigit.org/openrouteservice/v2/matrix/foot-walking',{method:'POST',headers:{Authorization:key,'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({locations:coords,sources,destinations:Array.from({length:n},(_,k)=>k),metrics:['distance','duration'],units:'m'})});
+    if(!r.ok){const j=await r.json().catch(()=>({}));throw new Error(j.error?.message||`OpenRouteService non disponibile (HTTP ${r.status}). Controlla la chiave e i limiti del servizio.`)}const j=await r.json();sources.forEach((src,row)=>{for(let dest=0;dest<n;dest++){distances[src][dest]=j.distances?.[row]?.[dest]??null;durations[src][dest]=j.durations?.[row]?.[dest]??null}})
+  }
+  if(distances.some(row=>row.some(v=>v==null)))throw new Error('OpenRouteService non ha trovato un percorso pedonale tra alcune tappe. Verifica le coordinate.');return{distances,durations}
+}
+function ordinaTappePerDistanza(day){
+  const all=day.stops||[],located=all.filter(s=>distanceKm(s,s)!=null),unlocated=all.filter(s=>distanceKm(s,s)==null);
+  if(located.length<2)return{ordered:located.length,missing:unlocated.length,changed:false};
+  const hasStart=!!day.startPoint&&distanceKm(day.startPoint,located[0])!=null;
+  let remaining=[...located],route=[];
+  if(!hasStart){route.push(remaining.shift())}
+  let current=hasStart?day.startPoint:route[0];
+  while(remaining.length){let best=0,bestKm=Infinity;for(let i=0;i<remaining.length;i++){const d=distanceKm(current,remaining[i]);if(d<bestKm){best=i;bestKm=d}}current=remaining.splice(best,1)[0];route.push(current)}
+  const length=a=>{let total=0,prev=hasStart?day.startPoint:a[0];for(let i=hasStart?0:1;i<a.length;i++){total+=distanceKm(prev,a[i]);prev=a[i]}return total};
+  for(let pass=0;pass<route.length;pass++){let improved=false;for(let i=hasStart?0:1;i<route.length-1;i++){for(let j=i+1;j<route.length;j++){const candidate=[...route.slice(0,i),...route.slice(i,j+1).reverse(),...route.slice(j+1)];if(length(candidate)+0.01<length(route)){route=candidate;improved=true}}}if(!improved)break}
+  day.stops=[...route,...unlocated];const changed=day.stops.some((s,i)=>s!==all[i]);
+  if(changed)ricalcolaOrariDopoRiordino(day,all);
+  return{ordered:route.length,missing:unlocated.length,changed};
+}
+function ottimizzaGiornata(i){const result=ordinaTappePerDistanza(S.days[i]);save();render();if(result.ordered<2)alert('Servono almeno due tappe con coordinate per ottimizzare l’ordine. Completa le tappe senza coordinate con 🔄.');else if(result.missing)alert(`Ordinate ${result.ordered} tappe. ${result.missing} tappe senza coordinate restano in fondo: completa i dati con 🔄 e riprova.`)}
+async function geocodeAiStops(days,{onlyUnverified=false,reorder=true}={}){
+  const todo=days.flatMap(d=>d.stops||[]).filter(s=>!hasCoords(s)||(onlyUnverified&&s.locationIssue)),failures=[];let fatal='';
+  const center=hasCoords(S.dest)?S.dest:null,maxKm=25;
+  if(onlyUnverified)for(const s of todo)if(s.locationIssue){s.lat=null;s.lon=null}
+  for(let i=0;i<todo.length;i++){
+    const s=todo[i];busy=`Localizzo tappe ${i+1}/${todo.length}…`;render();
+    if(fatal){s.locationIssue=fatal;failures.push({name:s.n,reason:fatal});continue}
+    if(!center){const reason='Coordinate della destinazione non disponibili; correggi con 🔄.';s.locationIssue=reason;failures.push({name:s.n,reason});continue}
+    try{
+      const queries=[s.municipality?`${s.n}, ${s.municipality}, ${dName()}`:`${s.n}, ${dName()}`,`${s.n}, ${dName()}`,s.n];
+      const candidates=await localizeCandidates(queries,{maxDistanceKm:maxKm}),hint=String(s.municipality||'').trim().toLocaleLowerCase('it'),match=candidates.find(c=>Number.isFinite(c.distanceKm)&&c.distanceKm<=maxKm&&(!hint||!c.municipality||c.municipality.toLocaleLowerCase('it').includes(hint)||hint.includes(c.municipality.toLocaleLowerCase('it'))));
+      if(!match){const nearest=candidates.filter(c=>Number.isFinite(c.distanceKm)).sort((a,b)=>a.distanceKm-b.distanceKm)[0],reason=nearest&&nearest.distanceKm>maxKm?`Risultato cartografico fuori area: il più vicino è a ${nearest.distanceKm.toFixed(1)} km dalla destinazione.`:nearest&&hint&&nearest.municipality?`Il risultato trovato è nel comune ${nearest.municipality}, ma Gemini indica ${s.municipality}.`:'Nessun risultato cartografico vicino alla destinazione.';s.locationIssue=reason+' Controlla con 🔄.';failures.push({name:s.n,reason:s.locationIssue});continue}
+      s.lat=match.lat;s.lon=match.lon;s.addr=s.addr||match.addr;s.locationSource=match.source;delete s.locationIssue;save();
+    }catch(e){const reason=e.message||'Errore di rete durante la ricerca cartografica.';s.locationIssue=reason;failures.push({name:s.n,reason});if(/limite di richieste|non è disponibile|connessione/i.test(reason))fatal=reason}
+  }
+  if(reorder)for(const day of days)ordinaTappePerDistanza(day);save();
+  return{located:todo.length-failures.length,failures,total:todo.length};
+}
+async function rilocalizzaTappeNonConfermate(){const unresolved=S.days.flatMap(d=>d.stops||[]).filter(s=>!hasCoords(s)||s.locationIssue);if(!unresolved.length){alert('Tutte le tappe hanno già una posizione confermata.');return}busy='Rilocalizzo tappe da verificare…';render();try{const result=await geocodeAiStops(S.days,{onlyUnverified:true,reorder:false}),remaining=S.days.flatMap(d=>d.stops||[]).filter(s=>!hasCoords(s)||s.locationIssue).length;save();alert(`Rilocalizzazione completata: ${result.located} localizzate, ${remaining} da verificare.`)}catch(e){alert('Rilocalizzazione non riuscita: '+e.message)}finally{busy='';render()}}
+async function genAI(){
+  const k=localStorage.getItem(AK);if(!k){navigateTab('dati');return}
+  busy='Genero…';render();
+  const dayStarts=S.days.slice(0,nDays()).map((d,i)=>`Giorno ${i+1}: ${d.startPlace||d.startPoint?.n||'partenza da definire'}${d.startPoint&&Number.isFinite(+d.startPoint.lat)?` (coordinate ${d.startPoint.lat}, ${d.startPoint.lon})`:''}`).join('; ');
+  const p=`Sei un pianificatore di viaggi prudente. Destinazione: ${S.dest.name}. ${nDays()} giorni dal ${S.start}. ${S.pax} persone, ritmo ${S.pace}. Interessi: ${S.pref||'generici'}. Partenze giornaliere: ${dayStarts}.
+REGOLE: usa solo luoghi reali e verificabili con la ricerca; per ogni tappa scrivi una scheda concreta di 3-5 frasi (circa 50-80 parole), includendo cosa vedere e dettagli utili per la visita; per ogni tappa aggiungi, se pertinenti, orari di apertura/ultimo ingresso (hoursInfo), necessità di prenotazione e modalità (reservationInfo), costo d’ingresso o gratuità (costInfo) e URL della fonte ufficiale (infoSource). Verifica con fonti ufficiali; scrivi "da verificare" se non trovi conferma. NON inventare prezzi, orari o menù; se un luogo o dato non è certo metti "v":true; per ogni tappa indica il comune amministrativo preciso nel campo municipality, usando il comune più vicino solo se il luogo è fuori dal comune destinazione; assegna a ogni giornata le tappe più sensate rispetto alla relativa partenza indicata e ordinalle riducendo gli spostamenti; raggruppa i luoghi vicini nello stesso giorno; 3-5 tappe al giorno, orari 24h. Per OGNI tappa compila travelSegments dalla partenza giornaliera (hotel/punto indicato) alla prima tappa, e dalla tappa precedente alle successive. Se servono più mezzi, crea un segmento per ogni cammino, metro/autobus, treno, traghetto o funicolare, specificando from, to, mode con simbolo, minutes, line, distanceMeters quando noto, estimated. Per esempio per Pompei: hotel → stazione metro, metro → stazione ferroviaria, treno → Pompei Scavi, eventuale cammino finale. Cerca sul web gli itinerari e i servizi reali; non inventare linee, orari di partenza o durate presentate come certe. Se non verificate, marca estimated:true. La prima tappa non deve mai omettere il tragitto dalla partenza giornaliera.
+Rispondi SOLO con JSON valido, senza testo extra: {"days":[{"theme":"titolo breve della giornata","plan":"pausa e pasti suggeriti senza inventare locali","stops":[{"t":"09:00","n":"nome luogo","municipality":"comune amministrativo","note":"scheda in italiano di 50-80 parole","hoursInfo":"orari ufficiali o da verificare","reservationInfo":"necessaria/consigliata/non necessaria o da verificare","costInfo":"prezzo ufficiale/gratuito o da verificare","infoSource":"URL ufficiale","pause":60,"v":false,"travelSegments":[{"from":"hotel","to":"stazione metro","mode":"🚶","minutes":6,"distanceMeters":450,"line":"","estimated":true},{"from":"stazione metro","to":"stazione ferroviaria","mode":"🚇","minutes":10,"distanceMeters":null,"line":"Linea 1","estimated":true},{"from":"stazione ferroviaria","to":"destinazione","mode":"🚆","minutes":40,"distanceMeters":null,"line":"treno regionale","estimated":true}]}]}]}`;
+  try{const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':k},body:JSON.stringify({contents:[{parts:[{text:p}]}],tools:[{google_search:{}}]})});
+  const j=await r.json();if(!r.ok)throw new Error(j.error?.message||r.status);
+   const txt=geminiText(j);
+   const o=JSON.parse(txt.slice(txt.indexOf('{'),txt.lastIndexOf('}')+1));
+  if(S.days.some(d=>d.stops.length)&&!confirm('Sostituire le tappe attuali con la bozza AI?')){busy='';render();return}
+   const originalStarts=S.days.slice(0,nDays()).map(d=>({startPlace:d.startPlace||'',startPoint:d.startPoint||null}));
+   S.days=o.days.slice(0,nDays()).map((d,i)=>({...(originalStarts[i]||{}),theme:String(d.theme||''),plan:String(d.plan||''),stops:(d.stops||[]).map(s=>({t:String(s.t||'09:00'),tAuto:true,n:String(s.n||''),municipality:String(s.municipality||''),note:String(s.note||''),hoursInfo:String(s.hoursInfo||''),reservationInfo:String(s.reservationInfo||''),costInfo:String(s.costInfo||''),infoSource:String(s.infoSource||''),pause:String(s.pause||''),move:'',transport:'',v:!!s.v,travelSegments:normalizedTravelSegments(s.travelSegments)}))}));
+   while(S.days.length<nDays()){const i=S.days.length,start=originalStarts[i]||{};S.days.push({theme:'',plan:'',stops:[],startPlace:start.startPlace||'',startPoint:start.startPoint||null})}save();busy='Localizzo le tappe della bozza…';render();await geocodeAiStops(S.days,{reorder:false});const allStops=S.days.flatMap(d=>d.stops||[]),located=allStops.filter(s=>hasCoords(s)&&!s.locationIssue).length,unverified=allStops.length-located;alert(`Bozza pronta: ${located} tappe localizzate, ${unverified} da verificare.`)}
+  catch(e){alert('Errore AI: '+e.message)}
+  busy='';render();
+}
+const BASE=['Passaporto/carta d\'identità valido','Visto o autorizzazione d\'ingresso (verifica su viaggiaresicuri.it)','Assicurazione sanitaria di viaggio','Voli prenotati','Alloggi prenotati (meglio con cancellazione gratuita)','Biglietti con data fissa (treni, musei)','Copie dei documenti','eSIM o roaming','Contanti/valuta locale'];
+async function arricchisciAI(){
+  const k=localStorage.getItem(AK);if(!k){navigateTab('dati');return}
+  const items=S.days.flatMap((d,di)=>(d.stops||[]).map((s,si)=>({day:di+1,index:si,name:s.n,note:s.note||''})));
+  if(!items.length){alert('Aggiungi prima le tappe da approfondire.');return}
+  busy='Approfondisco…';render();
+  const prompt=`Scrivi schede turistiche in italiano per queste tappe: ${JSON.stringify(items)}.
+Usa la ricerca web e privilegia i siti ufficiali. Per ogni luogo scrivi 50-80 parole (3-5 frasi): cosa vedere, elementi notevoli e indicazioni pratiche. Per ogni luogo includi, se pertinenti, orari di apertura e ultimo ingresso (hoursInfo), se la prenotazione è obbligatoria/consigliata/non necessaria e come farla (reservationInfo), costi d’ingresso o indicazione gratuita (costInfo), ed URL della fonte ufficiale (infoSource). Usa soltanto dati verificati da fonti ufficiali; se non verificabili scrivi "da verificare", non inventare orari o prezzi. Mantieni giorno e indice esattamente come forniti.
+Rispondi SOLO con JSON valido: {"updates":[{"day":1,"index":0,"note":"scheda dettagliata","hoursInfo":"09:00-18:00 o da verificare","reservationInfo":"non necessaria/consigliata/obbligatoria o da verificare","costInfo":"gratuito/prezzo verificato o da verificare","infoSource":"https://sito-ufficiale.example"}]}`;
+  try{const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':k},body:JSON.stringify({contents:[{parts:[{text:prompt}]}],tools:[{google_search:{}}]})});const j=await r.json();if(!r.ok)throw new Error(j.error?.message||r.status);const txt=geminiText(j);const o=JSON.parse(txt.slice(txt.indexOf('{'),txt.lastIndexOf('}')+1));let n=0;for(const u of o.updates||[]){const s=S.days[(+u.day||0)-1]?.stops?.[+u.index];if(s){if(u.note)s.note=String(u.note);for(const field of ['hoursInfo','reservationInfo','costInfo','infoSource'])if(u[field]!=null)s[field]=String(u[field]);n++}}if(!n)throw new Error('Nessuna descrizione valida ricevuta');save();alert(`Aggiornate ${n} schede. Tappe e orari sono rimasti invariati.`)}
+  catch(e){alert('Errore durante l’approfondimento: '+e.message)}
+  busy='';render();
+}
+function vPrenota(){
+  if(!S.dest)return '<div class="c">Scegli prima una destinazione.</div>';
+  if(!S.check.length)S.check=BASE.map(t=>({t,d:false}));
+  const n=dName(), q=encodeURIComponent(n), origin=S.origin||'', qOrigin=encodeURIComponent(origin), start=S.start||'', end=S.end||'', pax=S.pax||1;
+  const ryanair=`https://www.ryanair.com/it/it/trip/flights/select?adults=${pax}&teens=0&children=0&infants=0&dateOut=${start}&dateIn=${end}&isConnectedFlight=false&origin=${qOrigin}&destination=${q}&isReturn=true`;
+  const trivago=`https://www.trivago.it/it/lm?search=${q}&checkin=${start}&checkout=${end}&adults=${pax}`;
+  const tripadvisor=`https://www.tripadvisor.it/Search?q=${q}&checkin=${start}&checkout=${end}&adults=${pax}`;
+  const thefork=`https://www.thefork.it/search?cityName=${q}&date=${start}&hour=1200&partySize=${pax}`;
+  const train=`https://www.trenitalia.com/it.html?origin=${qOrigin}&destination=${q}&adate=${start}&rdate=${end}&adultno=${pax}`;
+  return `<div class="c"><h3>Link di ricerca</h3><p class="mu">Destinazione: <b>${E(n)}</b> · Date: ${E(start||'da scegliere')} → ${E(end||'da scegliere')} · ${pax} ${pax==1?'persona':'persone'}${origin?' · Partenza: '+E(origin):''}</p><p class="mu">Il planner passa destinazione, date e persone nei link. trivago e TheFork usano codici città interni: se non li riconoscono, seleziona la città o le date sul sito. Per voli e treni può essere necessario scegliere aeroporto o stazione.</p>
+  <p><a target="_blank" rel="noopener" href="https://www.google.com/travel/flights?q=${encodeURIComponent('Voli da '+(origin||'')+' per '+n+' '+start+' '+end+' '+pax+' persone')}">✈️ Voli (Google Flights)</a><br>
+  <a target="_blank" rel="noopener" href="${ryanair}">✈️ Voli (Ryanair)</a><br>
+  <a target="_blank" rel="noopener" href="https://www.booking.com/searchresults.it.html?ss=${q}&checkin=${start}&checkout=${end}&group_adults=${pax}">🏨 Alloggi (Booking)</a><br>
+  <a target="_blank" rel="noopener" href="${trivago}">🏨 Alloggi (trivago)</a><br>
+  <a target="_blank" rel="noopener" href="${tripadvisor}">⭐ Recensioni e alloggi (Tripadvisor)</a><br>
+  <a target="_blank" rel="noopener" href="${thefork}">🍽️ Ristoranti (TheFork)</a><br>
+  <a target="_blank" rel="noopener" href="${train}">🚆 Treni (Trenitalia)</a><br>
+  <a target="_blank" rel="noopener" href="https://www.viaggiaresicuri.it">🛂 Sicurezza e documenti (Farnesina)</a><br>
+  <a target="_blank" rel="noopener" href="https://www.google.com/search?q=${encodeURIComponent('festività e eventi '+n+' '+start)}">📅 Festività ed eventi nel periodo</a></p></div>
+  <div class="c"><h3>Checklist</h3>${S.check.map((c,i)=>`<div class="s"><input type="checkbox" style="width:auto;margin:0" ${c.d?'checked':''} onchange="S.check[${i}].d=this.checked;save()"><span>${E(c.t)}</span><button class="g np" onclick="S.check.splice(${i},1);save();render()">✕</button></div>`).join('')}
+  <div class="r np" style="margin-top:8px"><input id="ck" placeholder="Aggiungi voce"><button class="g" style="flex:0" onclick="if($('ck').value){S.check.push({t:$('ck').value,d:false});save();render()}">+</button></div></div>`+nextButton('budget','Avanti: Budget');
+}
+function vBudget(){
+  const tot=S.budget.reduce((a,b)=>a+(+b.v||0),0);
+  return `<div class="c"><h3>Budget</h3>${S.budget.length?S.budget.map((b,i)=>`<div class="s"><span>${E(b.l)}</span><b style="min-width:80px;text-align:right">${(+b.v).toFixed(2)} €</b><button class="g np" onclick="S.budget.splice(${i},1);save();render()">✕</button></div>`).join(''):'<p class="mu">Aggiungi una voce per iniziare a calcolare il budget del viaggio.</p>'}
+  <div class="r np" style="margin-top:8px"><input id="bl" placeholder="Voce (es. Voli)"><input id="bv" type="number" step="0.01" placeholder="€ totali"><button class="g" style="flex:0" onclick="addB()">+</button></div>
+  ${S.budget.length?`<p><b>Totale: ${tot.toFixed(2)} €</b><br><span class="mu">A persona: ${(tot/(S.pax||1)).toFixed(2)} €</span></p>`:''}</div>`+nextButton('viaggio','Fine · Torna al viaggio');
+}
+function addB(){const l=$('bl').value.trim(),v=parseFloat($('bv').value);if(!l||isNaN(v))return;S.budget.push({l,v});save();render()}
+function vDati(){
+  return `<div class="c"><h3>Chiave Gemini (facoltativa)</h3><input id="ak" type="password" placeholder="La tua API key" value="${E(localStorage.getItem(AK)||'')}">
+  <button class="b" onclick="localStorage.setItem(AK,$('ak').value.trim());alert('Chiave salvata su questo dispositivo')">Salva</button>
+  <p class="mu">La chiave resta solo nel tuo browser. Serve per generare e ottimizzare l’itinerario con Gemini.</p><p><a class="b" style="display:inline-block;text-decoration:none" href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">🔑 Ottieni una chiave API Gemini</a></p></div>
+  <div class="c"><h3>Chiave OpenRouteService (facoltativa)</h3><input id="orsk" type="password" placeholder="La tua API key OpenRouteService" value="${E(localStorage.getItem(ORK)||'')}">
+  <button class="b" onclick="localStorage.setItem(ORK,$('orsk').value.trim());alert('Chiave OpenRouteService salvata su questo dispositivo')">Salva</button>
+  <p class="mu">Serve per calcolare distanze e tempi pedonali e cercare tappe che OpenStreetMap non trova su rete OpenStreetMap e migliorare l’ordine suggerito da Gemini. La chiave resta solo nel browser. Percorsi forniti da OpenRouteService · dati OpenStreetMap.</p>
+  <p class="mu"><a href="https://openrouteservice.org/dev/#/signup" target="_blank" rel="noopener">Ottieni una chiave gratuita</a></p></div>
+  <div class="c"><h3>App e backup</h3><button id="installApp" class="b" type="button" hidden onclick="installPwa()">📲 Installa I miei viaggi</button><p class="mu">Installala sulla schermata Home per aprirla come app. L’installazione è disponibile quando il browser la supporta.</p></div>
+  <div class="c"><h3>Dati e backup</h3><button class="g" onclick="exp()">⬇️ Esporta viaggio corrente</button> <button class="g" onclick="expBackup()">🛟 Esporta backup completo</button> <button class="g" onclick="$('f').click()">⬆️ Importa viaggio o backup</button> <button class="g" onclick="stampa()">🖨️ Stampa</button>
+  <input id="f" type="file" accept=".json" style="display:none" onchange="imp(this.files[0]);this.value=''">
+  <p class="mu">Il backup completo comprende il viaggio corrente e quelli salvati. Le chiavi API non vengono esportate.</p>
+  <p><button class="g" onclick="if(confirm('Cancellare tutto il viaggio?')){localStorage.removeItem('${KEY}');location.reload()}">🗑️ Nuovo viaggio</button></p></div>`;
+}
+function downloadJson(data,name){const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function safeFileName(value){return String(value||'viaggio').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'viaggio'}
+function exp(){downloadJson(S,'viaggio-'+safeFileName(dName())+'.json')}
+function expBackup(){downloadJson({format:'trip-planner-backup',version:1,exportedAt:new Date().toISOString(),activeTrip:S,savedTrips:trips()},'trip-planner-backup-'+new Date().toISOString().slice(0,10)+'.json')}
+function record(x){return x!==null&&typeof x==='object'&&!Array.isArray(x)}
+function validImportDate(x){if(x==null||x==='')return true;if(typeof x!=='string'||!/^20\d{2}-\d{2}-\d{2}$/.test(x))return false;const d=new Date(x+'T00:00:00');return Number.isFinite(+d)&&d.toISOString().slice(0,10)===x}
+function normalizeImportTrip(o){
+ if(!record(o))throw Error('Il contenuto del viaggio deve essere un oggetto JSON.');if(o.days!=null&&!Array.isArray(o.days))throw Error('Il campo giornate non è valido.');if(!validImportDate(o.start)||!validImportDate(o.end))throw Error('Una data non è valida.');
+ const validCoord=(v,coord)=>v==null||(Number.isFinite(+v)&&+v>=(coord==='lat'?-90:-180)&&+v<=(coord==='lat'?90:180));
+ if(o.dest!=null){if(!record(o.dest)||typeof o.dest.name!=='string'||!o.dest.name.trim())throw Error('La destinazione non è valida.');for(const k of ['lat','lon'])if(!validCoord(o.dest[k],k))throw Error('Coordinate della destinazione non valide.')}
+ for(let i=0;i<(o.days||[]).length;i++){const d=o.days[i];if(!record(d))throw Error('Giornata '+(i+1)+': formato non valido.');if(d.stops!=null&&!Array.isArray(d.stops))throw Error('Giornata '+(i+1)+': elenco tappe non valido.');if(d.startPoint!=null){if(!record(d.startPoint))throw Error('Giornata '+(i+1)+': punto di partenza non valido.');for(const k of ['lat','lon'])if(!validCoord(d.startPoint[k],k))throw Error('Coordinate di partenza non valide nella giornata '+(i+1)+'.')}for(let j=0;j<(d.stops||[]).length;j++){const s=d.stops[j];if(!record(s)||typeof s.n!=='string'||!s.n.trim())throw Error('Giornata '+(i+1)+', tappa '+(j+1)+': nome mancante o formato non valido.');for(const k of ['lat','lon'])if(!validCoord(s[k],k))throw Error('Coordinate non valide: '+s.n);if(s.t!=null&&s.t!==''&&!/^([01]\d|2[0-3]):[0-5]\d$/.test(String(s.t)))throw Error('Orario non valido: '+s.n)}}
+ if(o.check!=null&&!Array.isArray(o.check))throw Error('Checklist non valida.');if(o.budget!=null&&!Array.isArray(o.budget))throw Error('Budget non valido.');
+ const next=blank();next.destQuery=typeof o.destQuery==='string'?o.destQuery:'';next.destQueryFor=typeof o.destQueryFor==='string'?o.destQueryFor:'';for(const k of ['origin','start','end','pref','pace'])if(typeof o[k]==='string')next[k]=o[k];if(!validImportDate(next.start)||!validImportDate(next.end))throw Error('Date non valide.');
+ if(record(o.dest)&&typeof o.dest.name==='string')next.dest={name:o.dest.name,lat:validCoord(o.dest.lat,'lat')&&o.dest.lat!=null?+o.dest.lat:null,lon:validCoord(o.dest.lon,'lon')&&o.dest.lon!=null?+o.dest.lon:null};if(Number.isFinite(+o.pax)&&+o.pax>0)next.pax=Math.floor(+o.pax);
+ next.days=(o.days||[]).map(d=>({theme:typeof d.theme==='string'?d.theme:'',plan:typeof d.plan==='string'?d.plan:'',startPlace:typeof d.startPlace==='string'?d.startPlace:'',startPoint:record(d.startPoint)?{...d.startPoint,n:String(d.startPoint.n||''),addr:String(d.startPoint.addr||''),lat:d.startPoint.lat==null?null:+d.startPoint.lat,lon:d.startPoint.lon==null?null:+d.startPoint.lon}:null,stops:(d.stops||[]).map(s=>({...s,n:s.n.trim(),t:String(s.t||'09:00'),note:String(s.note||''),hoursInfo:String(s.hoursInfo||''),reservationInfo:String(s.reservationInfo||''),costInfo:String(s.costInfo||''),infoSource:okUrl(s.infoSource),web:okUrl(s.web),addr:String(s.addr||''),tel:String(s.tel||''),h:String(s.h||''),lat:s.lat==null?null:+s.lat,lon:s.lon==null?null:+s.lon,travelSegments:normalizedTravelSegments(s.travelSegments)}))}));
+ next.check=(o.check||[]).filter(record).map(c=>({t:String(c.t||''),d:!!c.d}));next.budget=(o.budget||[]).filter(record).map(b=>({l:String(b.l||''),v:Number.isFinite(+b.v)?+b.v:0}));next.wx=null;return next;
+}
+function imp(f){if(!f)return;const reader=new FileReader();reader.onerror=()=>alert('Impossibile leggere il file.');reader.onload=()=>{let oldActive,oldSaved;try{const data=JSON.parse(reader.result);if(!record(data))throw Error('Il contenuto principale deve essere un oggetto JSON.');if(data.format!=='trip-planner-backup'){const next=normalizeImportTrip(data);localStorage.setItem(KEY,JSON.stringify(next));S=next;itineraryDay=0;render();alert('Viaggio importato.');return}if(data.version!==1||!record(data.activeTrip)||!record(data.savedTrips))throw Error('Formato del backup non supportato o incompleto.');const active=normalizeImportTrip(data.activeTrip),incoming={};for(const [id,item] of Object.entries(data.savedTrips)){if(!record(item)||!record(item.data)||typeof item.name!=='string')throw Error('Un viaggio salvato nel backup non è valido.');incoming[id]={name:item.name,ts:Number.isFinite(+item.ts)?+item.ts:Date.now(),data:normalizeImportTrip(item.data)}}const current=trips(),merged={...current};let added=0;for(const [id,item] of Object.entries(incoming)){let target=id;if(merged[target]){let n=1;while(merged[id+'_backup_'+n])n++;target=id+'_backup_'+n}merged[target]=item;added++}if(!confirm('Ripristinare il viaggio attivo e aggiungere '+added+' viaggi salvati? I viaggi già salvati su questo dispositivo non verranno cancellati.'))return;oldActive=localStorage.getItem(KEY);oldSaved=localStorage.getItem(TK);try{localStorage.setItem(KEY,JSON.stringify(active));localStorage.setItem(TK,JSON.stringify(merged))}catch(writeError){try{oldActive==null?localStorage.removeItem(KEY):localStorage.setItem(KEY,oldActive);oldSaved==null?localStorage.removeItem(TK):localStorage.setItem(TK,oldSaved)}catch(restoreError){}throw Error('Spazio insufficiente: non è stato possibile ripristinare il backup.')}S=active;itineraryDay=0;navigateTab('viaggio',{replace:true,scroll:true});alert('Backup ripristinato: viaggio attivo e '+added+' viaggi salvati importati.')}catch(e){alert('File non valido: '+(e.message||'controlla struttura e dati.'))}};reader.readAsText(f)}
+const TRANSPORTS=[['🚶','A piedi'],['🚇','Metropolitana'],['🚌','Autobus'],['🚆','Treno'],['🚕','Taxi'],['🚗','Auto'],['🚢','Traghetto'],['🚠','Funicolare'],['❔','Altro']];
+function distanceKm(a,b){if(!a||!b||!Number.isFinite(+a.lat)||!Number.isFinite(+a.lon)||!Number.isFinite(+b.lat)||!Number.isFinite(+b.lon))return null;const rad=x=>x*Math.PI/180,dLat=rad(b.lat-a.lat),dLon=rad(b.lon-a.lon),x=Math.sin(dLat/2)**2+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dLon/2)**2;return 6371*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x))}
+function actualWalkRoute(a,b){return b?.routeProvider==='openrouteservice'&&b.routeFrom===placeKey(a)&&Number.isFinite(+b.routeDistanceMeters)&&Number.isFinite(+b.routeDurationSeconds)?{distanceMeters:+b.routeDistanceMeters,durationSeconds:+b.routeDurationSeconds}:null}
+function routeDistanceLabel(leg){return leg?.route?` · ${ (leg.route.distanceMeters/1000).toFixed(1)} km a piedi · ${Math.round(leg.route.durationSeconds/60)} min (percorso OpenRouteService)`:''}
+function recommendLeg(a,b){const route=actualWalkRoute(a,b);if(route)return route.distanceMeters<1800?'🚶':route.distanceMeters<8000?'🚇':'🚆';const km=distanceKm(a,b);if(km==null)return '';if(km<1.2)return '🚶';if(km<8)return '🚇';return '🚆'}
+function transportOptions(selected){return '<option value="">Da scegliere</option>'+TRANSPORTS.map(([icon,name])=>`<option value="${icon}" ${selected===icon?'selected':''}>${icon} ${name}</option>`).join('')}
+function transportLabel(mode){const x=TRANSPORTS.find(x=>x[0]===mode);return x?x[0]+' '+x[1]:'❔ Mezzo da scegliere'}
+function legInfo(a,b){const route=actualWalkRoute(a,b),mode=b.transport||recommendLeg(a,b);let minutes=b.move||'';const km=distanceKm(a,b);let estimated=false;if(!minutes&&route&&mode==='🚶')minutes=String(Math.max(1,Math.round(route.durationSeconds/60)));else if(!minutes&&km!=null&&mode){minutes=String(Math.max(3,Math.round(mode==='🚶'?km/4.5*60:mode==='🚇'?km/18*60+10:mode==='🚆'?km/35*60+15:km/20*60+10)));estimated=true}return{mode,minutes,estimated,route}}
+function normalizedTravelSegments(segments){
+  const aliases={'walking':'🚶','a piedi':'🚶','metro':'🚇','metropolitana':'🚇','subway':'🚇','bus':'🚌','autobus':'🚌','train':'🚆','treno':'🚆','taxi':'🚕','car':'🚗','auto':'🚗','ferry':'🚢','traghetto':'🚢','funicular':'🚠','funicolare':'🚠'};
+  return Array.isArray(segments)?segments.map(x=>{
+    const raw=String(x.mode||'').trim(),match=TRANSPORTS.find(t=>t[0]===raw||t[1].toLowerCase()===raw.toLowerCase());
+    return{from:String(x.from||''),to:String(x.to||''),mode:match?match[0]:(aliases[raw.toLowerCase()]||'❔'),minutes:Number.isFinite(+x.minutes)?Math.max(0,+x.minutes):null,distanceMeters:Number.isFinite(+x.distanceMeters)?+x.distanceMeters:null,line:String(x.line||''),estimated:x.estimated!==false};
+  }).filter(x=>x.from||x.to||x.minutes!==null||x.mode!=='❔'):[];
+}
+function travelSegmentsFor(from,stop){
+  const saved=normalizedTravelSegments(stop?.travelSegments);if(saved.length)return saved;
+  if(!from)return[];
+  const info=legInfo(from,stop);
+  return[{from:from.n||'',to:stop.n||'',mode:info.mode||'❔',minutes:info.minutes===''?null:+info.minutes,distanceMeters:info.route?.distanceMeters??null,line:'',estimated:info.estimated}];
+}
+function travelTotalMinutes(segments){return segments.reduce((n,s)=>n+(Number.isFinite(+s.minutes)?+s.minutes:0),0)}
+function travelSegmentsHtml(from,stop,withMaps){
+  return travelSegmentsFor(from,stop).map(seg=>{
+    const points=seg.from||seg.to?E(seg.from||from?.n||'')+' → '+E(seg.to||stop?.n||'')+': ':'';
+    const time=seg.minutes==null?'tempo da verificare':(seg.estimated?'~':'')+E(seg.minutes)+' min';
+    const distance=seg.distanceMeters==null?'':' · '+(seg.distanceMeters/1000).toFixed(1)+' km';
+    const line=seg.line?' · '+E(seg.line):'';
+    const map=withMaps&&seg.from&&seg.to?' · <a href="'+E(legMapUrl({n:seg.from},{n:seg.to},seg.mode))+'">Google Maps</a>':'';
+    return'<div class="travel-leg-segment">'+points+transportLabel(seg.mode)+line+' · '+time+distance+map+'</div>';
+  }).join('');
+}
+function travelSegmentsText(from,stop){return travelSegmentsFor(from,stop).map(seg=>{
+  const points=seg.from||seg.to?(seg.from||from?.n||'')+' → '+(seg.to||stop?.n||'')+': ':'';
+  const time=seg.minutes==null?'tempo da verificare':(seg.estimated?'~':'')+seg.minutes+' min';
+  return points+transportLabel(seg.mode)+(seg.line?' · '+seg.line:'')+' · '+time;
+}).join(' | ')}function legMapUrl(a,b,mode){const tm=mode==='🚶'?'walking':mode==='🚗'||mode==='🚕'?'driving':'transit';return 'https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent((a?.n||'')+(a?.addr?', '+a.addr:' '+dName()))+'&destination='+encodeURIComponent((b?.n||'')+(b?.addr?', '+b.addr:' '+dName()))+'&travelmode='+tm}
+function dayTimetable(stops,startPoint){
+  const rows=stops.map((stop,j)=>{const from=j?stops[j-1]:startPoint;const legText=from?travelSegmentsHtml(from,stop,false):'Partenza / prima tappa';return '<tr><td>'+E(stop.n)+'</td><td>'+legText+'</td><td>'+(stop.pause?E(stop.pause)+' min':'—')+'</td><td>'+E(stop.t||'—')+'</td></tr>'}).join('');
+  return '<h3 class="schedule-title">Tempistica relativa</h3><table class="schedule"><thead><tr><th>Tappa</th><th>Da precedente / partenza · mezzi e tempi</th><th>Visita</th><th>Orario</th></tr></thead><tbody>'+rows+'</tbody></table>'
+}
+
+const fd=d=>new Date(d).toLocaleDateString('it-IT',{day:'numeric',month:'long',year:'numeric'});
+function preparaContenutoStampa(){
+  if(!S.dest){alert('Scegli prima una destinazione.');return}
+  syncDays();
+  let h=`<h1>${E(S.dest.name.split(',').slice(0,2).join(','))}</h1><p>${S.start?fd(S.start):''}${S.end?' – '+fd(S.end):''} · ${S.pax} ${S.pax==1?'persona':'persone'} · ritmo ${E(S.pace||'medio')}${S.origin?' · partenza: '+E(S.origin):''}</p>`;
+  if(S.days.length>nDays())h+='<p class="wr">Attenzione: alcune giornate e tappe sono fuori dalle date selezionate.</p>';
+  if(S.wx&&(!$('pWeather')||$('pWeather').checked))h+=`<h2>Meteo previsto</h2><p>${S.wx}</p>`;
+  S.days.forEach((d,i)=>{
+    const stops=[...d.stops];
+    const routeStops=d.startPoint?[d.startPoint,...stops]:stops;const route=routeStops.length>1?'https://www.google.com/maps/dir/'+routeStops.map(s=>encodeURIComponent(stopMapQuery(s))).join('/'):'';
+    h+=`<h2>Giorno ${i+1} · ${dateOf(i)}${d.theme?' — '+E(d.theme):''} <span class="day-load">· ${stops.length} tappe</span></h2>`;
+    if(route)h+=`<p class="day-route">🗺️ <a href="${E(route)}">Apri il percorso del giorno in Google Maps</a></p>`;
+    if(stops.length)h+=dayTimetable(stops,d.startPoint);
+    if((!$('pNotes')||$('pNotes').checked)&&d.plan)h+=`<div class="day-note">📌 ${E(d.plan)}</div>`;
+    if(!$('pNotes')||$('pNotes').checked)h+='<div class="day-note">Appunti: ____________________________________________________</div>';
+    if(stops.length)h+=stops.map((s,j)=>{const from=j?stops[j-1]:d.startPoint;const travel=from?travelSegmentsHtml(from,s,true):'';return '<div class="st"><b>'+E(s.t||'Orario non indicato')+'</b> '+(s.v?'⚠️ ':'')+E(s.n)+(s.scheduleConflict?'<div class="detail wr">⚠️ Orario incompatibile con la tratta</div>':s.scheduleEstimated?'<div class="detail wr">⚠️ Orario stimato: tratta da verificare</div>':'')+(travel?'<div class="travel-leg">'+travel+'</div>':'')+(s.addr?'<div class="detail">📍 '+E(s.addr)+'</div>':'')+(s.tel?'<div class="detail">☎ '+E(s.tel)+'</div>':'')+(s.h?'<div class="detail">🕒 '+E(s.h)+' <i>(orari da OSM, verifica)</i></div>':'')+(s.hoursInfo?'<div class="detail">🕒 Orari: '+E(s.hoursInfo)+'</div>':'')+(s.reservationInfo?'<div class="detail">🎟️ Prenotazione: '+E(s.reservationInfo)+'</div>':'')+(s.costInfo?'<div class="detail">💶 Costi: '+E(s.costInfo)+'</div>':'')+(okUrl(s.infoSource)?'<div class="detail">Fonte: <a href="'+E(okUrl(s.infoSource))+'">sito ufficiale</a></div>':(s.infoSource?'<div class="detail">Fonte: '+E(s.infoSource)+'</div>':''))+(s.note?'<div class="detail"><i>'+E(s.note)+'</i></div>':'')+(s.personalNote?'<div class="detail personal-note-print"><b>Nota personale:</b> '+E(s.personalNote)+'</div>':'')+(s.pause?'<div class="detail">⏱️ Pausa / visita: '+E(s.pause)+' min</div>':'')+(s.booking?'<div class="detail">🎟️ Prenotazione: '+E(s.booking)+'</div>':'')+'<div class="detail">🌐 '+(okUrl(s.web)?'<a class="url" href="'+E(okUrl(s.web))+'">'+E(okUrl(s.web))+'</a>':(s.web?'sito non valido':'sito non indicato'))+'</div><div class="detail">📍 <a href="'+mapsUrl(s)+'">Apri tappa in Google Maps</a></div></div>'}).join('');
+
+  });
+  if(S.days.some(d=>d.stops.length)){h+='<h2>Riepilogo finale · spostamenti</h2><p class="legend">🚶 A piedi · 🚇 Metropolitana · 🚌 Autobus · 🚆 Treno · 🚕 Taxi · 🚗 Auto · 🚢 Traghetto · 🚠 Funicolare. I tempi contrassegnati ~ sono stime; verifica percorsi e orari aggiornati.</p>';S.days.forEach((d,i)=>{const stops=d.stops||[],legs=stops.map((stop,j)=>{const from=j?stops[j-1]:d.startPoint;return from?{from,to:stop,segments:travelSegmentsFor(from,stop)}:null}).filter(Boolean),total=legs.reduce((acc,leg)=>acc+travelTotalMinutes(leg.segments),0);h+='<div class="summary-day"><h3>Giorno '+(i+1)+' · '+dateOf(i)+' — '+stops.length+' tappe · trasferimenti '+(total?'~'+total+' min':'da completare')+'</h3>'+(stops.length?'<div>'+stops.map(stop=>E(stop.n)).join(' → ')+'</div>':'<div>Nessuna tappa inserita.</div>')+legs.map(leg=>'<div class="travel-leg">'+travelSegmentsHtml(leg.from,leg.to,true)+'</div>').join('')+(!d.startPoint&&stops.length?'<div class="travel-leg">Prima tappa: punto di partenza non indicato.</div>':'')+'</div>'})}const bookings=S.days.flatMap((d,i)=>(d.stops||[]).filter(s=>s.booking).map(s=>({i,s})));if(bookings.length)h+='<h2>Riepilogo prenotazioni</h2>'+bookings.map(x=>`<div class="check-item">🎟️ ${E(x.s.n)} · ${dateOf(x.i)} · ${E(x.s.booking)}</div>`).join('');
+  if(S.check.length&&(!$('pChecklist')||$('pChecklist').checked))h+='<h2>Checklist</h2>'+S.check.map(c=>`<div class="check-item">${c.d?'☑':'☐'} ${E(c.t)}</div>`).join('');
+  if(S.budget.length&&(!$('pBudget')||$('pBudget').checked)){const t=S.budget.reduce((a,b)=>a+(+b.v||0),0);h+='<h2>Budget</h2>'+S.budget.map(b=>`<div>${E(b.l)}: ${(+b.v).toFixed(2)} €</div>`).join('')+`<p><b>Totale ${t.toFixed(2)} € · a persona ${(t/(S.pax||1)).toFixed(2)} €</b></p>`}
+  $('pr').innerHTML=h;$('pr').classList.toggle('compact',$('printMode')&&$('printMode').value==='compatto');
+}
+function stampa(){preparaContenutoStampa();print()}
+window.addEventListener('beforeprint',()=>{if(S.dest)preparaContenutoStampa()});
+const TK='tp_trips',trips=()=>JSON.parse(localStorage.getItem(TK)||'{}');
+function vSalvati(){
+  const t=trips(),ids=Object.keys(t).sort((a,b)=>t[b].ts-t[a].ts);
+  return `<div class="c"><h3>Viaggi salvati</h3><p class="mu">Qui trovi le copie salvate dalla scheda Viaggio.</p>${ids.length?ids.map(id=>`<div class="s"><span><b>${E(t[id].name)}</b><br><span class="mu">${E(t[id].data.dest?.name||'Destinazione da selezionare')} · ${E(t[id].data.start||'')} → ${E(t[id].data.end||'')}</span></span><button class="g" onclick="openTrip('${id}')">Apri</button><button class="g" onclick="delTrip('${id}')">✕</button></div>`).join(''):'<p class="mu">Nessun viaggio salvato.</p>'}</div>`;
+}
+async function saveTrip(){const typedName=$('tn').value.trim();if(!(await ensureDestination()))return;const name=typedName||dName()+(S.start?' '+S.start.slice(0,4):'')||'Viaggio',t=trips();
+  const existing=Object.keys(t).find(k=>t[k].name==name);if(existing&&!confirm('Esiste già un viaggio salvato con questo nome. Vuoi aggiornarlo?'))return;const saveId=existing||'t'+Date.now();t[saveId]={name,ts:Date.now(),data:JSON.parse(JSON.stringify(S))};localStorage.setItem(TK,JSON.stringify(t));alert('Viaggio salvato nella scheda Salvati.')}
+function openTrip(id){const t=trips();if(!t[id]||!confirm('Aprire questo viaggio? Le modifiche non salvate di quello attuale andranno perse.'))return;
+  S=Object.assign(blank(),JSON.parse(JSON.stringify(t[id].data)));itineraryDay=0;if(!S.dest&&!S.destQuery){const fallback=String(t[id].name||'').replace(/\b20\d{2}\b/g,'').replace(/\b(viaggio|vacanza)\b/ig,'').trim();if(fallback)S.destQuery=fallback}save();navigateTab('viaggio');if(!S.dest&&!S.destQuery)alert('Questo viaggio salvato non contiene una destinazione. Inserisci la città nella ricerca e premi Cerca; se il risultato è univoco verrà selezionato automaticamente.')}
+function delTrip(id){if(!confirm('Eliminare il viaggio salvato?'))return;const t=trips();delete t[id];localStorage.setItem(TK,JSON.stringify(t));render()}
+const blank=()=>({dest:null,destQuery:'',destQueryFor:'',origin:'',start:'',end:'',pax:2,pref:'',pace:'medio',days:[],check:[],budget:[],wx:null});
+function hasCurrentTripData(){return !!(S.dest||S.destQuery||S.start||S.end||S.days.some(d=>(d.stops||[]).length||d.startPlace||d.theme||d.plan)||S.check.length||S.budget.length)}
+function newTrip(){if(hasCurrentTripData()&&!confirm('Il viaggio corrente verrà sostituito nella schermata principale. Per conservarlo, salvalo o esporta un backup completo. Vuoi continuare?'))return;S=blank();itineraryDay=0;res=[];cand={d:-1,l:[],msg:'',q:'',t:''};busy='';save();navigateTab('viaggio')}
+window.addEventListener('storage',e=>{if(e.key!==KEY)return;try{const incoming=e.newValue?JSON.parse(e.newValue):blank();if(!incoming||typeof incoming!=='object'||Array.isArray(incoming))return;if(!Array.isArray(incoming.days))incoming.days=[];S=Object.assign(blank(),incoming);res=[];cand={d:-1,l:[],msg:'',q:'',t:''};busy='';render()}catch(e){}});
+initPwa();render();
+</script></body></html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
