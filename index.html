@@ -21,6 +21,13 @@ button.g{background:none;border:1px solid var(--bd);color:var(--tx);border-radiu
 .mu{color:var(--mu);font-size:13px}.wr{color:var(--wr)}a{color:var(--ac)}
 .s{display:flex;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--bd)}.s b{min-width:46px}.s span{flex:1}
 .stop-main{min-width:0;flex:1}
+.stop-row{align-items:flex-start}
+.stop-time-actions{flex:0 0 105px;display:flex;flex-direction:column;gap:4px}
+.stop-time-actions input[type=time]{width:100%;min-width:0;flex:none;margin:0;padding:5px}
+.stop-icon-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+.stop-icon-actions button{min-width:0;min-height:44px;padding:3px;border-radius:9px;font-size:18px;line-height:1}
+.stop-icon-actions button:disabled{opacity:.42;cursor:not-allowed}
+.stop-icon-actions .stop-remove{color:var(--wr)}
 .stop-detail-toggle{font-size:.85em;padding:5px 8px;margin:3px 0}
 .stop-details[hidden]{display:none}
 .stop-details{padding:5px 0;line-height:1.45}
@@ -43,6 +50,11 @@ main:not(.itin-grid){max-width:780px}
 .c h3{margin:0 0 12px;font-size:17px;letter-spacing:-.015em}
 .r{display:flex;gap:10px;align-items:stretch}
 .r>*{min-width:0}
+.archive-actions{align-items:end}
+.archive-actions>button{flex:1 1 150px}
+.archive-actions>label{flex:2 1 220px}
+.archive-backup{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.archive-backup button{flex:1 1 180px}
 label{display:block;font-weight:550;font-size:13px;color:var(--mu)}
 input,select,textarea{min-height:42px;margin:5px 0 10px;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--card);color:var(--tx);font:inherit;transition:border-color .15s,box-shadow .15s}
 input:focus,select:focus,textarea:focus{outline:0;border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 18%,transparent)}
@@ -79,7 +91,7 @@ a{color:var(--ac);text-underline-offset:2px}
   .r>button{flex:1 1 auto!important}
   .itin-grid{display:block}
   .s{flex-wrap:wrap;align-items:flex-start}
-  .s>input[type=time]{flex:0 0 100px!important}
+  .stop-time-actions{flex-basis:100px}
   .s>span{flex:1 1 calc(100% - 110px)}
   .stop-edit{padding:10px;margin-top:-5px}
   .stop-edit label{flex:1 1 100%}
@@ -114,9 +126,8 @@ a{color:var(--ac);text-underline-offset:2px}
   .destination-search button{flex:1 1 100%!important}
   .trip-dates>div{min-width:0;flex:1 1 145px}
   .s{gap:6px;padding:9px 0}
-  .s>input[type=time]{flex:0 0 105px!important;min-height:44px}
+  .stop-time-actions{flex-basis:105px}
   .stop-main{flex:1 1 180px;min-width:0;overflow-wrap:anywhere}
-  .s>button{flex:0 0 44px;min-height:44px;padding:6px}
   .stop-detail-toggle{min-height:40px}
   .stop-edit-details{margin:0 0 8px 0}
   .stop-edit{padding:8px 2px 12px;margin:0}
@@ -177,15 +188,9 @@ header>span{display:block}
 .day-picker button{flex:0 0 auto;min-width:84px;border:1px solid #d5e3dc;border-radius:12px;background:#fff;color:#31584d;padding:9px 12px}
 .day-picker button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
 .tools-menu{display:inline-block;vertical-align:middle}
-.tools-menu>summary{display:inline-flex;align-items:center;min-height:44px;padding:8px 12px;border:1px solid #d5e3dc;border-radius:12px;background:#fff;color:#31584d;cursor:pointer;list-style:none}
+.tools-menu>summary{display:inline-flex;align-items:center;min-height:44px;padding:8px 12px;border:1px solid var(--ac);border-radius:12px;background:var(--soft);color:#31584d;font-weight:650;cursor:pointer;list-style:none}
 .tools-menu>summary::-webkit-details-marker{display:none}
 .tools-content{margin-top:8px;padding:10px;border:1px solid #d5e3dc;border-radius:12px;background:#f8fbf9}
-.stop-management{margin:0 0 2px 54px;padding:2px 0 10px;border-bottom:1px solid var(--bd)}
-.stop-management>b{display:block;margin:0 0 6px;color:var(--mu);font-size:13px}
-.stop-action-buttons{display:flex;flex-wrap:wrap;gap:6px}
-.stop-action-buttons button{flex:1 1 170px;min-width:0;min-height:44px;text-align:left}
-.stop-action-buttons button:disabled{opacity:.45;cursor:not-allowed}
-.stop-action-buttons .stop-remove{color:var(--wr)}
 @media(max-width:760px){
   body{padding-bottom:calc(74px + env(safe-area-inset-bottom))}
   main{padding-bottom:20px}
@@ -197,8 +202,6 @@ header>span{display:block}
   .header-actions button{min-width:40px;min-height:40px}
   .next-row button{width:100%}
   .day-picker{position:sticky;top:0;z-index:4;background:var(--bg);padding:7px 0}
-  .stop-management{margin:0;padding:2px 0 10px}
-  .stop-action-buttons button{flex:1 1 100%;text-align:left}
 }
 @media print{.header-actions,.day-picker,.next-row,.tools-menu{display:none!important}}
 :root{color-scheme:light;--bg:#f2f8ff;--card:#fff;--tx:#203247;--mu:#526779;--ac:#086b75;--bd:#d5e3ef;--wr:#963f22;--soft:#e5f4f3;--shadow:0 5px 18px rgba(32,66,91,.07)}
@@ -221,7 +224,7 @@ nav button.on{background:#e5f4f3;color:#075963;border-color:#086b75;font-weight:
 .destination-search button{min-width:88px;flex:none;white-space:nowrap}
 .install-home{margin-top:8px}
 </style></head><body>
- <header><span>🧭 I miei viaggi<small id="sub">Scegli una destinazione qualsiasi e pianifica</small></span><div class="header-actions"><button type="button" aria-label="Viaggi salvati" title="Viaggi salvati" onclick="navigateTab('salvati')">💾</button><button type="button" aria-label="Dati e impostazioni" title="Dati e impostazioni" onclick="navigateTab('dati')">⚙️</button></div></header>
+ <header><span>🧭 I miei viaggi<small id="sub">Scegli una destinazione qualsiasi e pianifica</small></span><div class="header-actions"><button type="button" aria-label="Archivio" title="Archivio viaggi" onclick="navigateTab('salvati')">📂</button><button type="button" aria-label="Impostazioni" title="Impostazioni" onclick="navigateTab('dati')">⚙️</button></div></header>
 <div id="offlineStatus" class="offline-status" role="status" aria-live="polite" hidden>Sei offline: puoi consultare e modificare i dati già salvati. Ricerca, Gemini, meteo e servizi cartografici richiedono una connessione.</div>
 <nav id="nav"></nav><main id="m"></main><div id="pr"></div>
 <script>
@@ -233,7 +236,7 @@ let tab=VALID_TABS.includes(requestedTab)?requestedTab:VALID_TABS.includes(remem
 const save=()=>localStorage.setItem(KEY,JSON.stringify(S));
 const E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const $=id=>document.getElementById(id);
-const TABS={viaggio:['🧭','Viaggio'],itin:['🗓️','Itinerario'],prenota:['🎫','Prenota'],budget:['💶','Budget']};
+const TABS={viaggio:['🧭','Viaggio'],itin:['🗓️','Itinerario'],prenota:['🎫','Preparativi'],budget:['💶','Budget']};
 let pendingInstallPrompt=null;
 function standaloneMode(){return !!(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true}
 function syncInstallButton(){const button=$('installApp');if(button)button.hidden=!pendingInstallPrompt||standaloneMode()}
@@ -261,8 +264,7 @@ function render(){
 }
 function vViaggio(){
   if(nDays())syncDays();
-  return `<div class="c"><h3>Gestione viaggio</h3><div class="r"><button class="g" type="button" onclick="newTrip()">➕ Nuovo viaggio</button><div><label>Nome del viaggio da salvare</label><input id="tn" placeholder="Es. Napoli ottobre 2026" value="${E(S.dest?dName()+' '+(S.start||'').slice(0,4):'')}"></div><button class="b" type="button" onclick="saveTrip()">💾 Salva viaggio</button></div><p class="mu">Un nuovo viaggio parte con tutte le schede vuote. I viaggi già salvati restano nella scheda Salvati.</p><button id="installApp" class="g install-home" type="button" hidden onclick="installPwa()">📲 Installa I miei viaggi</button></div>
-  <div class="c"><h3>Destinazione</h3>
+  return `<div class="c"><h3>Destinazione</h3>
   <div class="r destination-search"><input id="q" value="${E(S.destQuery||'')}" placeholder="Città, regione o Paese (es. Lisbona, Giappone…)" oninput="S.destQuery=this.value;save()" onkeydown="if(event.key=='Enter')cerca()"><button class="b" style="flex:0" onclick="cerca()">Cerca</button></div><p class="mu">Se la ricerca trova una sola località viene selezionata automaticamente. Se ne trova più di una, scegli quella corretta.</p>
   <div id="rs">${res.map((r,i)=>`<div class="s"><span>${E(r.display_name)}</span><button class="g" onclick="scegli(${i})">Scegli</button></div>`).join('')}</div>
   ${S.dest?`<p>📍 <b>${E(S.dest.name)}</b></p>`:''}</div>
@@ -288,7 +290,7 @@ async function cerca(queryValue){
 }
 function nextButton(next,label){return `<div class="next-row"><button type="button" class="b" onclick="navigateTab('${next}',{scroll:true})">${label} →</button></div>`}
 async function ensureDestination(){const q=String(S.destQuery||$('q')?.value||'').trim();if(S.dest&&(!q||q===S.destQueryFor))return true;if(!q){alert('Inserisci una città e premi Cerca.');return false}await cerca(q);if(S.dest&&S.destQuery===S.destQueryFor)return true;if(res.length>1)alert('Ho trovato più località: scegli quella corretta prima di salvare o chiedere il meteo.');else if(!S.dest||S.destQuery!==S.destQueryFor)alert('Non ho trovato una località univoca. Controlla il nome e la connessione, poi riprova.');return false}
-function scegli(i){const r=res[i];if(!r)return;const dest={name:r.display_name,lat:+r.lat,lon:+r.lon},changed=!!S.dest&&S.dest.name!==dest.name,hasData=S.days.some(d=>d.stops?.length)||S.check.length||S.budget.length;if(changed&&hasData){if(!confirm('Stai cambiando destinazione. Vuoi rimuovere dal viaggio attivo le tappe, la checklist e il budget della destinazione precedente? Le copie salvate nella scheda Salvati non verranno toccate.')){res=[];render();return}S.days=[];S.check=[];S.budget=[]}S.dest=dest;S.destQueryFor=S.destQuery||'';res=[];S.wx=null;save();render()}
+function scegli(i){const r=res[i];if(!r)return;const dest={name:r.display_name,lat:+r.lat,lon:+r.lon},changed=!!S.dest&&S.dest.name!==dest.name,hasData=S.days.some(d=>d.stops?.length)||S.check.length||S.budget.length;if(changed&&hasData){if(!confirm('Stai cambiando destinazione. Vuoi rimuovere dal viaggio attivo le tappe, la checklist e il budget della destinazione precedente? Le copie salvate nell’Archivio non verranno toccate.')){res=[];render();return}S.days=[];S.check=[];S.budget=[]}S.dest=dest;S.destQueryFor=S.destQuery||'';res=[];S.wx=null;save();render()}
 async function meteo(){
   if(!(await ensureDestination()))return;if(!S.start||!S.end||!nDays()){if($('wx'))$('wx').textContent='Inserisci date di partenza e ritorno valide.';return}
   $('wx').textContent='Carico…';
@@ -328,19 +330,19 @@ function vItin(){
   syncDays();
   itineraryDay=Math.min(itineraryDay,Math.max(0,nDays()-1));
   const hasKey=!!localStorage.getItem(AK),locationIssues=S.days.flatMap(d=>d.stops||[]).filter(s=>!hasCoords(s)||s.locationIssue).length;
-  let h=(S.days.length>nDays()?'<div class="c wr">Attenzione: ci sono '+(S.days.length-nDays())+' giornate con tappe oltre le date selezionate. Rivedi le date oppure elimina le tappe extra dalla giornata corrispondente.</div>':'')+`<div class="c np"><button class="b" onclick="genAI()" ${busy?'disabled':''}>${busy||'✨ Genera bozza con AI'}</button> <details class="tools-menu"><summary>🛠️ Strumenti</summary><div class="tools-content"><button class="g" onclick="stampa()">🖨️ Stampa itinerario</button> <button class="g" onclick="arricchisciAI()" ${busy?'disabled':''}>📚 Approfondisci descrizioni</button>
+  let h=(S.days.length>nDays()?'<div class="c wr">Attenzione: ci sono '+(S.days.length-nDays())+' giornate con tappe oltre le date selezionate. Rivedi le date oppure elimina le tappe extra dalla giornata corrispondente.</div>':'')+`<div class="c np"><button class="b" onclick="genAI()" ${busy?'disabled':''}>${busy||'✨ Genera bozza con AI'}</button> <details class="tools-menu"><summary>🛠️ Strumenti itinerario</summary><div class="tools-content"><button class="g" onclick="stampa()">🖨️ Stampa itinerario</button> <button class="g" onclick="arricchisciAI()" ${busy?'disabled':''}>📚 Approfondisci descrizioni</button>
   <div class="r np" style="margin-top:8px;align-items:end"><div><label>Formato</label><select id="printMode"><option value="dettagliato">Dettagliato</option><option value="compatto">Compatto</option></select></div><div><label><input id="pWeather" type="checkbox" checked style="width:auto"> Meteo</label><br><label><input id="pChecklist" type="checkbox" checked style="width:auto"> Checklist</label><br><label><input id="pBudget" type="checkbox" checked style="width:auto"> Budget</label><br><label><input id="pNotes" type="checkbox" checked style="width:auto"> Note e spazio appunti</label></div></div></div></details>
-   <p class="mu">${hasKey?'Gemini sceglie; con una chiave OpenRouteService usa anche distanze e tempi pedonali su rete stradale. Le durate con ~ sono stime, non orari o coincidenze confermati; controlla sempre i servizi aggiornati. Orari, prezzi e punti dubbi sono segnati ⚠️.':'Per la bozza AI inserisci la chiave Gemini nella scheda Dati, oppure aggiungi le tappe cercandole per nome.'}</p></div>`;
+   <p class="mu">${hasKey?'Gemini sceglie; con una chiave OpenRouteService usa anche distanze e tempi pedonali su rete stradale. Le durate con ~ sono stime, non orari o coincidenze confermati; controlla sempre i servizi aggiornati. Orari, prezzi e punti dubbi sono segnati ⚠️.':'Per la bozza AI inserisci la chiave Gemini in Impostazioni, oppure aggiungi le tappe cercandole per nome.'}</p></div>`;
    if(locationIssues)h+=`<div class="c np"><b>📍 ${locationIssues} ${locationIssues===1?'tappa da verificare':'tappe da verificare'}</b><p class="mu">Puoi ripetere la ricerca cartografica solo per le posizioni non confermate.</p><button class="g" type="button" onclick="rilocalizzaTappeNonConfermate()" ${busy?'disabled':''}>🔄 Rilocalizza tappe da verificare</button></div>`;
   h+='<div class="day-picker" role="tablist" aria-label="Scegli giornata">'+S.days.slice(0,nDays()).map((d,i)=>`<button type="button" role="tab" aria-selected="${i===itineraryDay}" class="${i===itineraryDay?'on':''}" onclick="itineraryDay=${i};render()">Giorno ${i+1}</button>`).join('')+'</div>';
   S.days.forEach((d,i)=>{if(i!==itineraryDay)return;
     const routeStops=d.startPoint?[d.startPoint,...d.stops]:d.stops;const route=routeStops.length?'https://www.google.com/maps/dir/'+routeStops.map(s=>encodeURIComponent(stopMapQuery(s))).join('/'):'';
     h+=`<div class="c day-card"><h3>Giorno ${i+1} · ${dateOf(i)}${d.theme?' — '+E(d.theme):''} <span class="day-load">· ${d.stops.length} tappe · carico ${d.stops.length<=3?'leggero':d.stops.length<=5?'medio':'intenso'}</span></h3><button class="g np" type="button" onclick="ottimizzaGiornata(${i})">📏 Ordina per distanza</button> <button class="b np" type="button" onclick="ottimizzaConGemini(${i})" ${busy?'disabled':''}>${busy?'⏳ '+E(busy):'✨ Ottimizza con Gemini'}</button><div class="np"><label>Partenza della giornata · hotel o altro luogo<input placeholder="Es. Hotel ABC, Napoli" value="${E(d.startPlace||d.startPoint?.n||'')}" onchange="setDayStart(${i},this.value)"></label><button class="g" type="button" onclick="useCurrentLocation(${i})">📍 Usa posizione attuale</button></div><div class="np"><label>Tema della giornata<input placeholder="Es. centro storico e musei" value="${E(d.theme||'')}" onchange="S.days[${i}].theme=this.value;save()"></label><label>Pasti, pause e programma del giorno<input placeholder="Es. pranzo 13:00, pausa in hotel" value="${E(d.plan||'')}" onchange="S.days[${i}].plan=this.value;save()"></label></div>`+
-    d.stops.map((s,j)=>`<div class="s"><input class="np" type="time" aria-label="Orario per ${E(s.n)}" title="Modifica orario" value="${E(s.t||'09:00')}" style="width:105px;flex:0 0 105px;margin:0;padding:5px" onchange="S.days[${i}].stops[${j}].t=this.value;S.days[${i}].stops[${j}].tAuto=false;S.days[${i}].stops[${j}].scheduleConflict=false;save()"><div class="stop-main">${s.v?'<span class="wr">⚠️</span> ':''}<a href="${mapsUrl(s)}" target="_blank" rel="noopener">📍 ${E(s.n)}</a>${s.locationIssue?' <span class="wr">⚠️ '+E(s.locationIssue)+'</span>':''}${s.scheduleConflict?' <span class="wr">⚠️ Orario incompatibile con la tratta</span>':s.scheduleEstimated?' <span class="wr">⚠️ Orario stimato: tratta da verificare</span>':''}${stopDetailsHtml(s,i,j)}${j||S.days[i].startPoint?'<br><span class="mu">'+travelSegmentsText(S.days[i].stops[j-1]||S.days[i].startPoint,s)+'</span>':''}</div></div><details class="np stop-edit-details" ${s.editOpen?'open':''} ontoggle="S.days[${i}].stops[${j}].editOpen=this.open"><summary>⚙️ Opzioni della tappa</summary><div class="stop-management"><b>Azioni della tappa</b><div class="stop-action-buttons"><button class="g" type="button" ${j===0?'disabled':''} onclick="moveStop(${i},${j},-1)">↑ Sposta in alto</button><button class="g" type="button" ${j===S.days[i].stops.length-1?'disabled':''} onclick="moveStop(${i},${j},1)">↓ Sposta in basso</button><button class="g" type="button" onclick="fill(${i},${j})">🔄 Correggi indirizzo e posizione</button><button class="g stop-remove" type="button" onclick="S.days[${i}].stops.splice(${j},1);save();render()">🗑️ Rimuovi tappa</button></div></div><div class="stop-edit"><label>Mezzo dalla tappa precedente<select aria-label="Mezzo consigliato fino a ${E(s.n)}" onchange="S.days[${i}].stops[${j}].transport=this.value;save();render()">${transportOptions(s.transport||recommendLeg(S.days[i].stops[j-1]||S.days[i].startPoint,s))}</select></label><label>Tempo di percorrenza (minuti)<input type="number" min="0" step="1" placeholder="es. 15" value="${E(s.move||'')}" onchange="S.days[${i}].stops[${j}].move=this.value;save();render()"></label><label>Pausa / visita (minuti)<input type="number" min="0" step="5" placeholder="es. 60" value="${E(s.pause||'')}" onchange="S.days[${i}].stops[${j}].pause=this.value;save();render()"></label><label class="wide">Riferimento prenotazione<input placeholder="Codice o nota prenotazione" value="${E(s.booking||'')}" onchange="S.days[${i}].stops[${j}].booking=this.value;save()"></label><label class="wide">Nota personale (facoltativa)<textarea rows="2" maxlength="280" placeholder="Es. biglietti nel telefono, preferenza personale..." oninput="S.days[${i}].stops[${j}].personalNote=this.value;save()">${E(s.personalNote||'')}</textarea></label></div></details>`).join('')+
+    d.stops.map((s,j)=>`<div class="s stop-row"><div class="stop-time-actions"><input class="np" type="time" aria-label="Orario per ${E(s.n)}" title="Modifica orario" value="${E(s.t||'09:00')}" style="width:105px;flex:0 0 105px;margin:0;padding:5px" onchange="S.days[${i}].stops[${j}].t=this.value;S.days[${i}].stops[${j}].tAuto=false;S.days[${i}].stops[${j}].scheduleConflict=false;save()"><div class="stop-icon-actions"><button class="g" type="button" title="Sposta tappa in alto" aria-label="Sposta ${E(s.n)} in alto" ${j===0?'disabled':''} onclick="moveStop(${i},${j},-1)">↑</button><button class="g" type="button" title="Sposta tappa in basso" aria-label="Sposta ${E(s.n)} in basso" ${j===S.days[i].stops.length-1?'disabled':''} onclick="moveStop(${i},${j},1)">↓</button><button class="g" type="button" title="Correggi indirizzo e posizione" aria-label="Correggi indirizzo e posizione di ${E(s.n)}" onclick="fill(${i},${j})">🔄</button><button class="g stop-remove" type="button" title="Elimina tappa" aria-label="Elimina ${E(s.n)}" onclick="S.days[${i}].stops.splice(${j},1);save();render()">🗑️</button></div></div><div class="stop-main">${s.v?'<span class="wr">⚠️</span> ':''}<a href="${mapsUrl(s)}" target="_blank" rel="noopener">📍 ${E(s.n)}</a>${s.locationIssue?' <span class="wr">⚠️ '+E(s.locationIssue)+'</span>':''}${s.scheduleConflict?' <span class="wr">⚠️ Orario incompatibile con la tratta</span>':s.scheduleEstimated?' <span class="wr">⚠️ Orario stimato: tratta da verificare</span>':''}${stopDetailsHtml(s,i,j)}${j||S.days[i].startPoint?'<br><span class="mu">'+travelSegmentsText(S.days[i].stops[j-1]||S.days[i].startPoint,s)+'</span>':''}</div></div><details class="np stop-edit-details" ${s.editOpen?'open':''} ontoggle="S.days[${i}].stops[${j}].editOpen=this.open"><summary>⚙️ Opzioni della tappa</summary><div class="stop-edit"><label>Mezzo dalla tappa precedente<select aria-label="Mezzo consigliato fino a ${E(s.n)}" onchange="S.days[${i}].stops[${j}].transport=this.value;save();render()">${transportOptions(s.transport||recommendLeg(S.days[i].stops[j-1]||S.days[i].startPoint,s))}</select></label><label>Tempo di percorrenza (minuti)<input type="number" min="0" step="1" placeholder="es. 15" value="${E(s.move||'')}" onchange="S.days[${i}].stops[${j}].move=this.value;save();render()"></label><label>Pausa / visita (minuti)<input type="number" min="0" step="5" placeholder="es. 60" value="${E(s.pause||'')}" onchange="S.days[${i}].stops[${j}].pause=this.value;save();render()"></label><label class="wide">Riferimento prenotazione<input placeholder="Codice o nota prenotazione" value="${E(s.booking||'')}" onchange="S.days[${i}].stops[${j}].booking=this.value;save()"></label><label class="wide">Nota personale (facoltativa)<textarea rows="2" maxlength="280" placeholder="Es. biglietti nel telefono, preferenza personale..." oninput="S.days[${i}].stops[${j}].personalNote=this.value;save()">${E(s.personalNote||'')}</textarea></label></div></details>`).join('')+
     `<div class="r np" style="margin-top:8px"><input id="t${i}" type="time" style="flex:0 0 110px" value="${cand.d==i?E(cand.t):''}"><input id="n${i}" placeholder="Nome o indirizzo da cercare sul web" value="${cand.d==i?E(cand.q):''}" onkeydown="if(event.key=='Enter')cercaStop(${i})"><button class="b" style="flex:0" onclick="cercaStop(${i})">Cerca</button></div>`+
     (cand.d==i?`<div class="np">${cand.msg?`<p class="mu">${E(cand.msg)}</p>`:''}${cand.l.map((c,k)=>`<div class="s"><span><b>${E(c.n)}</b><br><span class="mu">${E(c.addr)}</span><br>${c.web?'🌐 '+E(new URL(c.web).hostname):'<span class="mu">sito non indicato su OSM</span>'}</span><button class="g" onclick="pick(${i},${k})">Aggiungi</button></div>`).join('')}${cand.q&&cand.msg!='Cerco…'?`<button class="g" onclick="pick(${i},-1)">Aggiungi solo il nome</button>`:''}</div>`:'')+
     (route?`<p><a href="${route}" target="_blank" rel="noopener">🗺️ Percorso del giorno</a></p>`:'')+`</div>`});
-  return h+nextButton('prenota','Avanti: Prenota');
+  return h+nextButton('prenota','Avanti: Preparativi');
 }
 async function setDayStart(i,value){
   const d=S.days[i],name=String(value||'').trim();d.startPlace=name;d.startPoint=name?{n:name}:null;save();
@@ -386,7 +388,7 @@ async function fill(i,j){
     if(!hasCoords(c)){alert('Il risultato non contiene coordinate utilizzabili. La tappa non è stata modificata.');return}
     if(!confirm('Posizione trovata:\n'+c.n+'\n'+(c.addr||'Indirizzo non disponibile')+'\nCoordinate: '+c.lat+', '+c.lon+'\n\nUsare questa posizione per “'+s.n+'”?\n\nPremi Annulla per inserire un indirizzo, un link Maps o coordinate diverse.')){await manualStopLocation(s);return}
     applyStopLocation(s,c);
-  }catch(e){alert('Ricerca cartografica non riuscita. Controlla la connessione e, se usi OpenRouteService, la chiave nella scheda Dati.');return}
+  }catch(e){alert('Ricerca cartografica non riuscita. Controlla la connessione e, se usi OpenRouteService, la chiave in Impostazioni.');return}
   save();render();
 }
 function parseMapCoordinates(value){const text=String(value||'').replace(/%2c/ig,','),match=text.match(/@\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)/)||text.match(/!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/)||text.match(/[?&]query=(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)(?:&|$)/i)||text.match(/^\s*(-?\d+(?:\.\d+)?)\s*[,;]\s*(-?\d+(?:\.\d+)?)\s*$/);if(!match)return null;const lat=Number(match[1]),lon=Number(match[2]);return Number.isFinite(lat)&&Number.isFinite(lon)&&Math.abs(lat)<=90&&Math.abs(lon)<=180?{lat,lon}:null}
@@ -400,7 +402,7 @@ function ricalcolaOrariAutomatici(day,original){
 function formatMinute(m){m=((m%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')}
 function ricalcolaOrariDopoRiordino(day,original){if(!day.stops?.length)return;const mins=original.map(x=>{const p=String(x.t||'09:00').split(':');return(+p[0])*60+(+p[1]||0)});let cursor=Math.min(...mins);for(let i=0;i<day.stops.length;i++){const stop=day.stops[i];stop.scheduleEstimated=false;stop.scheduleConflict=false;if(stop.tAuto===false){const p=String(stop.t||'09:00').split(':');const fixed=(+p[0])*60+(+p[1]||0);stop.scheduleConflict=fixed<cursor;cursor=Math.max(cursor,fixed)}else stop.t=formatMinute(cursor);if(i<day.stops.length-1){const pause=stop.pause===''||stop.pause==null?45:Math.max(0,+stop.pause||0),segments=travelSegmentsFor(stop,day.stops[i+1]),complete=segments.length&&segments.every(x=>x.minutes!=null&&Number.isFinite(+x.minutes)),info=legInfo(stop,day.stops[i+1]);let move=complete?travelTotalMinutes(segments):+info.minutes;if(!Number.isFinite(move)){move=30;day.stops[i+1].scheduleEstimated=true}cursor+=pause+move}}}
 async function ottimizzaConGemini(i){
-  const key=localStorage.getItem(AK);if(!key){alert('Per ottimizzare con Gemini configura prima la chiave nella scheda Dati.');navigateTab('dati');return}
+  const key=localStorage.getItem(AK);if(!key){alert('Per ottimizzare con Gemini configura prima la chiave in Impostazioni.');navigateTab('dati');return}
   if(busy)return;busy='Avvio ottimizzazione…';render();
   try{await ottimizzaConGeminiInterno(i)}catch(e){alert('Errore nell’ottimizzazione Gemini: '+(e?.message||e))}finally{busy='';render()}
 }
@@ -547,18 +549,15 @@ function vBudget(){
 }
 function addB(){const l=$('bl').value.trim(),v=parseFloat($('bv').value);if(!l||isNaN(v))return;S.budget.push({l,v});save();render()}
 function vDati(){
-  return `<div class="c"><h3>Manuale utente</h3><p class="mu">Guida alle funzioni dell’app, ai backup e alle chiavi API.</p><a class="b" style="display:inline-block;text-decoration:none" href="./Manuale_utente_I_miei_viaggi.pdf" target="_blank" rel="noopener">📘 Apri il manuale (PDF)</a></div>
+  return `<div class="c"><h3>Installazione</h3><button id="installApp" class="b" type="button" hidden onclick="installPwa()">📲 Installa I miei viaggi</button><p class="mu">Installa l’app sulla schermata Home quando il browser rende disponibile l’opzione.</p></div>
+  <div class="c"><h3>Manuale utente</h3><p class="mu">Guida alle funzioni dell’app, ai backup e alle chiavi API.</p><a class="b" style="display:inline-block;text-decoration:none" href="./Manuale_utente_I_miei_viaggi.pdf" target="_blank" rel="noopener">📘 Apri il manuale (PDF)</a></div>
   <div class="c"><h3>Chiave Gemini (facoltativa)</h3><input id="ak" type="password" placeholder="La tua API key" value="${E(localStorage.getItem(AK)||'')}">
   <button class="b" onclick="localStorage.setItem(AK,$('ak').value.trim());alert('Chiave salvata su questo dispositivo')">Salva</button>
   <p class="mu">La chiave resta solo nel tuo browser. Serve per generare e ottimizzare l’itinerario con Gemini.</p><p><a class="b" style="display:inline-block;text-decoration:none" href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">🔑 Ottieni una chiave API Gemini</a></p></div>
   <div class="c"><h3>Chiave OpenRouteService (facoltativa)</h3><input id="orsk" type="password" placeholder="La tua API key OpenRouteService" value="${E(localStorage.getItem(ORK)||'')}">
   <button class="b" onclick="localStorage.setItem(ORK,$('orsk').value.trim());alert('Chiave OpenRouteService salvata su questo dispositivo')">Salva</button>
   <p class="mu">Serve per calcolare distanze e tempi pedonali e cercare tappe che OpenStreetMap non trova su rete OpenStreetMap e migliorare l’ordine suggerito da Gemini. La chiave resta solo nel browser. Percorsi forniti da OpenRouteService · dati OpenStreetMap.</p>
-  <p class="mu"><a href="https://openrouteservice.org/dev/#/signup" target="_blank" rel="noopener">Ottieni una chiave gratuita</a></p></div>
-  <div class="c"><h3>Dati e backup</h3><button class="g" onclick="exp()">⬇️ Esporta viaggio corrente</button> <button class="g" onclick="expBackup()">🛟 Esporta backup completo</button> <button class="g" onclick="$('f').click()">⬆️ Importa viaggio o backup</button> <button class="g" onclick="stampa()">🖨️ Stampa</button>
-  <input id="f" type="file" accept=".json" style="display:none" onchange="imp(this.files[0]);this.value=''">
-  <p class="mu">Il backup completo comprende il viaggio corrente e quelli salvati. Le chiavi API non vengono esportate.</p>
-  <p><button class="g" onclick="if(confirm('Cancellare tutto il viaggio?')){localStorage.removeItem('${KEY}');location.reload()}">🗑️ Nuovo viaggio</button></p></div>`;
+  <p class="mu"><a href="https://openrouteservice.org/dev/#/signup" target="_blank" rel="noopener">Ottieni una chiave gratuita</a></p></div>`;
 }
 function downloadJson(data,name){const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 function safeFileName(value){return String(value||'viaggio').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'viaggio'}
@@ -648,16 +647,19 @@ window.addEventListener('beforeprint',()=>{if(S.dest)preparaContenutoStampa()});
 const TK='tp_trips',trips=()=>JSON.parse(localStorage.getItem(TK)||'{}');
 function vSalvati(){
   const t=trips(),ids=Object.keys(t).sort((a,b)=>t[b].ts-t[a].ts);
-  return `<div class="c"><h3>Viaggi salvati</h3><p class="mu">Qui trovi le copie salvate dalla scheda Viaggio.</p>${ids.length?ids.map(id=>`<div class="s"><span><b>${E(t[id].name)}</b><br><span class="mu">${E(t[id].data.dest?.name||'Destinazione da selezionare')} · ${E(t[id].data.start||'')} → ${E(t[id].data.end||'')}</span></span><button class="g" onclick="openTrip('${id}')">Apri</button><button class="g" onclick="delTrip('${id}')">✕</button></div>`).join(''):'<p class="mu">Nessun viaggio salvato.</p>'}</div>`;
+  return `<div class="c"><h3>Archivio</h3><p class="mu">Crea o salva il viaggio attivo, importa un viaggio o un backup, oppure riapri una copia salvata.</p>
+  <div class="r archive-actions"><button class="g" type="button" onclick="newTrip()">➕ Nuovo viaggio</button><label>Nome del viaggio da salvare<input id="tn" placeholder="Es. Napoli ottobre 2026" value="${E(S.dest?dName()+' '+(S.start||'').slice(0,4):'')}"></label><button class="b" type="button" onclick="saveTrip()">💾 Salva viaggio attivo</button></div>
+  <div class="archive-backup"><button class="g" onclick="exp()">⬇️ Esporta viaggio attivo</button> <button class="g" onclick="expBackup()">🛟 Esporta backup completo</button> <button class="g" onclick="$('f').click()">⬆️ Importa viaggio o backup</button><input id="f" type="file" accept=".json" style="display:none" onchange="imp(this.files[0]);this.value=''"></div><p class="mu">Il backup completo include il viaggio attivo e quelli salvati. Le chiavi API non vengono esportate.</p></div>
+  <div class="c"><h3>Viaggi salvati</h3>${ids.length?ids.map(id=>`<div class="s"><span><b>${E(t[id].name)}</b><br><span class="mu">${E(t[id].data.dest?.name||'Destinazione da selezionare')} · ${E(t[id].data.start||'')} → ${E(t[id].data.end||'')}</span></span><button class="g" onclick="openTrip('${id}')">Apri</button><button class="g" title="Elimina viaggio salvato" aria-label="Elimina ${E(t[id].name)}" onclick="delTrip('${id}')">🗑️</button></div>`).join(''):'<p class="mu">Nessun viaggio salvato.</p>'}</div>`;
 }
 async function saveTrip(){const typedName=$('tn').value.trim();if(!(await ensureDestination()))return;const name=typedName||dName()+(S.start?' '+S.start.slice(0,4):'')||'Viaggio',t=trips();
-  const existing=Object.keys(t).find(k=>t[k].name==name);if(existing&&!confirm('Esiste già un viaggio salvato con questo nome. Vuoi aggiornarlo?'))return;const saveId=existing||'t'+Date.now();t[saveId]={name,ts:Date.now(),data:JSON.parse(JSON.stringify(S))};localStorage.setItem(TK,JSON.stringify(t));alert('Viaggio salvato nella scheda Salvati.')}
+  const existing=Object.keys(t).find(k=>t[k].name==name);if(existing&&!confirm('Esiste già un viaggio salvato con questo nome. Vuoi aggiornarlo?'))return;const saveId=existing||'t'+Date.now();t[saveId]={name,ts:Date.now(),data:JSON.parse(JSON.stringify(S))};localStorage.setItem(TK,JSON.stringify(t));render();if($('tn'))$('tn').value=name;alert('Viaggio salvato nell’Archivio.')}
 function openTrip(id){const t=trips();if(!t[id]||!confirm('Aprire questo viaggio? Le modifiche non salvate di quello attuale andranno perse.'))return;
   S=Object.assign(blank(),JSON.parse(JSON.stringify(t[id].data)));itineraryDay=0;if(!S.dest&&!S.destQuery){const fallback=String(t[id].name||'').replace(/\b20\d{2}\b/g,'').replace(/\b(viaggio|vacanza)\b/ig,'').trim();if(fallback)S.destQuery=fallback}save();navigateTab('viaggio');if(!S.dest&&!S.destQuery)alert('Questo viaggio salvato non contiene una destinazione. Inserisci la città nella ricerca e premi Cerca; se il risultato è univoco verrà selezionato automaticamente.')}
 function delTrip(id){if(!confirm('Eliminare il viaggio salvato?'))return;const t=trips();delete t[id];localStorage.setItem(TK,JSON.stringify(t));render()}
 const blank=()=>({dest:null,destQuery:'',destQueryFor:'',origin:'',start:'',end:'',pax:2,pref:'',pace:'medio',days:[],check:[],budget:[],wx:null});
 function hasCurrentTripData(){return !!(S.dest||S.destQuery||S.start||S.end||S.days.some(d=>(d.stops||[]).length||d.startPlace||d.theme||d.plan)||S.check.length||S.budget.length)}
-function newTrip(){if(hasCurrentTripData()&&!confirm('Il viaggio corrente verrà sostituito nella schermata principale. Per conservarlo, salvalo o esporta un backup completo. Vuoi continuare?'))return;S=blank();itineraryDay=0;res=[];cand={d:-1,l:[],msg:'',q:'',t:''};busy='';save();navigateTab('viaggio')}
+function newTrip(){if(hasCurrentTripData()&&!confirm('Il viaggio corrente verrà sostituito nella schermata principale. Per conservarlo, salvalo nell’Archivio o esporta un backup completo. Vuoi continuare?'))return;S=blank();itineraryDay=0;res=[];cand={d:-1,l:[],msg:'',q:'',t:''};busy='';save();navigateTab('viaggio')}
 window.addEventListener('storage',e=>{if(e.key!==KEY)return;try{const incoming=e.newValue?JSON.parse(e.newValue):blank();if(!incoming||typeof incoming!=='object'||Array.isArray(incoming))return;if(!Array.isArray(incoming.days))incoming.days=[];S=Object.assign(blank(),incoming);res=[];cand={d:-1,l:[],msg:'',q:'',t:''};busy='';render()}catch(e){}});
 initPwa();render();
 </script></body></html>
