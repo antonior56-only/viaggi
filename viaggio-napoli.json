@@ -1,0 +1,726 @@
+{
+  "dest": {
+    "name": "Napoli, Campania, Italia",
+    "lat": 40.8358846,
+    "lon": 14.2487679
+  },
+  "destQuery": "",
+  "destQueryFor": "",
+  "origin": "",
+  "start": "2026-10-11",
+  "end": "2026-10-14",
+  "pax": 2,
+  "pref": "arte, cibo, mercati. monumenti, pompei",
+  "pace": "medio",
+  "days": [
+    {
+      "theme": "Cuore Barocco e Misteri Sotterranei",
+      "plan": "Pranzo leggero in zona centro storico, cena con pizza napoletana.",
+      "startPlace": "Via Cardinale Guglielmo Sanfelice 33, Napoli",
+      "startPoint": {
+        "n": "Via Cardinale Guglielmo Sanfelice 33, Napoli",
+        "addr": "",
+        "lat": null,
+        "lon": null
+      },
+      "stops": [
+        {
+          "t": "09:00",
+          "tAuto": true,
+          "n": "Via San Gregorio Armeno",
+          "note": "Famosa come la 'strada dei presepi', Via San Gregorio Armeno è un'arteria vitale del centro storico di Napoli, dove botteghe artigiane mantengono viva la secolare tradizione della natività. Qui si possono ammirare e acquistare statuette e scene presepiali, che spesso includono anche personaggi contemporanei e caricature. La strada è animata tutto l'anno, ma nel periodo natalizio l'atmosfera si fa particolarmente magica, attirando visitatori da ogni parte del mondo.",
+          "pause": "60",
+          "move": "",
+          "transport": "",
+          "v": false,
+          "travelSegments": [
+            {
+              "from": "Napoli Sotterranea (Piazza San Gaetano, 68)",
+              "to": "Via San Gregorio Armeno",
+              "mode": "🚶",
+              "minutes": 2,
+              "distanceMeters": 184,
+              "line": "",
+              "estimated": false
+            }
+          ],
+          "lat": 40.8497774,
+          "lon": 14.2579807,
+          "addr": "Via San Gregorio Armeno, Napoli, 80138",
+          "scheduleEstimated": false,
+          "scheduleConflict": false,
+          "web": "",
+          "tel": "",
+          "h": "",
+          "hoursInfo": "",
+          "reservationInfo": "",
+          "costInfo": "",
+          "infoSource": ""
+        },
+        {
+          "t": "10:05",
+          "tAuto": true,
+          "n": "Cattedrale di Santa Maria Assunta",
+          "addr": "Vico Sedil Capuano, Napoli, 80187",
+          "web": "",
+          "tel": "",
+          "h": "",
+          "note": "La Cattedrale di Santa Maria Assunta, o Duomo di Napoli, è un maestoso complesso che racchiude secoli di storia e arte. Ammira la Basilica di Santa Restituta, il Battistero di San Giovanni in Fonte e la Cappella del Tesoro di San Gennaro, scrigno barocco delle reliquie del Santo Patrono. Famosa per il miracolo della liquefazione del sangue di San Gennaro, la Cattedrale vanta navate con soffitti a cassettoni e ricche opere d'arte. Nelle sue fondamenta si trovano resti archeologici greco-romani e paleocristiani. Situato nel centro storico, è punto di partenza ideale per esplorare Napoli.",
+          "hoursInfo": "Cattedrale: Dal lunedì al sabato 8:30 – 13:30 e 14:30 – 19:30; Domenica 8:00 – 13:00 e 16:30 – 19:30. L'ultimo ingresso è circa 30 minuti prima della chiusura. Gli orari di aree specifiche come la Cappella del Tesoro di San Gennaro o la Basilica di Santa Restituta e il Battistero (spesso parte di un'esperienza di scoperta guidata) possono variare, si consiglia di consultare il sito ufficiale.",
+          "reservationInfo": "La visita alla Cattedrale è generalmente non necessaria prenotare. Per le 'Esperienze di Scoperta Gratuite' che includono la Basilica di Santa Restituta e il Battistero di San Giovanni in Fonte, la prenotazione è consigliata tramite il sito ufficiale per garantire l'accesso, con partenze ogni 30 minuti dalle 9:30 alle 17:00.",
+          "costInfo": "L'ingresso alla Cattedrale è gratuito. L'accesso al Battistero di San Giovanni in Fonte può prevedere un costo di €2. Il Museo del Tesoro di San Gennaro (struttura separata) ha un costo di ingresso di €12 (intero), €8.50 (ridotto) e ingresso gratuito per bambini fino a 12 anni, guide turistiche accreditate e disabili con disabilità superiore al 75%.",
+          "infoSource": "https://duomodinapoli.it/",
+          "move": "",
+          "transport": "",
+          "pause": "",
+          "booking": "",
+          "lat": 40.8526527,
+          "lon": 14.2598704,
+          "scheduleEstimated": false,
+          "scheduleConflict": false,
+          "travelSegments": []
+        },
+        {
+          "t": "11:52",
+          "tAuto": true,
+          "n": "Duomo di Napoli (Cattedrale di Santa Maria Assunta)",
+          "note": "Il Duomo di Napoli, dedicato a Santa Maria Assunta, è un magnifico esempio di architettura gotica, con interventi successivi che ne hanno arricchito lo stile. Al suo interno è custodito il Tesoro di San Gennaro, con le reliquie del Santo patrono, e ogni anno si assiste al rito dello scioglimento del sangue. È un simbolo fondamentale della storia e della devozione napoletana, ospitando anche la Basilica di Santa Restituta e il battistero di San Giovanni in Fonte.",
+          "pause": "90",
+          "move": "",
+          "transport": "",
+          "v": false,
+          "travelSegments": [
+            {
+              "from": "Via Cardinale Guglielmo Sanfelice 33",
+              "to": "Duomo di Napoli (Via Duomo, 147)",
+              "mode": "🚶",
+              "minutes": 14,
+              "distanceMeters": 1100,
+              "line": "",
+              "estimated": true
+            }
+          ],
+          "scheduleEstimated": false,
+          "scheduleConflict": false,
+          "addr": "Piazza Duomo, Acerra, 80011",
+          "web": "",
+          "tel": "",
+          "h": "",
+          "lat": 40.9433339,
+          "lon": 14.3727306,
+          "hoursInfo": "",
+          "reservationInfo": "",
+          "costInfo": "",
+          "infoSource": ""
+        },
+        {
+          "t": "13:26",
+          "tAuto": true,
+          "n": "Napoli Sotterranea (ingresso da Piazza San Gaetano)",
+          "note": "Napoli Sotterranea offre un affascinante viaggio nelle viscere della città, attraverso un labirinto di cunicoli e cisterne scavate dai Greci e ampliati dai Romani. Utilizzati anche come rifugi antiaerei durante la Seconda Guerra Mondiale, questi ambienti narrano la storia di Napoli dal sottosuolo. L'esperienza, che include il passaggio in stretti tunnel a lume di candela, è unica e profonda, rivelando un patrimonio storico e culturale straordinario.",
+          "pause": "90",
+          "move": "",
+          "transport": "",
+          "v": false,
+          "travelSegments": [
+            {
+              "from": "Duomo di Napoli",
+              "to": "Napoli Sotterranea (Piazza San Gaetano, 68)",
+              "mode": "🚶",
+              "minutes": 4,
+              "distanceMeters": 284,
+              "line": "",
+              "estimated": false
+            }
+          ],
+          "detailsOpen": false,
+          "scheduleEstimated": false,
+          "scheduleConflict": false,
+          "hoursInfo": "",
+          "reservationInfo": "",
+          "costInfo": "",
+          "infoSource": "",
+          "web": "",
+          "addr": "Piazzale ingresso scavi, Ercolano, NA, Italia",
+          "tel": "",
+          "h": "",
+          "lat": 40.805881,
+          "lon": 14.349049,
+          "locationSource": "OpenRouteService"
+        },
+        {
+          "t": "15:00",
+          "tAuto": true,
+          "n": "Museo Cappella Sansevero (Cristo Velato)",
+          "note": "La Cappella Sansevero è uno dei musei più importanti di Napoli, celebre per il 'Cristo Velato' di Giuseppe Sanmartino, una scultura che incanta per la sua realistica resa del velo marmoreo. Altri capolavori includono la 'Pudicizia' e il 'Disinganno'. Situata nel cuore del centro antico, la cappella è un luogo singolare e ricco di significati, intriso del genio e delle leggende legate al principe Raimondo di Sangro.",
+          "pause": "60",
+          "move": "",
+          "transport": "",
+          "v": false,
+          "travelSegments": [
+            {
+              "from": "Via San Gregorio Armeno",
+              "to": "Museo Cappella Sansevero (Via Francesco De Sanctis, 19/21)",
+              "mode": "🚶",
+              "minutes": 4,
+              "distanceMeters": 300,
+              "line": "",
+              "estimated": true
+            }
+          ],
+          "scheduleEstimated": false,
+          "scheduleConflict": false,
+          "hoursInfo": "",
+          "reservationInfo": "",
+          "costInfo": "",
+          "infoSource": "",
+          "web": "",
+          "addr": "Via Francesco de Sanctis, Napoli, 80130",
+          "tel": "",
+          "h": "",
+          "lat": 40.8491049,
+          "lon": 14.2546776,
+          "editOpen": false,
+          "locationSource": "OpenStreetMap"
+        },
+        {
+          "t": "16:06",
+          "tAuto": true,
+          "n": "Spaccanapoli (con sosta a Chiesa del Gesù Nuovo e Complesso Monumentale di Santa Chiara)",
+          "note": "Spaccanapoli è l'antico decumano inferiore di Napoli, un'arteria che divide letteralmente in due il centro storico, offrendo un tuffo nell'autentica vita napoletana. Percorrendola si incontrano tesori architettonici come la Chiesa del Gesù Nuovo, con la sua inconfondibile facciata bugnata e interni barocchi, e il Complesso Monumentale di Santa Chiara, con la sua basilica gotica e il suggestivo chiostro maiolicato, testimonianza della ricchezza storica e artistica della città.",
+          "pause": "90",
+          "move": "",
+          "transport": "",
+          "v": false,
+          "travelSegments": [
+            {
+              "from": "Museo Cappella Sansevero",
+              "to": "Chiesa del Gesù Nuovo (Piazza del Gesù Nuovo, 2)",
+              "mode": "🚶",
+              "minutes": 3,
+              "distanceMeters": 250,
+              "line": "",
+              "estimated": true
+            },
+            {
+              "from": "Chiesa del Gesù Nuovo",
+              "to": "Complesso Monumentale di Santa Chiara (Via Santa Chiara, 49)",
+              "mode": "🚶",
+              "minutes": 3,
+              "distanceMeters": 200,
+              "line": "",
+              "estimated": true
+            }
+          ],
+          "scheduleEstimated": false,
+          "scheduleConflict": false,
+          "hoursInfo": "",
+          "reservationInfo": "",
+          "costInfo": "",
+          "infoSource": "",
+          "web": "",
+          "addr": "Piazza del Gesù Nuovo, Napoli, 80100",
+          "tel": "",
+          "h": "",
+          "lat": 40.8470181,
+          "lon": 14.2517696,
+          "editOpen": false,
+          "locationSource": "OpenStreetMap"
+        }
+      ]
+    },
+    {
+      "theme": "I Fasti Reali e i Sapori del Popolo",
+      "plan": "Pranzo con street food nei Quartieri Spagnoli, cena in trattoria tipica.",
+      "startPlace": "Via Cardinale Guglielmo Sanfelice 33, Napoli",
+      "startPoint": {
+        "n": "Via Cardinale Guglielmo Sanfelice 33, Napoli",
+        "addr": "",
+        "lat": null,
+        "lon": null
+      },
+      "stops": [
+        {
+          "t": "09:00",
+          "tAuto": true,
+          "n": "Piazza del Plebiscito",
+          "note": "Piazza del Plebiscito è una delle piazze più grandi e scenografiche d'Italia, cuore pulsante di Napoli e simbolo della sua grandeur. Circondata da imponenti edifici come il Palazzo Reale e la Basilica di San Francesco di Paola, offre uno spazio maestoso per passeggiate e per ammirare l'architettura neoclassica. La piazza è spesso sede di eventi e concerti, rappresentando un punto di riferimento culturale e sociale della città.",
+          "pause": "60",
+          "move": "",
+          "transport": "",
+          "v": false,
+          "travelSegments": [
+            {
+              "from": "Via Cardinale Guglielmo Sanfelice 33",
+              "to": "Piazza del Plebiscito",
+              "mode": "🚶",
+              "minutes": 10,
+              "distanceMeters": 750,
+              "line": "",
+              "estimated": true
+            }
+          ],
+          "lat": 40.8358559,
+          "lon": 14.2485652,
+          "addr": "Napoli",
+          "hoursInfo": "",
+          "reservationInfo": "",
+          "costInfo": "",
+          "infoSource": "",
+          "web": "",
+          "tel": "",
+          "h": ""
+        },
+        {
+          "t": "10:10",
+          "tAuto": true,
+          "n": "Palazzo Reale di Napoli",
+          "note": "Il Palazzo Reale di Napoli, antica residenza dei Borbone, è un sontuoso complesso che testimonia la magnificenza della monarchia. I suoi appartamenti reali, riccamente arredati e decorati, offrono un viaggio nella storia e nell'arte. Da non perdere lo Scalone d'Onore e la Cappella Reale, oltre al Museo Caruso. Dal Giardino Pensile si gode una vista spettacolare sul Golfo di Napoli e sul Vesuvio.",
+          "pause": "120",
+          "move": "",
+          "transport": "",
+          "v": false,
+          "travelSegments": [
+            {
+              "from": "Piazza del Plebiscito",
+              "to": "Palazzo Reale di Napoli",
+              "mode": "🚶",
+              "minutes": 1,
+              "distanceMeters": 50,
+              "line": "",
+              "estimated": true
+            }
+          ],
+          "lat": 40.8363844,
+          "lon": 14.2501293,
+          "addr": "Percorso di accesso alla biblioteca nazionale di Napoli, Napoli",
+          "hoursInfo": "",
+          "reservationInfo": "",
+          "costInfo": "",
+          "infoSource": "",
+          "web": "",
+          "tel": "",
+          "h": ""
+        },
+        {
+          "t": "12:20",
+          "tAuto": true,
+          "n": "Teatro di San Carlo",
+          "note": "Il Teatro di San Carlo, inaugurato nel 1737, è il più antico teatro d'opera attivo del mondo, un'autentica gemma dell'architettura e della tradizione musicale. I suoi interni sfarzosi e l'acustica eccellente lo rendono un luogo d'eccellenza. Le visite guidate offrono l'opportunità di esplorare la sala storica, il palco reale e il foyer, immergendosi nella storia di questo tempio della lirica.",
+          "pause": "60",
+          "move": "",
+          "transport": "",
+          "v": false,
+          "travelSegments": [
+            {
+              "from": "Palazzo Reale di Napoli",
+              "to": "Teatro di San Carlo",
+              "mode": "🚶",
+              "minutes": 1,
+              "distanceMeters": 100,
+              "line": "",
+              "estimated": true
+            }
+          ],
+          "lat": 40.8373743,
+          "lon": 14.2498127,
+          "addr": "Via San Carlo 98, Napoli",
+          "hoursInfo": "",
+          "reservationInfo": "",
+          "costInfo": "",
+          "infoSource": "",
+          "web": "",
+          "tel": "",
+          "h": ""
+        },
+        {
+          "t": "13:30",
+          "tAuto": true,
+          "n": "Galleria Umberto I",
+          "note": "La Galleria Umberto I è una sontuosa galleria commerciale del XIX secolo, un capolavoro architettonico in ferro e vetro che incanta per la sua eleganza. Con la sua maestosa cupola e le intricate decorazioni, è un luogo ideale per una passeggiata, ammirare le vetrine o sorseggiare un caffè. La galleria collega via San Carlo, via Toledo e via Santa Brigida, rappresentando un vivace snodo commerciale e un punto di ritrovo.",
+          "pause": "45",
+          "move": "",
+          "transport": "",
+          "v": false,
+          "travelSegments": [
+            {
+              "from": "Teatro di San Carlo",
+              "to": "Galleria Umberto I",
+              "mode": "🚶",
+              "minutes": 1,
+              "distanceMeters": 50,
+              "line": "",
+              "estimated": true
+            }
+          ],
+          "lat": 40.838514,
+          "lon": 14.24924,
+          "addr": "Galleria Umberto I, Napoli",
+          "hoursInfo": "",
+          "reservationInfo": "",
+          "costInfo": "",
+          "infoSource": "",
+          "web": "",
+          "tel": "",
+          "h": ""
+        },
+        {
+          "t": "14:15",
+          "tAuto": true,
+          "n": "Quartieri Spagnoli e Mercato della Pignasecca",
+          "note": "I Quartieri Spagnoli, con i loro vicoli stretti e pittoreschi, offrono un'autentica immersione nella vita napoletana, tra panni stesi, edicole votive e murales. Qui si trova il vivace Mercato della Pignasecca, uno dei più antichi della città, dove si può trovare di tutto, dal pesce fresco ai prodotti gastronomici locali, all'abbigliamento. È il luogo ideale per assaporare il vero street food napoletano e vivere l'atmosfera popolare e folcloristica della città.",
+          "pause": "120",
+          "move": "",
+          "transport": "",
+          "v": false,
+          "travelSegments": [
+            {
+              "from": "Galleria Umberto I",
+              "to": "Mercato della Pignasecca (Via Pignasecca, 28)",
+              "mode": "🚶",
+              "minutes": 5,
+              "distanceMeters": 400,
+              "line": "",
+              "estimated": true
+            }
+          ],
+          "hoursInfo": "",
+          "reservationInfo": "",
+          "costInfo": "",
+          "infoSource": "",
+          "web": "",
+          "addr": "Via Pignasecca, Napoli, 80134",
+          "tel": "",
+          "h": "",
+          "lat": 40.84464,
+          "lon": 14.2489988,
+          "editOpen": false,
+          "locationSource": "OpenStreetMap"
+        }
+      ]
+    },
+    {
+      "theme": "L'Antica Grandezza di Pompei",
+      "plan": "Pranzo al sacco o in una tavola calda nei pressi di Pompei, cena di ritorno a Napoli.",
+      "startPlace": "Via Cardinale Guglielmo Sanfelice 33, Napoli",
+      "startPoint": {
+        "n": "Via Cardinale Guglielmo Sanfelice 33, Napoli",
+        "addr": "",
+        "lat": null,
+        "lon": null
+      },
+      "stops": [
+        {
+          "t": "09:00",
+          "tAuto": true,
+          "n": "Parco Archeologico di Pompei (Scavi di Pompei)",
+          "note": "Gli Scavi di Pompei offrono un'opportunità unica di esplorare una città romana perfettamente conservata sotto le ceneri del Vesuvio. Passeggiando tra le antiche strade, si possono ammirare case, templi, botteghe e affreschi che raccontano la vita quotidiana di quasi duemila anni fa. È un sito archeologico di inestimabile valore storico, che permette di rivivere un'epoca passata in un'atmosfera suggestiva e commovente.",
+          "pause": "300",
+          "move": "",
+          "transport": "",
+          "v": false,
+          "travelSegments": [
+            {
+              "from": "Via Cardinale Guglielmo Sanfelice 33",
+              "to": "Stazione Metro Municipio (Linea 1)",
+              "mode": "🚶",
+              "minutes": 3,
+              "distanceMeters": 210,
+              "line": "",
+              "estimated": false
+            },
+            {
+              "from": "Stazione Metro Municipio",
+              "to": "Stazione Metro Garibaldi",
+              "mode": "🚇",
+              "minutes": 5,
+              "distanceMeters": 0,
+              "line": "Linea 1",
+              "estimated": true
+            },
+            {
+              "from": "Stazione Metro Garibaldi",
+              "to": "Stazione Circumvesuviana Napoli Piazza Garibaldi",
+              "mode": "🚶",
+              "minutes": 5,
+              "distanceMeters": 0,
+              "line": "",
+              "estimated": true
+            },
+            {
+              "from": "Stazione Circumvesuviana Napoli Piazza Garibaldi",
+              "to": "Stazione Pompei Scavi - Villa dei Misteri",
+              "mode": "🚆",
+              "minutes": 40,
+              "distanceMeters": 0,
+              "line": "Circumvesuviana (Napoli-Sorrento)",
+              "estimated": false
+            },
+            {
+              "from": "Stazione Pompei Scavi - Villa dei Misteri",
+              "to": "Ingresso Porta Marina (Parco Archeologico di Pompei)",
+              "mode": "🚶",
+              "minutes": 2,
+              "distanceMeters": 0,
+              "line": "",
+              "estimated": true
+            }
+          ],
+          "hoursInfo": "",
+          "reservationInfo": "",
+          "costInfo": "",
+          "infoSource": "",
+          "web": "",
+          "addr": "Parco archeologico di Baia, Bacoli, NA, Italia",
+          "tel": "",
+          "h": "",
+          "lat": 40.81694,
+          "lon": 14.06976,
+          "locationSource": "OpenRouteService"
+        }
+      ]
+    },
+    {
+      "theme": "Tesori Archeologici e Panorama Marino",
+      "plan": "Pranzo con specialità di mare sul lungomare, cena libera.",
+      "startPlace": "Via Cardinale Guglielmo Sanfelice 33, Napoli",
+      "startPoint": {
+        "n": "Via Cardinale Guglielmo Sanfelice 33, Napoli",
+        "addr": "",
+        "lat": null,
+        "lon": null
+      },
+      "stops": [
+        {
+          "t": "12:30",
+          "tAuto": true,
+          "n": "Catacombe di San Gennaro",
+          "note": "Le Catacombe di San Gennaro rappresentano un affascinante cimitero sotterraneo paleocristiano, tra i più estesi del Sud Italia. Offrono un viaggio nella storia del cristianesimo a Napoli, con affreschi e tombe che testimoniano la devozione al patrono. La visita guidata rivela la complessità e l'importanza di questi ambienti sacri, inclusa la Basilica di San Gennaro extra Moenia e la tomba che ha ospitato le spoglie del Santo.",
+          "pause": "90",
+          "move": "",
+          "transport": "",
+          "v": false,
+          "travelSegments": [
+            {
+              "from": "Museo Archeologico Nazionale di Napoli",
+              "to": "Stazione Metro Museo",
+              "mode": "🚶",
+              "minutes": 2,
+              "distanceMeters": 0,
+              "line": "",
+              "estimated": true
+            },
+            {
+              "from": "Stazione Metro Museo",
+              "to": "Fermata autobus Via Santa Teresa degli Scalzi",
+              "mode": "🚶",
+              "minutes": 5,
+              "distanceMeters": 0,
+              "line": "",
+              "estimated": true
+            },
+            {
+              "from": "Fermata autobus Via Santa Teresa degli Scalzi",
+              "to": "Catacombe di San Gennaro (Via Capodimonte, 13)",
+              "mode": "🚌",
+              "minutes": 10,
+              "distanceMeters": 0,
+              "line": "R4, 168, 178, C63",
+              "estimated": true
+            }
+          ],
+          "lat": 40.8637841,
+          "lon": 14.2470579,
+          "addr": "Penninata S. Gennaro dei Poveri, Napoli",
+          "hoursInfo": "",
+          "reservationInfo": "",
+          "costInfo": "",
+          "infoSource": "",
+          "web": "",
+          "tel": "",
+          "h": ""
+        },
+        {
+          "t": "14:15",
+          "tAuto": true,
+          "n": "Castel dell'Ovo",
+          "note": "Castel dell'Ovo, il castello più antico di Napoli, sorge su un isolotto nel golfo, offrendo viste mozzafiato sul mare e sulla città. Il suo nome è legato a un'antica leggenda del poeta Virgilio, che vi avrebbe nascosto un uovo magico. Le sue mura hanno visto secoli di storia, fungendo da fortezza, carcere e residenza reale. Oggi ospita eventi e convegni, ma è l'affaccio sul golfo a renderlo un luogo iconico e imperdibile.",
+          "pause": "90",
+          "move": "",
+          "transport": "",
+          "v": false,
+          "travelSegments": [
+            {
+              "from": "Catacombe di San Gennaro (Via Capodimonte, 13)",
+              "to": "Fermata autobus Museo Nazionale",
+              "mode": "🚌",
+              "minutes": 10,
+              "distanceMeters": 0,
+              "line": "R4",
+              "estimated": true
+            },
+            {
+              "from": "Fermata autobus Museo Nazionale",
+              "to": "Stazione Metro Museo",
+              "mode": "🚶",
+              "minutes": 3,
+              "distanceMeters": 0,
+              "line": "",
+              "estimated": true
+            },
+            {
+              "from": "Stazione Metro Museo",
+              "to": "Stazione Metro Municipio",
+              "mode": "🚇",
+              "minutes": 5,
+              "distanceMeters": 0,
+              "line": "Linea 1",
+              "estimated": true
+            },
+            {
+              "from": "Stazione Metro Municipio",
+              "to": "Castel dell'Ovo (Via Eldorado, 3)",
+              "mode": "🚶",
+              "minutes": 10,
+              "distanceMeters": 800,
+              "line": "",
+              "estimated": true
+            }
+          ],
+          "lat": 40.8277417,
+          "lon": 14.2480285,
+          "addr": "Pontile di Castel dell'Ovo, Napoli",
+          "hoursInfo": "",
+          "reservationInfo": "",
+          "costInfo": "",
+          "infoSource": "",
+          "web": "",
+          "tel": "",
+          "h": ""
+        },
+        {
+          "t": "09:00",
+          "tAuto": true,
+          "n": "Museo Archeologico Nazionale di Napoli (MANN)",
+          "note": "Il Museo Archeologico Nazionale di Napoli (MANN) ospita una delle più importanti collezioni archeologiche del mondo, con reperti provenienti dagli scavi di Pompei ed Ercolano, la collezione Farnese e artefatti egizi. È un'immersione profonda nella civiltà greca e romana, fondamentale per comprendere la storia della regione. Dedicare tempo alla visita è essenziale per apprezzarne l'immensa ricchezza.",
+          "pause": "180",
+          "move": "",
+          "transport": "",
+          "v": false,
+          "travelSegments": [
+            {
+              "from": "Via Cardinale Guglielmo Sanfelice 33",
+              "to": "Stazione Metro Municipio (Linea 1)",
+              "mode": "🚶",
+              "minutes": 3,
+              "distanceMeters": 210,
+              "line": "",
+              "estimated": false
+            },
+            {
+              "from": "Stazione Metro Municipio",
+              "to": "Stazione Metro Museo",
+              "mode": "🚇",
+              "minutes": 5,
+              "distanceMeters": 0,
+              "line": "Linea 1",
+              "estimated": true
+            },
+            {
+              "from": "Stazione Metro Museo",
+              "to": "Museo Archeologico Nazionale di Napoli (Piazza del Museo Nazionale 19)",
+              "mode": "🚶",
+              "minutes": 2,
+              "distanceMeters": 200,
+              "line": "",
+              "estimated": true
+            }
+          ],
+          "hoursInfo": "",
+          "reservationInfo": "",
+          "costInfo": "",
+          "infoSource": "",
+          "web": "",
+          "addr": "Museo archeologico nazionale di Napoli, Napoli, NA, Italia",
+          "tel": "",
+          "h": "",
+          "lat": 40.853544,
+          "lon": 14.250408,
+          "locationSource": "OpenRouteService"
+        },
+        {
+          "t": "15:55",
+          "tAuto": true,
+          "n": "Lungomare Caracciolo e Via Partenope",
+          "note": "Il Lungomare Caracciolo e Via Partenope offrono una delle passeggiate più suggestive di Napoli, con la vista iconica del Vesuvio, del Castel dell'Ovo e delle isole. È il luogo ideale per rilassarsi, godersi il panorama marino e l'atmosfera vibrante della città. Lungo la strada si trovano numerosi ristoranti e caffè, perfetti per assaporare la cucina locale e ammirare il tramonto sul golfo.",
+          "pause": "90",
+          "move": "",
+          "transport": "",
+          "v": false,
+          "travelSegments": [
+            {
+              "from": "Castel dell'Ovo",
+              "to": "Lungomare Caracciolo e Via Partenope",
+              "mode": "🚶",
+              "minutes": 1,
+              "distanceMeters": 50,
+              "line": "",
+              "estimated": true
+            }
+          ],
+          "hoursInfo": "",
+          "reservationInfo": "",
+          "costInfo": "",
+          "infoSource": "",
+          "web": "",
+          "addr": "Napoli, NA, Italia",
+          "tel": "",
+          "h": "",
+          "lat": 40.862838,
+          "lon": 14.237375,
+          "locationSource": "OpenRouteService"
+        }
+      ]
+    }
+  ],
+  "check": [
+    {
+      "t": "Passaporto/carta d'identità valido",
+      "d": false
+    },
+    {
+      "t": "Visto o autorizzazione d'ingresso (verifica su viaggiaresicuri.it)",
+      "d": false
+    },
+    {
+      "t": "Assicurazione sanitaria di viaggio",
+      "d": false
+    },
+    {
+      "t": "Voli prenotati",
+      "d": false
+    },
+    {
+      "t": "Alloggi prenotati (meglio con cancellazione gratuita)",
+      "d": false
+    },
+    {
+      "t": "Biglietti con data fissa (treni, musei)",
+      "d": false
+    },
+    {
+      "t": "Copie dei documenti",
+      "d": false
+    },
+    {
+      "t": "eSIM o roaming",
+      "d": false
+    },
+    {
+      "t": "Contanti/valuta locale",
+      "d": false
+    }
+  ],
+  "budget": [],
+  "wx": null
+}
