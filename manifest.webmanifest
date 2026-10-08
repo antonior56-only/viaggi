@@ -4,7 +4,7 @@
   "short_name": "I miei viaggi",
   "description": "Pianifica viaggi e itinerari giorno per giorno",
   "lang": "it",
-  "start_url": "./?tab=viaggio",
+  "start_url": "./?tab=home",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",

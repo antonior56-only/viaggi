@@ -1,33 +1,33 @@
-# I miei viaggi · PWA
+# I miei viaggi - PWA versione 21
 
-Pacchetto statico pronto per hosting HTTPS e GitHub Pages. L'app mantiene il codice in un unico file HTML per facilitare le modifiche senza cambiare l'architettura esistente.
+Caricare il contenuto di questa cartella nella stessa cartella pubblicata su GitHub Pages. Non cambiare dominio o percorso se si vogliono ritrovare i dati locali. Prima dell’aggiornamento esportare il backup dalla vecchia app. Non è stata eseguita alcuna pubblicazione.
 
-## Pubblicazione su GitHub Pages
+## Novità
+Home con riepilogo e nome del viaggio attivo; nuovo viaggio senza sostituire il precedente; elenco unico con filtri; salvataggio automatico IndexedDB con indicatore di completamento; migrazione conservativa da tp_v1 e tp_trips. I valori precedenti restano intatti in localStorage. Nessuna sincronizzazione fra dispositivi.
 
-1. Carica **il contenuto** di questa cartella (`index.html`, `manifest.webmanifest`, `service-worker.js` e `icons/`) nella cartella pubblicata del repository.
-2. In GitHub apri **Settings → Pages** e seleziona il branch e la cartella pubblicati.
-3. Apri l'indirizzo HTTPS del sito. L'installazione e il service worker non funzionano da `file://`; per la prova locale usa un server HTTP.
+## Backup
+Esporta backup completo dall’elenco I miei viaggi. Importazione compatibile con JSON singolo e backup versione 1 e 2; gli import ricevono identificativi nuovi e non sostituiscono dati esistenti. Le chiavi API non sono esportate. Se due finestre modificano dati in concorrenza, la seconda scrittura viene bloccata: esportare la copia di emergenza e ricaricare.
 
-I percorsi sono relativi, quindi il pacchetto funziona anche in una sottocartella del dominio Pages. Non è stata modificata o pubblicata alcuna configurazione GitHub Pages in questo workspace.
+## Installazione e offline
+Richiede HTTPS (o localhost). Il service worker versione 21 include pagina, manifest, manuale e tutte le icone. Primo caricamento online necessario. Gemini, geocodifica, meteo, OpenRouteService e prenotazioni richiedono Internet. Le chiavi API restano locali, non devono essere inserite nel repository.
 
-## Archivio, dati e backup
+## Manuale
+Il PDF include le nuove istruzioni nelle prime pagine; queste sostituiscono le parti precedenti su Home, Archivio e salvataggio. Il resto del manuale originale è conservato.
 
-- Il viaggio attivo e i viaggi salvati continuano a risiedere nel `localStorage` del browser e sul dispositivo utilizzato.
-- In **Archivio → Esporta backup completo** si scarica un JSON con viaggio attivo e viaggi salvati. Le chiavi API Gemini e OpenRouteService non sono incluse.
-- **Importa viaggio o backup** accetta sia il vecchio JSON del singolo viaggio, sia il nuovo backup completo. Ripristinando un backup, i viaggi salvati esistenti vengono conservati; in caso di ID duplicati si crea un ID distinto.
-- Conserva una copia del backup anche fuori dal dispositivo: i dati locali non si sincronizzano automaticamente tra dispositivi.
+## Correzione itinerario versione 18
+Link Google Maps ripristinato subito sotto le tappe, in Programma e Modalità Oggi, anche per una sola tappa. Percorsi oltre il limite del collegamento vengono suddivisi in parti consecutive senza scartare tappe.
 
-## Installazione e uso offline
+## Versione 19
+Modalità Oggi senza pulsante Fatta ora, registrazione dell’arrivo effettivo, stati di completamento o barra di avanzamento. Manuale PDF in attesa dell’aggiornamento unico richiesto.
 
-- Su Android Chrome, apri il sito HTTPS e usa **Impostazioni → Installa I miei viaggi** quando il browser rende disponibile l'installazione. In altri browser il comando potrebbe non essere esposto; è comunque possibile usare il menu del browser e “Aggiungi a schermata Home”.
-- Il service worker memorizza la pagina dell'app, il manuale e le icone. In assenza di rete si possono consultare e modificare i dati locali già presenti.
-- Gemini, geocodifica, meteo, itinerari online, Google Maps e link di prenotazione richiedono Internet. Il service worker non intercetta né memorizza le chiamate a servizi esterni.
-- Le chiavi API restano nel `localStorage` del browser, come nella versione originale. In un'app statica client-side non sono segreti e non vanno inserite nel repository pubblico.
+## Versione 20
+Campo Interessi come area di testo modificabile, con istruzioni per separare più interessi tramite virgola e salvataggio automatico durante la digitazione. Il PDF resta in attesa dell’aggiornamento unico.
 
-## Aggiornamenti
+## Revisione completa versione 21
+Confrontata con l’HTML originale allegato. Ripristinati cambio nome nell’elenco e aggiornamento fra finestre; corretta stampa degli avvisi; avvio da IndexedDB indipendente da vecchi valori legacy non leggibili. Collaudo Chromium completato per gestione viaggio, tappe, preparativi, budget, stampa e offline. Manuale differito come richiesto.
 
-Il nome della cache del service worker include una versione. Quando si modifica il pacchetto, incrementa `CACHE_NAME` in `service-worker.js` se vuoi forzare il rinnovo della cache shell.
+## Correzione versione 22
+Pulsante 🔄 per correggere indirizzo e posizione e sezione Aggiungi una nuova tappa disponibili sia in Programma sia in Modalità Oggi. Test Chromium superato con click sul pulsante, conferma della posizione simulata, ricerca e aggiunta effettiva di una tappa in Oggi e verifica dei comandi in Programma. Manuale PDF in attesa.
 
-
-Il file `Manuale_utente_I_miei_viaggi.pdf` è incluso nel pacchetto e disponibile in **Impostazioni → Manuale utente**.
-
+## Versione 23 - Date
+Corretto il cambio date per evitare ricreazione dei campi e perdita del focus. Collaudo Chromium superato con digitazione cifra per cifra, passaggio tra partenza e ritorno e riapertura. Ripetuti tutti i controlli descritti in VERIFICA_CONFRONTO.md. Manuale PDF ancora differito.
