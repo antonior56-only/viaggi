@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'trip-planner-shell-';
-const CACHE_NAME = CACHE_PREFIX + '28';
+const CACHE_NAME = CACHE_PREFIX + '30';
 const APP_SHELL = ['./', './index.html', './manifest.webmanifest', './icons/apple-touch-icon.png', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './Manuale_utente_I_miei_viaggi.pdf'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));

@@ -288,8 +288,29 @@ function render(){
   $('m').innerHTML=({home:vHome,viaggio:vViaggio,itin:vItin,prenota:vPrenota,budget:vBudget,salvati:vSalvati,dati:vDati})[tab]();$('m').classList.toggle('itin-grid',tab==='itin');syncInstallButton();
 }
 function updateTripInterests(value){S.pref=String(value??'');save()}
-const APP_VERSION='28 · 09/10/2026';
-function tripDayStartsHtml(){return nDays()?`<div class="c" style="margin:12px 0 0;padding:10px"><h3>Partenza di ogni giornata</h3><p class="mu">Inserisci l’hotel o il punto da cui vuoi iniziare ciascun giorno prima di generare l’itinerario AI. Puoi anche usare la posizione attuale.</p>${S.days.slice(0,nDays()).map((d,i)=>`<div class="r" style="align-items:end"><div><label>Giorno ${i+1} · ${dateOf(i)}</label><input placeholder="Hotel o indirizzo" value="${E(d.startPlace||d.startPoint?.n||'')}" onchange="setDayStart(${i},this.value)"></div><button class="g" type="button" onclick="useCurrentLocation(${i})">📍 Posizione attuale</button></div>${dayStartVerificationHtml(d,i)}`).join('')}</div>`:''}
+const APP_VERSION='30 · 09/10/2026';
+let separateDayStarts=false;
+function identicalDayStarts(){const days=S.days.slice(0,nDays());if(days.length<2||!String(days[0].startPlace||days[0].startPoint?.n||'').trim())return false;const signature=d=>JSON.stringify([String(d.startPlace||d.startPoint?.n||'').trim(),String(d.startPoint?.addr||'').trim(),hasCoords(d.startPoint)?+d.startPoint.lat:null,hasCoords(d.startPoint)?+d.startPoint.lon:null,!!d.startPoint?.manualCoordinates]);return days.every(d=>signature(d)===signature(days[0]))}
+function setSeparateDayStarts(value){separateDayStarts=!!value;render()}
+async function commonDayStartAction(action,...args){
+ const allowed={setDayStart,searchDayStart,confirmDayStart,chooseDayStart,useCurrentLocation,manualDayStart};if(!allowed[action]||!identicalDayStarts())return;
+ const sourceId=activeId,days=S.days.slice(0,nDays()),before=JSON.stringify([days[0].startPlace,days[0].startPoint]);pendingOperations++;
+ try{
+  if(action==='useCurrentLocation'){
+   if(!navigator.geolocation){alert('Posizione non disponibile. Inserisci un indirizzo o coordinate.');return}
+   await new Promise(resolve=>navigator.geolocation.getCurrentPosition(pos=>{if(activeId===sourceId&&days.every((d,i)=>S.days[i]===d)){days[0].startPlace='Posizione attuale';days[0].startPoint={n:'Posizione attuale',lat:pos.coords.latitude,lon:pos.coords.longitude}}resolve()},()=>{alert('Posizione non disponibile o permesso negato.');resolve()},{enableHighAccuracy:true,timeout:12000,maximumAge:60000}));
+  }else await allowed[action](0,...args);
+  if(activeId!==sourceId||!days.every((d,i)=>S.days[i]===d))return;
+  if(JSON.stringify([days[0].startPlace,days[0].startPoint])!==before||(action==='confirmDayStart'&&hasCoords(days[0].startPoint))){for(let i=1;i<days.length;i++){days[i].startPlace=days[0].startPlace;days[i].startPoint=days[0].startPoint?structuredClone(days[0].startPoint):null;dayStartLookupTokens[i]=(dayStartLookupTokens[i]||0)+1;delete dayStartCandidates[i]}if(action!=='searchDayStart'&&action!=='setDayStart'){delete dayStartCandidates[0];dayStartLookupTokens[0]=(dayStartLookupTokens[0]||0)+1}save()}
+  render();
+ }finally{pendingOperations--}
+}
+function tripDayStartsHtml(){
+ if(!nDays())return '';const same=identicalDayStarts(),grouped=same&&!separateDayStarts,days=S.days.slice(0,nDays());
+ if(grouped){const d=days[0],display={...d,startPoint:d.startPoint?{...d.startPoint,locationConfirmed:days.every(x=>x.startPoint?.locationConfirmed===true)}:null};let verification=dayStartVerificationHtml(display,0);for(const action of ['searchDayStart','confirmDayStart','chooseDayStart','manualDayStart'])verification=verification.replaceAll(action+'(0',"commonDayStartAction('"+action+"'" );return `<div class="c" style="margin:12px 0 0;padding:10px"><h3>Partenza comune a tutte le giornate</h3><p class="mu">Giorni 1–${days.length}: conferme e modifiche in questo blocco si applicano a tutte le giornate.</p><label>Hotel o indirizzo comune<input placeholder="Hotel o indirizzo" value="${E(d.startPlace||d.startPoint?.n||'')}" onchange="commonDayStartAction('setDayStart',this.value)"></label><button class="g" type="button" onclick="commonDayStartAction('useCurrentLocation')">📍 Posizione attuale</button>${verification}<button class="g" type="button" onclick="setSeparateDayStarts(true)">Usa partenze diverse</button></div>`}
+ return `<div class="c" style="margin:12px 0 0;padding:10px"><h3>Partenza di ogni giornata</h3><p class="mu">Inserisci l’hotel o il punto da cui vuoi iniziare ciascun giorno prima di generare l’itinerario AI. Puoi anche usare la posizione attuale.</p>${same?'<button class="g" type="button" onclick="setSeparateDayStarts(false)">Mostra partenza comune</button>':''}${days.map((d,i)=>`<div class="r" style="align-items:end"><div><label>Giorno ${i+1} · ${dateOf(i)}</label><input placeholder="Hotel o indirizzo" value="${E(d.startPlace||d.startPoint?.n||'')}" onchange="setDayStart(${i},this.value)"></div><button class="g" type="button" onclick="useCurrentLocation(${i})">📍 Posizione attuale</button></div>${dayStartVerificationHtml(d,i)}`).join('')}</div>`;
+}
+
 function vViaggio(){
   if(nDays())syncDays();
   return `<div class="c"><h3>Destinazione</h3>
@@ -353,7 +374,7 @@ function isGenericPauseLabel(name){const key=String(name||'').normalize('NFD').r
 function isGenericPauseStop(stop){return !!stop&&isGenericPauseLabel(stop.n)&&!hasCoords(stop)&&!String(stop.addr||'').trim()}
 function stopHeadingHtml(stop){const essential=stop.mustStopIds?.length?'⭐ ':'';return isGenericPauseStop(stop)?`<span title="Pausa senza luogo da raggiungere">⏸️ ${E(stop.n)} · pausa senza luogo</span>`:`<a href="${mapsUrl(stop)}" target="_blank" rel="noopener">${essential}📍 ${E(stop.n)}</a>`}
 function stopMapLinkHtml(stop){return isGenericPauseStop(stop)?'':'<div class="detail">📍 <a href="'+mapsUrl(stop)+'">Apri tappa in Google Maps</a></div>'}
-function stopCorrectionButtonHtml(stop,i,j){return isGenericPauseStop(stop)?'':`<button class="g" type="button" title="Correggi indirizzo e posizione" aria-label="Correggi indirizzo e posizione di ${E(stop.n)}" onclick="fill(${i},${j})">🔄</button><button class="g" type="button" title="Inserisci manualmente indirizzo o coordinate" aria-label="Inserisci manualmente indirizzo o coordinate di ${E(stop.n)}" onclick="manualStopByIndex(${i},${j})">✍️</button>`}
+function stopCorrectionButtonHtml(stop,i,j){return isGenericPauseStop(stop)?'':`<button class="g" type="button" title="Correggi indirizzo e posizione" aria-label="Correggi indirizzo e posizione di ${E(stop.n)}" onclick="fill(${i},${j})">🔄</button>`}
 function stopLocationIssueHtml(stop){return !isGenericPauseStop(stop)&&stop.locationIssue?' <span class="wr">⚠️ '+E(stop.locationIssue)+'</span>':''}
 function routeStopsFor(day){return(day?.stops||[]).filter(s=>!isGenericPauseStop(s))}
 function previousRouteStop(stops,index){for(let i=index-1;i>=0;i--)if(!isGenericPauseStop(stops[i]))return stops[i];return null}
@@ -518,6 +539,14 @@ async function manualStopLocation(s){
   applyStopLocation(s,c);save();render();return true;
 }
 async function fill(i,j){
+ const stop=S.days[i]?.stops?.[j];if(!stop)return;
+ const choice=prompt('Correggi indirizzo e posizione di “'+stop.n+'”\n\n1 - Cerca automaticamente il luogo\n2 - Inserisci un indirizzo o latitudine, longitudine\n\nScrivi 1 o 2. Annulla per non modificare.','2');
+ if(choice===null)return;
+ if(String(choice).trim()==='1')return fillAutomatic(i,j);
+ if(String(choice).trim()==='2')return manualStopByIndex(i,j);
+ alert('Scelta non valida. Scrivi 1 oppure 2. Nessuna modifica applicata.');
+}
+async function fillAutomatic(i,j){
   const s=S.days[i].stops[j];
   try{
     let choices=await osm(s.n+' '+dName());if(!choices.length)choices=await osm(s.n);
@@ -851,7 +880,7 @@ function renameTrip(id,value){if(!library[id])return;library[id].name=String(val
 function statusTrip(item){const d=item.data,now=new Date(),today=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');if(!d.start||!d.end||!d.dest)return 'preparazione';if(d.end<today)return 'conclusi';if(d.start>today)return 'futuri';return 'in corso'}
 function vSalvati(){const ids=Object.keys(library).filter(id=>tripFilter==='tutti'||statusTrip(library[id])===tripFilter).sort((a,b)=>library[b].ts-library[a].ts),tids=Object.keys(trash).sort((a,b)=>(trash[b].at||0)-(trash[a].at||0)),last=+localStorage.getItem(LB);return `<div class="c"><h2>I miei viaggi</h2><button class="b" onclick="newTrip()">➕ Nuovo viaggio</button><label>Mostra<select onchange="tripFilter=this.value;render()">${['tutti','preparazione','futuri','in corso','conclusi'].map(x=>`<option ${tripFilter===x?'selected':''}>${x}</option>`).join('')}</select></label><div class="archive-backup"><button class="g" onclick="exp()">Esporta viaggio attivo</button><button class="g" onclick="expBackup()">Esporta backup completo</button><button class="g" onclick="$('f').click()">Importa viaggio o backup</button><input id="f" type="file" accept=".json" hidden onchange="imp(this.files[0]);this.value=''"></div><p class="mu">${last?'Ultimo backup: '+E(new Date(last).toLocaleDateString('it-IT'))+'. ':'Nessun backup esportato finora. '}I viaggi sono salvati solo su questo dispositivo. L’importazione aggiunge i viaggi e salta quelli già presenti.</p>${backupDue()?'<p class="wr">Non esporti un backup da più di 30 giorni.</p>':''}</div><div class="c">${ids.map(id=>`<div class="s"><span><b>${E(tripName(library[id]))}${id===activeId?' · attivo':''}</b><br>${E(library[id].data.start||'')} → ${E(library[id].data.end||'')} · ${statusTrip(library[id])}<label>Nome del viaggio<input aria-label="Nome viaggio ${E(tripName(library[id]))}" value="${E(library[id].name||'')}" placeholder="Nome personalizzato" oninput="renameTrip('${id}',this.value)"></label></span><button class="g" onclick="openTrip('${id}')">Apri</button><button class="g" title="Duplica" aria-label="Duplica ${E(tripName(library[id]))}" onclick="dupTrip('${id}')">📄</button><button class="g" title="Esporta questo viaggio" aria-label="Esporta ${E(tripName(library[id]))}" onclick="expTrip('${id}')">⬇️</button><button class="g" title="Elimina" aria-label="Elimina ${E(tripName(library[id]))}" onclick="delTrip('${id}')">🗑️</button></div>`).join('')||'<p>Nessun viaggio per questo filtro.</p>'}</div>${tids.length?`<div class="c"><h3>Cestino (${tids.length})</h3><p class="mu">I viaggi eliminati restano nel cestino per 30 giorni.</p>${tids.map(id=>`<div class="s"><span><b>${E(tripName(trash[id].e))}</b><br>Eliminato il ${E(new Date(trash[id].at).toLocaleDateString('it-IT'))}</span><button class="g wide" onclick="restoreTrip('${id}')">♻️ Ripristina</button><button class="g" title="Elimina definitivamente" aria-label="Elimina definitivamente ${E(tripName(trash[id].e))}" onclick="purgeTrip('${id}')">✖️</button></div>`).join('')}<button class="g" onclick="emptyTrash()">Svuota cestino</button></div>`:''}`}
 function canSwitch(){if(busy||pendingOperations){alert('Attendi il completamento dell’operazione in corso.');return false}if(storageFailed){alert('Esporta prima una copia di emergenza e ricarica la pagina.');return false}return true}
-function resetTripUi(){itineraryDay=0;res=[];cand={d:-1,l:[],msg:'',q:'',t:''};pendingItineraryImport=null;itineraryImportText='';dayStartLookupTokens=[];dayStartCandidates={};pendingDescriptions=null}
+function resetTripUi(){separateDayStarts=false;itineraryDay=0;res=[];cand={d:-1,l:[],msg:'',q:'',t:''};pendingItineraryImport=null;itineraryImportText='';dayStartLookupTokens=[];dayStartCandidates={};pendingDescriptions=null}
 async function newTrip(){if(!canSwitch())return;await save();if(storageFailed)return;activeId=uid();S=blank();library[activeId]={name:'',ts:Date.now(),data:structuredClone(S)};resetTripUi();await save();navigateTab('viaggio')}
 async function openTrip(id){if(!library[id]||!canSwitch())return;await save();if(storageFailed)return;activeId=id;S=structuredClone(library[id].data);resetTripUi();await persist();navigateTab('home')}
 async function delTrip(id){if(!library[id]||!canSwitch())return;await save();if(storageFailed)return;const entry=library[id],name=tripName(entry),wasActive=id===activeId;trash[id]={e:entry,at:Date.now()};delete library[id];if(wasActive){const rest=Object.keys(library).sort((a,b)=>(library[b].ts||0)-(library[a].ts||0));activeId=rest[0]||uid();if(!library[activeId])library[activeId]={name:'',ts:Date.now(),data:blank()};S=Object.assign(blank(),structuredClone(library[activeId].data));S.mustStops=normalizeMustStopEntries(S.mustStops);resetTripUi()}await persist();render();if(!storageFailed)toast('Viaggio eliminato: «'+name+'»','Annulla',()=>restoreTrip(id,wasActive))}
