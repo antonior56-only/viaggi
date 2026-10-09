@@ -31,3 +31,13 @@ Pulsante 🔄 per correggere indirizzo e posizione e sezione Aggiungi una nuova 
 
 ## Versione 23 - Date
 Corretto il cambio date per evitare ricreazione dei campi e perdita del focus. Collaudo Chromium superato con digitazione cifra per cifra, passaggio tra partenza e ritorno e riapertura. Ripetuti tutti i controlli descritti in VERIFICA_CONFRONTO.md. Manuale PDF ancora differito.
+
+## Versione 24 - Cestino, duplicazione e promemoria backup
+Base: versione 23. Aggiunte:
+- Eliminazione di un viaggio senza conferma: il viaggio va nel cestino per 30 giorni, con avviso "Annulla" per 9 secondi. Nell'elenco "I miei viaggi" c'è la sezione Cestino con Ripristina, Elimina definitivamente e Svuota cestino. Il cestino è salvato in IndexedDB insieme ai viaggi.
+- Pulsanti 📄 Duplica e ⬇️ Esporta per ogni viaggio dell'elenco.
+- Promemoria di backup in Home e in "I miei viaggi" dopo 30 giorni dall'ultima esportazione (o dal primo avvio). La data dell'ultimo backup è mostrata in elenco.
+- Importazione senza doppioni: i viaggi già presenti non vengono aggiunti di nuovo; la conferma indica quanti vengono ignorati.
+Il manuale PDF non è stato aggiornato (resta differito).
+
+Collaudo di questa versione: test automatici con jsdom e IndexedDB simulato (migrazione, eliminazione e annulla, ripristino dopo riavvio, duplicazione, cestino, promemoria, importazione). Non è stato eseguito un collaudo in un browser reale.

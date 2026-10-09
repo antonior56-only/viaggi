@@ -47,3 +47,6 @@ Pulsante 🔄 per correggere indirizzo e posizione e sezione Aggiungi una nuova 
 
 ## Versione 23 - Date
 Corretto il cambio date per evitare ricreazione dei campi e perdita del focus. Collaudo Chromium superato con digitazione cifra per cifra, passaggio tra partenza e ritorno e riapertura. Ripetuti tutti i controlli descritti in VERIFICA_CONFRONTO.md. Manuale PDF ancora differito.
+
+## Versione 24
+Test automatici (jsdom + IndexedDB simulato) superati: migrazione dai dati precedenti, eliminazione del viaggio non attivo e attivo con Annulla, persistenza del cestino dopo il riavvio, ripristino, svuotamento oltre 30 giorni, duplicazione, esportazione del singolo viaggio, promemoria backup, importazione dello stesso backup senza doppioni e di un backup con un viaggio nuovo. Da verificare su telefono e in Chromium: posizione dell'avviso "Annulla" sopra il menu in basso e comportamento dei quattro pulsanti nella riga di ogni viaggio su schermi stretti.
