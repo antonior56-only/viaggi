@@ -1,6 +1,18 @@
-# I miei viaggi - PWA versione 21
+# I miei viaggi - PWA versione 38
 
 Caricare il contenuto di questa cartella nella stessa cartella pubblicata su GitHub Pages. Non cambiare dominio o percorso se si vogliono ritrovare i dati locali. Prima dell’aggiornamento esportare il backup dalla vecchia app. Non è stata eseguita alcuna pubblicazione.
+
+## Versione corrente
+Le cinque richieste a Gemini provano automaticamente 3.8 Flash e riprovano con 2.5 Flash solo se il primo modello risponde HTTP 404. Non è richiesta alcuna selezione in Impostazioni. Il controllo aggiornamenti legge sempre dalla rete senza riempire la cache.
+
+Approfondimento di una singola tappa con anteprima; controllo prima della partenza dalla Home e dagli strumenti; controllo aggiornamenti da Impostazioni tramite app-version.json; manuale con supplemento di navigazione versione 38. Restano correzione indirizzi/coordinate, annullamento dell’ultima modifica e partenza comune o distinta per giornata.
+
+Pubblicare anche app-version.json e tutti gli altri file del pacchetto. Il controllo legge la versione disponibile allo stesso indirizzo web: non pubblica autonomamente su GitHub.
+
+## Novità versione 38
+Navigazione mobile con quattro sezioni principali; Home raggiungibile dal titolo, Archivio e Impostazioni con etichette visibili. Sezioni Viaggio richiudibili, azioni delle tappe raccolte in “⋮ Azioni”, strumenti Itinerario divisi in Organizza, Informazioni, Importa e Stampa; Modalità Oggi con accesso alle stesse azioni delle tappe. Archivio più compatto con “Apri” sempre visibile e azioni secondarie raggruppate.
+
+## Cronologia precedente
 
 ## Novità
 Home con riepilogo e nome del viaggio attivo; nuovo viaggio senza sostituire il precedente; elenco unico con filtri; salvataggio automatico IndexedDB con indicatore di completamento; migrazione conservativa da tp_v1 e tp_trips. I valori precedenti restano intatti in localStorage. Nessuna sincronizzazione fra dispositivi.
@@ -9,7 +21,7 @@ Home con riepilogo e nome del viaggio attivo; nuovo viaggio senza sostituire il 
 Esporta backup completo dall’elenco I miei viaggi. Importazione compatibile con JSON singolo e backup versione 1 e 2; gli import ricevono identificativi nuovi e non sostituiscono dati esistenti. Le chiavi API non sono esportate. Se due finestre modificano dati in concorrenza, la seconda scrittura viene bloccata: esportare la copia di emergenza e ricaricare.
 
 ## Installazione e offline
-Richiede HTTPS (o localhost). Il service worker versione 21 include pagina, manifest, manuale e tutte le icone. Primo caricamento online necessario. Gemini, geocodifica, meteo, OpenRouteService e prenotazioni richiedono Internet. Le chiavi API restano locali, non devono essere inserite nel repository.
+Richiede HTTPS (o localhost). Il service worker versione 37 include pagina, manifest, manuale e tutte le icone. Primo caricamento online necessario. Gemini, geocodifica, meteo, OpenRouteService e prenotazioni richiedono Internet. Le chiavi API restano locali, non devono essere inserite nel repository.
 
 ## Manuale
 Il PDF include le nuove istruzioni nelle prime pagine; queste sostituiscono le parti precedenti su Home, Archivio e salvataggio. Il resto del manuale originale è conservato.

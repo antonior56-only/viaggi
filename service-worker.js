@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'trip-planner-shell-';
-const CACHE_NAME = CACHE_PREFIX + '33';
+const CACHE_NAME = CACHE_PREFIX + '38';
 const APP_SHELL = ['./', './index.html', './manifest.webmanifest', './icons/apple-touch-icon.png', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './Manuale_utente_I_miei_viaggi.pdf'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
@@ -12,6 +12,10 @@ self.addEventListener('fetch', event => {
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
+  if (url.pathname.endsWith('/app-version.json')) {
+    event.respondWith(fetch(request));
+    return;
+  }
   if (request.mode === 'navigate') {
     event.respondWith(fetch(request).then(response => {
       if (response.ok) { const copy = response.clone(); caches.open(CACHE_NAME).then(cache => cache.put('./index.html', copy)); }
