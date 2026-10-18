@@ -345,7 +345,7 @@ function render(){
   $('m').innerHTML=({home:vHome,viaggio:vViaggio,itin:vItin,prenota:vPrenota,budget:vPrenota,salvati:vSalvati,dati:vDati})[tab]();$('m').classList.toggle('itin-grid',tab==='itin');syncInstallButton();
 }
 function updateTripInterests(value){S.pref=String(value??'');scheduleSave()}
- const APP_VERSION=46;
+ const APP_VERSION=48;
 let separateDayStarts=false,travelSectionsOpen={data:true,preferences:false,starts:false};
 function identicalDayStarts(){const days=S.days.slice(0,nDays());if(days.length<2||!String(days[0].startPlace||days[0].startPoint?.n||'').trim())return false;const signature=d=>JSON.stringify([String(d.startPlace||d.startPoint?.n||'').trim(),String(d.startPoint?.addr||'').trim(),hasCoords(d.startPoint)?+d.startPoint.lat:null,hasCoords(d.startPoint)?+d.startPoint.lon:null,!!d.startPoint?.manualCoordinates]);return days.every(d=>signature(d)===signature(days[0]))}
 function allDayStartsEqual(){const days=S.days.slice(0,nDays());const sig=d=>JSON.stringify([String(d.startPlace||d.startPoint?.n||'').trim(),String(d.startPoint?.addr||'').trim(),hasCoords(d.startPoint)?+d.startPoint.lat:null,hasCoords(d.startPoint)?+d.startPoint.lon:null,!!d.startPoint?.manualCoordinates]);return days.length>0&&days.every(d=>sig(d)===sig(days[0]))}
