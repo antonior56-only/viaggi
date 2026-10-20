@@ -1,14 +1,12 @@
 # I miei viaggi - PWA
 
-Caricare il contenuto di questa cartella nella stessa cartella pubblicata su GitHub Pages. Prima dell’aggiornamento esportare un backup completo. Il pacchetto corregge il confronto della versione mostrato nella Home.
+Carica il contenuto di questa cartella nella cartella pubblicata su GitHub Pages. Prima di sostituire i file, esporta un backup completo. Questa cartella non è stata pubblicata.
 
-## Aggiornamenti inclusi
-- Durante il viaggio, la scheda Prossima tappa mostra l’orario, il mezzo e il tempo previsti dalla partenza o dalla tappa precedente; il pulsante apre direttamente la tratta in Google Maps. Il collegamento alla posizione esatta resta disponibile quando sono presenti coordinate.
-- Gli strumenti di organizzazione distinguono il riordino per vicinanza, basato sulle coordinate disponibili e senza Gemini, dall’ottimizzazione della giornata con Gemini. Le spiegazioni sono visibili accanto ai comandi e riportate nel manuale.
-- Manuale aggiornato per descrivere le nuove etichette, la navigazione verso la prossima tappa e la differenza tra le due funzioni.
+## Aiuti all’uso
+- Alla prima apertura, la Home mostra una guida rapida in quattro passaggi. Si può chiudere e riaprire dal pulsante “Guida rapida”.
+- La Home include un percorso di preparazione con lo stato di destinazione e date, partenze giornaliere, tappe e posizioni. Ogni passaggio non completato apre la sezione pertinente.
+- Nell’Itinerario, “Come procedere” mostra istruzioni contestuali per preparare le giornate o consultarle durante il viaggio.
+- Il manuale PDF è aggiornato per descrivere guida, checklist e aiuti contestuali.
 
-## Continuità e aggiornamento
-Le altre funzioni e i dati salvati restano compatibili. Per aggiornare, esportare prima un backup completo e pubblicare tutti i file della cartella, inclusi app-version.json, service worker e manuale PDF. Dopo la pubblicazione, il messaggio di aggiornamento compare nella Home delle installazioni precedenti quando sono online. Nessuna pubblicazione è stata eseguita.
-
-## Correzione inclusa
-Il numero interno dell’app, app-version.json e la cache del service worker sono allineati, così il messaggio di aggiornamento scompare dopo aver caricato questa versione.
+## Altre funzioni
+La PWA conserva i dati localmente, offre importazione ed esportazione di backup e usa servizi online per Gemini, mappe e meteo. Per aggiornare, pubblica tutti i file insieme, inclusi app-version.json, service worker e manuale PDF.
