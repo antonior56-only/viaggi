@@ -11,6 +11,7 @@ Questa cartella contiene soltanto l’app pronta da pubblicare: HTML, manifest, 
 Il manifest e il service worker usano percorsi relativi. Il manuale PDF è parte dell’app e della shell offline. I dati locali sono associati all’origine del sito: cambiare dominio non trasferisce i viaggi.
 
 ## Uso e dati
+- Nella finestra iniziale di scelta della guida, il pulsante Home in alto chiude la finestra e apre la Home. Non cancella viaggi e non avvia il tour.
 - In Itinerario → Prepara → Strumenti della giornata → Riordina le tappe sono disponibili Per orario, Per vicinanza e Con Gemini. Per orario propone la sequenza cronologica senza ricalcolare gli orari, anche automatici o prenotati; a parità di ora mantiene l’ordine attuale. Le tappe senza orario valido restano in fondo. Funziona offline e senza coordinate. Anteprima, conferma e Annulla restano disponibili.
 - Un orario non ancora definito resta vuoto anche nei campi e durante l’importazione JSON, senza trasformarsi in un falso 09:00. Se cambia la tappa precedente, i dati della tratta vengono azzerati per consentire nuove stime: controlla fattibilità, mezzi e tempi. Il riordino non modifica le prenotazioni esterne.
 - Nuovo avvio: viene scelto il viaggio salvato con destinazione e date valide e partenza più vicina, da oggi a oggi più dieci giorni inclusi. A parità di partenza prevale il salvataggio più recente. I viaggi nel cestino non partecipano.
