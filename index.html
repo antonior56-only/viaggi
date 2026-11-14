@@ -9,8 +9,10 @@
 <link rel="icon" type="image/png" href="./icons/icon-192.png">
 <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
 <style>
-:root{color-scheme:light;--bg:#f3f9ff;--card:#fff;--tx:#203247;--mu:#526779;--ac:#086b75;--bd:#d5e3ef;--wr:#963f22;--soft:#e6f4f4;--shadow:0 5px 18px rgba(32,66,91,.07)}
-@media(prefers-color-scheme:dark){:root{--bg:#14171c;--card:#1d2128;--tx:#e8e6e1;--mu:#9aa1ad;--bd:#2c323c;--ac:#3cc2cc;--wr:#f59e0b}}
+:root{color-scheme:light;--bg:#f2f8ff;--card:#fff;--tx:#203247;--mu:#526779;--ac:#086b75;--bd:#d5e3ef;--wr:#963f22;--soft:#e5f4f3;--shadow:0 5px 18px rgba(32,66,91,.07)}
+@media(prefers-color-scheme:dark){:root{color-scheme:dark;--bg:#202927;--card:#29332f;--tx:#e7eee8;--mu:#aab9b0;--ac:#9bc4b2;--bd:#3b4942;--wr:#e3b27e;--soft:#313d37;--shadow:0 5px 18px rgba(0,0,0,.12)}}
+
+
 *{box-sizing:border-box}body{margin:0;font:15px/1.45 system-ui,sans-serif;background:var(--bg);color:var(--tx)}
 header{padding:14px 16px;font-weight:700;font-size:18px}header small{display:block;font-weight:400;color:var(--mu);font-size:13px}
 main{padding:14px;max-width:760px;margin:auto}
@@ -36,8 +38,8 @@ button.g{background:none;border:1px solid var(--bd);color:var(--tx);border-radiu
 .stop-edit{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px;padding:0 0 6px}.stop-edit label{flex:1 1 130px}.stop-edit input{margin:3px 0 0;padding:6px}.stop-edit .wide{flex-basis:220px}.stop-edit select{margin:3px 0 0;padding:6px}
 h3{margin:4px 0 8px}label{font-size:13px;color:var(--mu)}
 /* Soft, responsive interface */
-:root{--bg:#f3f6f3;--card:#fffefa;--tx:#29363a;--mu:#718087;--ac:#658f87;--bd:#dce5df;--wr:#ae7445;--soft:#eaf1ec;--shadow:0 5px 18px rgba(43,69,59,.06)}
-@media(prefers-color-scheme:dark){:root{--bg:#202927;--card:#29332f;--tx:#e7eee8;--mu:#aab9b0;--ac:#9bc4b2;--bd:#3b4942;--wr:#e3b27e;--soft:#313d37;--shadow:0 5px 18px rgba(0,0,0,.12)}}
+
+
 *{box-sizing:border-box}
 body{min-height:100vh;background:var(--bg);color:var(--tx);font:15px/1.55 system-ui,-apple-system,'Segoe UI',sans-serif;letter-spacing:.005em}
 header{max-width:1180px;margin:0 auto;padding:22px 20px 16px;font-size:21px;letter-spacing:-.02em}
@@ -247,7 +249,7 @@ header>span{display:block}
   .day-review-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media print{.header-actions,.day-picker,.next-row,.tools-menu{display:none!important}}
-:root{color-scheme:light;--bg:#f2f8ff;--card:#fff;--tx:#203247;--mu:#526779;--ac:#086b75;--bd:#d5e3ef;--wr:#963f22;--soft:#e5f4f3;--shadow:0 5px 18px rgba(32,66,91,.07)}
+
 body{background:linear-gradient(180deg,#fff9ed 0,#f2f8ff 280px,var(--bg) 100%);color:var(--tx)}
 header{border-bottom:3px solid #ffd477}
 .header-actions button{background:#fff4d7;border-color:#efd58d;color:#284154}
@@ -303,6 +305,7 @@ nav button:hover{background:var(--soft);color:var(--tx)}nav button.on{background
 .discovery-dialog{box-sizing:border-box;width:min(700px,calc(100% - 24px));max-height:85dvh;overflow:auto;padding:20px;border:1px solid var(--bd);border-radius:16px;background:var(--card);color:var(--tx)}.discovery-dialog::backdrop{background:#162c3d80}.discovery-header{display:flex;justify-content:space-between;align-items:start;gap:12px}.discovery-header h2{margin-top:0;min-width:0}.discovery-header button{flex-shrink:0}.discovery-dialog label{display:block;margin:12px 0}.discovery-dialog input,.discovery-dialog select,.discovery-dialog textarea{width:100%;box-sizing:border-box}.discovery-dialog button{min-height:44px;max-width:100%;white-space:normal}.discovery-result,.alternative-item{border-top:1px solid var(--bd);padding:14px 0;min-width:0;overflow-wrap:anywhere}.discovery-result h3{margin:0 0 8px}.discovery-result p,.wiki-saved p{white-space:pre-line;line-height:1.5}.discovery-buttons,.discovery-toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}.discovery-buttons button,.discovery-toolbar button{flex:0 1 auto;min-height:44px;white-space:normal}.discovery-buttons a{padding:10px 0}.daily-alternatives{margin-top:14px;padding:12px;border:1px solid var(--bd);border-radius:12px}.daily-alternatives>summary{min-height:30px;font-weight:700;cursor:pointer}.daily-alternatives .discovery-buttons button{padding:8px 10px}.wiki-saved{border-top:1px solid var(--bd);margin:12px 0;padding-top:10px;overflow-wrap:anywhere}.s .wiki-saved button{flex:0 1 auto;min-height:44px;white-space:normal;padding:8px 10px}.wiki-saved .mu{font-size:12px}@media(max-width:600px){.discovery-dialog{padding:14px}.discovery-dialog .discovery-buttons{display:grid;grid-template-columns:minmax(0,1fr)}.discovery-buttons button{max-width:100%}}@media print{.discovery-dialog{display:none!important}}
 
 </style>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="9b546cab-0f19-4f64-a291-251e012aa591"></script>
 </head><body>
  <header><button class="brand-home" type="button" aria-label="Home: riepilogo del viaggio" onclick="navigateTab('home',{scroll:true})"><span>🧭 I miei viaggi</span><small id="sub">Scegli una destinazione qualsiasi e pianifica</small></button><div class="header-actions"><button type="button" aria-label="Apri Viaggi salvati" title="Viaggi salvati" onclick="navigateTab('salvati')"><span class="header-icon">📂</span><span>Viaggi salvati</span></button><button type="button" aria-label="Apri Impostazioni" title="Apri Impostazioni" onclick="navigateTab('dati')"><span class="header-icon">⚙️</span><span>Impostazioni</span></button></div></header>
 <div id="offlineStatus" class="offline-status np" role="status" aria-live="polite" hidden>Sei offline: puoi consultare e modificare i dati già salvati. Ricerca, Gemini, meteo e servizi cartografici richiedono una connessione.</div>
@@ -504,7 +507,7 @@ function render(){
   const page=({home:vHome,viaggio:vViaggio,itin:vItin,prenota:vPrenota,budget:vPrenota,salvati:vSalvati,dati:vDati})[tab]();$('m').innerHTML=(firstRunTourActive?firstRunTourHtml():'')+page;$('m').classList.toggle('itin-grid',tab==='itin');syncInstallButton();syncDescriptionAudio();
 }
 function updateTripInterests(value){S.pref=String(value??'');scheduleSave()}
- const APP_VERSION=76;
+ const APP_VERSION=78;
 const FIRST_TOUR_SEEN='tp_first_run_tour_v2_seen',PENDING_TRIP_GUIDE='imv_pending_trip_guide';
 let newTripGuideId='',firstRunTourReopened=false;
 let firstRunTourActive=false,firstRunTourStep=Math.max(0,Math.min(4,Number(localStorage.getItem('tp_first_run_tour_v2_step'))||0));
